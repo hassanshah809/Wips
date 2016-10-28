@@ -1,0 +1,42 @@
+package model.wips.forms;
+
+import java.util.List;
+
+public class Form {
+	/**
+	 * This list contains all couples that form is made out of
+	 */
+	private List<Couple> couples;
+	/**
+	* This List contains the message from all entity
+	*/
+	private List<String> message;
+	/**
+	 * This stores the name of the form
+	 */
+	private String formName;
+	/**
+	 * This is a unique identifier for the fom
+	 */
+	private static int formID;
+	
+	/**
+	* This method will add message to the message list
+	*/
+	public void addMessage(String message) {
+		this.message.add(message);
+	}
+
+	/**
+	 * This a constructor to make the new form object
+	 */
+	public Form() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void addCouple(Couple c){
+		couples.add(c);
+	}
+
+
+}
