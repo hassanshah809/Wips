@@ -2,17 +2,14 @@ package errors;
 
 import java.util.List;
 
+/*
+ * This module will handle file errors such as invalid file type, file
+ * corrupted, or invalid file path.
+ */
+
 public class FileError extends AbsError {
 
-	public FileError(List<String> e) {
-		super(e);
-		// TODO Auto-generated constructor stub
+	public FileError() {
+		super();
 	}
-
-	@Override
-	public void handle() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

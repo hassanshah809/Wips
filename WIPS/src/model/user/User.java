@@ -3,18 +3,25 @@ package model.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.wips.Entity;
 import model.wips.WorkFlow;
 
 public abstract class User {
 	/**
 	 * This stores the roles that user plays in the workflow
 	 */
-	protected List<String> role;
+	protected List<Entity> roles;
 	/**
 	 * This is the name of the user
 	 */
 	protected String name;
+	/**
+	 * username of this user
+	 */
 	protected String username;
+	/**
+	 * password of this user
+	 */
 	protected String password;
 	
 	/**
@@ -25,18 +32,22 @@ public abstract class User {
 	 * This is the unique id for the user
 	 */
 	List<String> values;
+	/**
+	 * unique identifier for each users
+	 */
 	private static int id = 0;
 	
 	/**
 	 * This is the constructor that will be call by the concrete classes
 	 * @param name String
-	 * @param role String
+	 * @param roles list of Entity
+	 * @param value list of String
 	 */
-	public User(String name, List<String> role, String value) {
+	public User(String name, List<Entity> roles, List<String> value) {
 		this.name = name;
-		this.role = role;
+		this.roles = roles;
 		values = new ArrayList<String>();
-		values.add(value);
+		values.addAll(value);
 		generateUsername();
 		generatePassword();
 		id++;
@@ -64,11 +75,17 @@ public abstract class User {
 		return allworkflows;
 	}
 	
+	/**
+	 * it generates a alphanumeric string to be the username
+	 */
 	public void generateUsername() {
 		String[] first = name.split(" ");
 		username = first[0]+ id;
 	}
 	
+	/**
+	 * it generates a random alphanumeric string as password
+	 */
 	public void generatePassword() {
 		String[] first = name.split(" ");
 		int len = first[0].length();

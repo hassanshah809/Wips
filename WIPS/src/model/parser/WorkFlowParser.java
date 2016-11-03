@@ -24,6 +24,14 @@ public class WorkFlowParser extends Parser {
 		super(workflowFile);
 	}
 
+	/**
+	 * Stores the intermediate object where the values parsed from the XML files will be located. 
+	 */
+	
+	WorkFlowInter<Entity, State> wfi;
+	
+	@Override
+	
 	public void parse() {
 		
 		
@@ -40,7 +48,7 @@ public class WorkFlowParser extends Parser {
 			
 			NodeList entityList = doc.getElementsByTagName("entity");
 						
-			WorkFlowInter<Entity,State> wfi = new WorkFlowInter<Entity, State>();
+			wfi = new WorkFlowInter<Entity, State>();
 			
 		
 			//This loop should go through all the entities and extract information to be stored in intermediate model classes
@@ -53,9 +61,9 @@ public class WorkFlowParser extends Parser {
 				String role = "";
 				Node entityNode = entityList.item(i);
 				
-				NodeList stateList = entityNode.getChildNodes();
 
 				if(entityNode.getNodeType() == Node.ELEMENT_NODE) {
+					NodeList stateList = entityNode.getChildNodes();
 					Element entityElement = (Element) entityNode; 
 					role = entityElement.getAttribute("role").toString(); 
 					entityObj = new Entity(role);
@@ -97,42 +105,13 @@ public class WorkFlowParser extends Parser {
 				}
 			}
 			
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-	/**
-	 * it add the symbol for the entity sybmol table
-	 * @param symbol String
-	 */
-	public void addEnSymbol(String symbol){
-		tagTable.add(symbol);
-	}
-	
-	
-	/**
-	 * it adds the keys for the entity in the hash map
-	 * @param key String
-	 */
-	public void addEnKeys(String key) {
-		attributes.keySet().add(key);
-	}
-	
-	/**
-	 * it sets the values for the entity keys in the hash map
-	 * @param key String
-	 * @param value String
-	 */
-	public void addEnValue(String key, String value) {
-		attributes.put(key, value);
-	}
 
-	@Override
-	public void store() {
-		// TODO Auto-generated method stub
-		
+	public WorkFlowInter getIntermediate() {
+		return this.wfi; 
 	}
 }

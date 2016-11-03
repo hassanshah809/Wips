@@ -31,6 +31,9 @@ public class WorkFlow {
 	 */
 	public Form form;
 
+	/**
+	 * this stores the start 
+	 */
 	private State startState;
 	/**
 	 *The empty constructor
@@ -46,7 +49,7 @@ public class WorkFlow {
 	 * @param states list of States
 	 * @param entities list of Entities
 	 * @param transition list of Transtions
-	 * @param form list of Forms
+	 * @param form  Form
 	 */
 	public WorkFlow(int id, List<State> states, List<Entity> entities, List<Transition> transition, Form form) {
 		this.id = id;
@@ -96,7 +99,21 @@ public class WorkFlow {
 		return form;
 	}
 
+	/**
+	 * @return the start state
+	 */
 	public State getStartState() {
 		return this.startState;
+	}
+	
+	/**
+	 * checks if given entity belongs to this workflow
+	 * @param e Entity
+	 * @return boolean
+	 */
+	public boolean hasRole(Entity e) {
+		if(entity.contains(e))
+			return true;
+		return false;
 	}
 }

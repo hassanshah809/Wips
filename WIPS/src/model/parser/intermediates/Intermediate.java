@@ -6,16 +6,16 @@ public abstract class Intermediate <T>{
 	/**
 	 * it stores all the attributes for the type T
 	 */
-	private List<T> tempAttr;
+	protected List<T> tempAttr;
 	
 	/**
 	 * it adds the attributes to the temporary list
 	 * @param e T
 	 */
 	public boolean addAttr(T e) {
-		if(!tempAttr.contains(e)){
-			tempAttr.add(e);
-			return true;
+		if(!tempAttr.contains(e)) {
+			tempAttr.add(e); 
+			return true; 
 		}
 		return false;
 	}
