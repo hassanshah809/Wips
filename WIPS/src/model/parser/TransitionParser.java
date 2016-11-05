@@ -21,7 +21,7 @@ public class TransitionParser extends Parser {
 	 * contains  
 	 */
 	
-	WorkFlowInter wfi; 
+	WorkFlowInter<Entity,State> wfi; 
 	
 	
 	/**
