@@ -1,31 +1,40 @@
 package model.parser;
 
-import java.io.File;
-import java.util.ArrayList;
+import model.wips.*;
+import model.wips.Entity;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 import model.parser.intermediates.GenInter;
 import model.parser.intermediates.WorkFlowInter;
 import model.user.EndUser;
 import model.user.User;
-import model.wips.Entity;
-import model.wips.State;
+
+import javax.xml.parsers.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserParser extends Parser {
-
+	
 	/**
+	 * This list contains all usernames that have been found in the XML parser
+	 */
+		
+	ArrayList<String> userNames;
+	
+	/**
+	 * This hashmap contains a String regarding the "type of" error that was encountered while parsing.
+	 */
+	
+	HashMap<String,Boolean> keyMap; 
+	
+/**
  * This contains the intermediate object which contains the list of all
  * States and Entities associated with the "to-be-created" workflow.
  */
 
-WorkFlowInter<Entity, State> wfi;
+WorkFlowInter<Entity,State> wfi;
 
 /**
  * This contains the intermediate object which contains all user information
@@ -37,11 +46,16 @@ GenInter<User> usersInter = new GenInter<User>();
 /**
  * it creates new user parser object
  */
-public UserParser(File userFile, WorkFlowInter<Entity, State> wfi) {
+public UserParser(File userFile, WorkFlowInter wfi) {
 	super(userFile);
 	this.wfi = wfi;
+	keyMap = new HashMap<String,Boolean>();
+	keyMap.put("duplicateUserName", false);
+	keyMap.put("roleNotFound", false);
 	// TODO Auto-generated constructor stub
 }
+
+
 
 
 /**
@@ -49,6 +63,7 @@ public UserParser(File userFile, WorkFlowInter<Entity, State> wfi) {
  * parsed information in a GenInter<User> object to be used later.  
  * 
  */
+
 
 public void parse() {
 
@@ -70,12 +85,18 @@ for (int i = 0; i < userList.getLength(); i++) {
 
 	Node userNode = userList.item(i);
 
-	String name = "";
-String role = "";
+	String username = "";
+	String role = "";
 
 if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 	Element userElement = (Element) userNode;
-	name = userElement.getAttribute("name");
+	username = userElement.getAttribute("name");
+	
+	if(!userNames.contains(username)) {
+		userNames.add(username);
+	} else {
+		keyMap.put("duplicateUserName", true);
+	}
 
 	Node node1 = userNode.getFirstChild();
 	Node node2 = node1.getNextSibling();
@@ -93,11 +114,18 @@ if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Entity entity;
 					ArrayList<Entity> entities = (ArrayList<Entity>) wfi.getTempAttr();
-
+					boolean roleFound = false;
+					
+					
 					for (int k = 0; k < entities.size(); k++) {
 						if (entities.get(k).getRole().equals(role)) {
 							roleArrayList.add(entities.get(k));
-						}
+							roleFound = true; 
+						} 
+					}
+					
+					if(!roleFound) {
+						
 					}
 				}
 			}
@@ -121,7 +149,7 @@ if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 			}
 		}
 
-		user = new EndUser(name, roleArrayList, valuesArrayList);
+		user = new EndUser(username, roleArrayList, valuesArrayList);
 		usersInter.addAttr(user);
 	} else {
 
@@ -154,17 +182,24 @@ if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 					Entity entity;
 					ArrayList<Entity> entities = (ArrayList<Entity>) wfi.getTempAttr();
 
+					boolean roleFound = false;
+					
 					for (int k = 0; k < entities.size(); k++) {
 						if (entities.get(k).getRole().equals(role)) {
 							roleArrayList.add(entities.get(k));
+							roleFound = true; 
 						}
+					}
+					
+					if(!roleFound) {
+						keyMap.put("roleNotFound", true);
 					}
 				}
 			}
 						}
 					}
 
-					user = new EndUser(name, roleArrayList, valuesArrayList);
+					user = new EndUser(username, roleArrayList, valuesArrayList);
 					usersInter.addAttr(user);
 				}
 			}
@@ -172,11 +207,20 @@ if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * This returns the GenInter<User> object where the users parsed from the user file are stored. 
+	 * @return GenInter<User> usersInter.
+	 */
 
+	public GenInter<User> getUserInter() {
+		return this.usersInter;
+	
+	}
+	
 	@Override
 	public Object getInters() {
 		// TODO Auto-generated method stub
 		return this.usersInter;
 	}
-
 }

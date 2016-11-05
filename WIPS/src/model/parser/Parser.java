@@ -1,11 +1,19 @@
 package model.parser;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import errors.AbsError;
 import errors.ParserError;
-import model.parser.intermediates.Intermediate;
+import model.parser.intermediates.WorkFlowInter;
+import model.wips.Entity;
+import model.wips.State;
+
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*;
 
 /**
  * @author Deep, Hassan, Kenneth
@@ -50,11 +58,7 @@ public abstract class Parser {
 	 * @return ParserError
 	 */
 	public AbsError getError(List<String> errors) {
-		AbsError parser = new ParserError();
-		for(String e: errors) {
-			parser.addError(e);
-		}
-		return parser;
+		return new ParserError(errors);
 	}
 	
 	/**
@@ -63,4 +67,5 @@ public abstract class Parser {
 	 * @return The object containing the extracted information 
 	 */
 	public abstract Object getInters();
+	
 }
