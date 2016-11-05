@@ -1,32 +1,33 @@
 package model.parser;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import org.w3c.dom.*;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
+import errors.AbsError;
+import errors.ParserError;
+import model.wips.State;
 import model.parser.intermediates.WorkFlowInter;
 import model.wips.Entity;
-import model.wips.State;
+
+import javax.xml.parsers.*;
+import java.io.*;
 
 public class WorkFlowParser extends Parser {
 	
-	/**
-	 *it stores the entities for the workflow. 
-	 *Assuming that the inherited attributes hashmap is for states
-	 */
-	HashMap<String, String> enAttr;
+	
+	HashMap<String,Boolean> keyMap; 
+	
 	/**
 	 * it creates the new workflow parser object
 	 */
 	public WorkFlowParser(File workflowFile) {
 		super(workflowFile);
+		keyMap = new HashMap<String,Boolean>(); 
+		keyMap.put("startStateError", false);
+		keyMap.put("incorrectStateTag", false);
+		keyMap.put("incorrectEntityTag",false);
+		keyMap.put("incorrectValueTag", false);
 	}
 
 	/**
@@ -39,10 +40,10 @@ public class WorkFlowParser extends Parser {
 	
 	public void parse() {
 		
-		
+		AbsError error; 
 		State stateObj; 
 		Entity entityObj;
-		
+		ArrayList<String> errorKeys = new ArrayList<String>();
 		
 		try{
 	
@@ -50,6 +51,7 @@ public class WorkFlowParser extends Parser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(fileName);
 			doc.getDocumentElement().normalize();
+			ArrayList<String> values;
 			
 			NodeList entityList = doc.getElementsByTagName("entity");
 						
@@ -68,6 +70,12 @@ public class WorkFlowParser extends Parser {
 				
 
 				if(entityNode.getNodeType() == Node.ELEMENT_NODE) {
+					
+					if(!entityNode.equals("entity")) {
+						keyMap.put("incorrectEntityTag", true);
+						
+					}
+					
 					NodeList stateList = entityNode.getChildNodes();
 					Element entityElement = (Element) entityNode; 
 					role = entityElement.getAttribute("role").toString(); 
@@ -78,6 +86,7 @@ public class WorkFlowParser extends Parser {
 					
 					for(int j = 0; j < stateList.getLength(); j++) {
 						Node stateNode = stateList.item(j); 
+						
 						String idAttrVal = "";
 						String startStateVal = "";
 						
@@ -85,6 +94,12 @@ public class WorkFlowParser extends Parser {
 						int id; 
 						
 						if(stateNode.getNodeType() == Node.ELEMENT_NODE) {
+							
+							if(!stateNode.getNodeName().equals("state")) {
+								keyMap.put("incorrectStateTag", true);
+							}
+							
+							NodeList valueList = stateNode.getChildNodes();
 							Element stateElement = (Element) stateNode;
 							idAttrVal = stateElement.getAttribute("id").toString();
 							startStateVal = stateElement.getAttribute("start").toString();
@@ -98,10 +113,26 @@ public class WorkFlowParser extends Parser {
 							} else if(startStateVal.toLowerCase().equals("false")) {
 								startState = false; 
 							} else {
-								// throw error
+								keyMap.put("startStateError", true);
+							}
+							
+							
+							values = new ArrayList<String> (); 
+							for(int k = 0; k < valueList.getLength(); k++) {
+								Node valueNode = valueList.item(k);
+								if(valueNode.getNodeType() == Node.ELEMENT_NODE) {
+									
+									if(!valueNode.getNodeName().equals("value")) {
+										keyMap.put("incorrectValueTag", true);
+									}
+									Element valElement = (Element) valueNode;
+									String value = valueNode.getTextContent();
+									System.out.println(value);
+								}
 							}
 							
 							stateObj = new State(id, startState, entityObj);
+							stateObj.setDistinctVals(values);
 							wfi.addStates(stateObj);
 							//add to intermediate model class.
 					
@@ -114,11 +145,9 @@ public class WorkFlowParser extends Parser {
 			e.printStackTrace();
 		}
 	}
+	
 
-	@Override
-	public Object getInters() {
-		// TODO Auto-generated method stub
-		return this.wfi;
+	public WorkFlowInter getIntermediate() {
+		return this.wfi; 
 	}
-
 }
