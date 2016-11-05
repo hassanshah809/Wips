@@ -1,18 +1,22 @@
 package model.parser;
 
-import model.wips.*;
-import model.wips.Entity;
+import java.io.File;
+import java.util.ArrayList;
 
-import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import model.parser.intermediates.GenInter;
 import model.parser.intermediates.WorkFlowInter;
 import model.user.EndUser;
 import model.user.User;
-
-import javax.xml.parsers.*;
-import java.io.*;
-import java.util.ArrayList;
+import model.wips.Entity;
+import model.wips.State;
 
 public class UserParser extends Parser {
 
@@ -21,7 +25,7 @@ public class UserParser extends Parser {
  * States and Entities associated with the "to-be-created" workflow.
  */
 
-WorkFlowInter wfi;
+WorkFlowInter<Entity, State> wfi;
 
 /**
  * This contains the intermediate object which contains all user information
@@ -33,7 +37,7 @@ GenInter<User> usersInter = new GenInter<User>();
 /**
  * it creates new user parser object
  */
-public UserParser(File userFile, WorkFlowInter wfi) {
+public UserParser(File userFile, WorkFlowInter<Entity, State> wfi) {
 	super(userFile);
 	this.wfi = wfi;
 	// TODO Auto-generated constructor stub
@@ -168,14 +172,11 @@ if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * This returns the GenInter<User> object where the users parsed from the user file are stored. 
-	 * @return GenInter<User> usersInter.
-	 */
 
-	public GenInter<User> getUserInter() {
+	@Override
+	public Object getInters() {
+		// TODO Auto-generated method stub
 		return this.usersInter;
-	
 	}
+
 }

@@ -1,15 +1,22 @@
 package model.parser;
 
-import org.w3c.dom.*;
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import model.parser.intermediates.GenInter;
+import model.parser.intermediates.Intermediate;
 import model.parser.intermediates.WorkFlowInter;
+import model.wips.Entity;
 import model.wips.State;
 import model.wips.Transition;
-
-import javax.xml.parsers.*;
-import java.io.*;
-import java.util.ArrayList;
 
 public class TransitionParser extends Parser {
 	
@@ -19,7 +26,7 @@ public class TransitionParser extends Parser {
 	 * contains  
 	 */
 	
-	WorkFlowInter wfi; 
+	WorkFlowInter<Entity, State> wfi; 
 	
 	
 	/**
@@ -34,7 +41,7 @@ public class TransitionParser extends Parser {
 	 * A File transitionFile which stores the XML file to be parsed and the WorkFlowInter wfi
 	 * object which will be used in the parse() method to reference created states and entities.
 	 */
-	public TransitionParser(File transitionFile, WorkFlowInter wfi) {
+	public TransitionParser(File transitionFile, WorkFlowInter<Entity, State> wfi) {
 		super(transitionFile);
 		this.wfi = wfi; 
 		// TODO Auto-generated constructor stub
@@ -105,14 +112,9 @@ public class TransitionParser extends Parser {
 		}
 	}
 	
-	/**
-	 * This method returns the intermediate object in which the extracted information from the XML
-	 * file is stored.
-	 * @return The object containing the extracted information 
-	 */
-	
-	public GenInter<Transition> getTransitions() {
+	@Override
+	public Object getInters() {
+		// TODO Auto-generated method stub
 		return this.transitions;
 	}
-
 }

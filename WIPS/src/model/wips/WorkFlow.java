@@ -1,7 +1,9 @@
 package model.wips;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import model.user.EndUser;
 import model.user.User;
 import model.wips.forms.Form;
 
@@ -26,6 +28,8 @@ public class WorkFlow {
 	 * This list stores all entities associated with the workflow.
 	 */
 	private List<Entity> entity;
+	
+	private List<EndUser> users;
 	/**
 	 * This will store the form associated with the workflow
 	 */
@@ -39,7 +43,11 @@ public class WorkFlow {
 	 *The empty constructor
 	 */
 	public WorkFlow() {
-		
+		id++;;
+		this.state = new ArrayList<State>();
+		this.entity = new ArrayList<Entity>();
+		this.transition = new ArrayList<Transition>();
+		this.users = new ArrayList<EndUser>();
 	}
 
 	/**
@@ -51,12 +59,13 @@ public class WorkFlow {
 	 * @param transition list of Transtions
 	 * @param form  Form
 	 */
-	public WorkFlow(int id, List<State> states, List<Entity> entities, List<Transition> transition, Form form) {
-		this.id = id;
+	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition, Form form) {
+		id++;
 		this.state = states;
 		this.entity = entities;
 		this.transition = transition;
 		this.form = form;
+		this.users = new ArrayList<EndUser>();
 	}
 	
 	/**
@@ -115,5 +124,20 @@ public class WorkFlow {
 		if(entity.contains(e))
 			return true;
 		return false;
+	}
+	
+	public void setForm(Form form) {
+		this.form = form;
+	}
+	
+	public void addUser(List<User> user) {
+		for(User u: user){
+			if(u instanceof EndUser)
+				users.add((EndUser)u);
+		}
+	}
+	
+	public List<EndUser> getUsers() {
+		return users;
 	}
 }

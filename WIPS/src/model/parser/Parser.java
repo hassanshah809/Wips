@@ -1,19 +1,11 @@
 package model.parser;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import errors.AbsError;
 import errors.ParserError;
-import model.parser.intermediates.WorkFlowInter;
-import model.wips.Entity;
-import model.wips.State;
-
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-import java.io.*;
+import model.parser.intermediates.Intermediate;
 
 /**
  * @author Deep, Hassan, Kenneth
@@ -64,4 +56,11 @@ public abstract class Parser {
 		}
 		return parser;
 	}
+	
+	/**
+	 * This method returns the intermediate object in which the extracted information from the XML
+	 * file is stored.
+	 * @return The object containing the extracted information 
+	 */
+	public abstract Object getInters();
 }

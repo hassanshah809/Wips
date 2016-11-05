@@ -27,11 +27,11 @@ public abstract class User {
 	/**
 	* This list will contain all the workflows of that particular user.
 	*/
-	List<WorkFlow> allworkflows;
+	protected List<WorkFlow> allworkflows;
 	/**
 	 * This is the unique id for the user
 	 */
-	List<String> values;
+	protected List<String> values;
 	/**
 	 * unique identifier for each users
 	 */
@@ -98,5 +98,22 @@ public abstract class User {
 		build.append(Math.random()*1000);
 		password = build.toString();
 	}
-
+	
+	public List<String> getVals() {
+		return values;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null || !(o instanceof User))
+			return false;
+		User user = (User) o;
+		if(this.getUsername().equals(user.getUsername()))
+			return true;
+		return false;
+	}
 }

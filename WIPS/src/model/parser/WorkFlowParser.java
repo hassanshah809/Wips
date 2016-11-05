@@ -1,14 +1,19 @@
 package model.parser;
 
+import java.io.File;
 import java.util.HashMap;
-import org.w3c.dom.*;
 
-import model.wips.State;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import model.parser.intermediates.WorkFlowInter;
 import model.wips.Entity;
-
-import javax.xml.parsers.*;
-import java.io.*;
+import model.wips.State;
 
 public class WorkFlowParser extends Parser {
 	
@@ -109,9 +114,11 @@ public class WorkFlowParser extends Parser {
 			e.printStackTrace();
 		}
 	}
-	
 
-	public WorkFlowInter getIntermediate() {
-		return this.wfi; 
+	@Override
+	public Object getInters() {
+		// TODO Auto-generated method stub
+		return this.wfi;
 	}
+
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import model.user.EndUser;
 import model.user.User;
@@ -19,7 +20,7 @@ public class Wips {
 	
 	public static List<Form> forms; 
 	
-	List<User> users;
+	private Set<User> users;
 	/**
 	 * Current logged in user will be set to this variable.
 	 */
@@ -45,11 +46,15 @@ public class Wips {
 		return endusers;
 	}
 	
+	public void addUser(User user) {
+		users.add(user);
+	}
+	
 	public List<WorkFlow> getAllWorkFlows() {
 		return this.workflow; 
 	}
 	
-	public List<User> getUsers() {
+	public  Set<User> getUsers() {
 		return users; 
 	}
 	

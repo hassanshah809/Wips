@@ -22,5 +22,13 @@ public class Transition {
 		this.endState = endState;
 	}
 	
-
+	@Override
+	public boolean equals(Object o) {
+		if(o == null || !(o instanceof Transition))
+			return false;
+		Transition transition = (Transition) o;
+		if(this.startState.equals(transition.startState)&& this.endState.equals(transition.endState))
+			return true;
+		return false;
+	}
 }

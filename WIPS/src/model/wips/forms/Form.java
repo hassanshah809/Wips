@@ -2,6 +2,9 @@ package model.wips.forms;
 
 import java.util.List;
 
+import model.user.EndUser;
+import model.wips.Entity;
+
 public class Form {
 	/**
 	 * This list contains all couples that form is made out of
@@ -19,6 +22,9 @@ public class Form {
 	 * This is a unique identifier for the fom
 	 */
 	private static int formID;
+	
+	private List<Entity> roles;
+	private List<EndUser> users;
 	
 	/**
 	* This method will add message to the message list
@@ -38,5 +44,12 @@ public class Form {
 		couples.add(c);
 	}
 
+	public void addRoles(Entity role) {
+		roles.add(role);
+	}
+	
+	public void addUser(EndUser user) {
+		users.add(user);
+	}
 
 }

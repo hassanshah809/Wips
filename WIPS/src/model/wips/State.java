@@ -1,5 +1,11 @@
 package model.wips;
 
+import java.util.List;
+import java.util.Set;
+
+import model.Wips;
+import model.user.EndUser;
+
 public class State {
 
 	/**
@@ -23,6 +29,8 @@ public class State {
 	 * If the condition of the state is satisfied then it moves to the next state by setting the condition value to true.
 	 */
 	private boolean condition = false;	
+	
+	private Set<String> distinctVals; 
 	
 	/**
 	 * This constructor sets the unique id for the state.
@@ -120,5 +128,21 @@ public class State {
 	 */
 	public int getID() {
 		return stateID;
+	}
+	
+	public void addDistintVals(List<String> vals) {
+		for(String s: vals){
+			distinctVals.add(s);
+		}
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null || !(o instanceof State))
+			return false;
+		State state = (State) o;
+		if(this.entity.equals(state.entity))
+			return true;
+		return false;
 	}
 }
