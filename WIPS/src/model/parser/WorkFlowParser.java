@@ -147,7 +147,9 @@ public class WorkFlowParser extends Parser {
 	}
 	
 
-	public WorkFlowInter getIntermediate() {
-		return this.wfi; 
+	@Override
+	public Object getInters() {
+		// TODO Auto-generated method stub
+		return this.wfi;
 	}
 }
