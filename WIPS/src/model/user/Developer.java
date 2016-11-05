@@ -7,6 +7,11 @@ import model.wips.WorkFlow;
 
 public class Developer extends User {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates the developer object
 	 */
 	public Developer(String name, List<Entity> role, List<String> val) {

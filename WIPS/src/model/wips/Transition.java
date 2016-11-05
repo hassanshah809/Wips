@@ -1,7 +1,13 @@
 package model.wips;
 
-public class Transition {
+import java.io.Serializable;
 
+public class Transition implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This field will store the origin of the transition 
 	 */

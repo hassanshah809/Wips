@@ -1,11 +1,16 @@
 package model.wips.forms;
 
+import java.io.Serializable;
 import java.util.List;
 
 import model.user.EndUser;
 import model.wips.Entity;
 
-public class Form {
+public class Form implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This list contains all couples that form is made out of
 	 */
@@ -36,7 +41,9 @@ public class Form {
 	/**
 	 * This a constructor to make the new form object
 	 */
-	public Form() {
+	public Form(String formname) {
+		this.formName = formname;
+		formID++;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -50,6 +57,10 @@ public class Form {
 	
 	public void addUser(EndUser user) {
 		users.add(user);
+	}
+	
+	public String getFormName() {
+		return formName;
 	}
 
 }

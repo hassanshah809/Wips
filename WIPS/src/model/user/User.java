@@ -1,12 +1,17 @@
 package model.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.wips.Entity;
 import model.wips.WorkFlow;
 
-public abstract class User {
+public abstract class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This stores the roles that user plays in the workflow
 	 */
@@ -105,6 +110,10 @@ public abstract class User {
 	
 	public String getUsername() {
 		return username;
+	}
+	
+	public String getPassword() {
+		return password;
 	}
 	
 	@Override

@@ -58,7 +58,11 @@ public abstract class Parser {
 	 * @return ParserError
 	 */
 	public AbsError getError(List<String> errors) {
-		return new ParserError(errors);
+		AbsError parser = new ParserError();
+		for(String e: errors) {
+			parser.addError(e);
+		}
+		return parser;
 	}
 	
 	/**

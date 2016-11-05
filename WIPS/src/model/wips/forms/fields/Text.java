@@ -5,6 +5,11 @@ import javafx.scene.control.TextField;
 public class Text extends TextField implements Field {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Constructor to make different types of text objects
 	 */
 	public Text() {

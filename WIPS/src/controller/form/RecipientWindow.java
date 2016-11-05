@@ -37,7 +37,7 @@ public class RecipientWindow {
 	* valid users will then be added to the allValidUser list.
 	*/
 	public void filterUser(String val) {
-		Wips wips = new Wips();
+		Wips wips = Wips.getInstance();
 		List<EndUser> allUser = wips.getEndUser();
 		for(int i = 0; i<allUser.size(); i++) {
 			if(allUser.get(i).checkValue(val))
@@ -61,9 +61,10 @@ public class RecipientWindow {
 	*/
 	public void confirm(int i) {
 		//Get the end user from the distinctvalues and then add the form to the its received list
+		Wips w = Wips.getInstance();
 		EndUser to = allValidUsers.get(i);
-		EndUser from = (EndUser) Wips.currentUser;
-		from.send(Wips.currentWorkflow.form, to);
+		EndUser from = (EndUser) w.currentUser;
+		from.send(w.currentWorkflow.form, to);
 		cancel();
 	}
 

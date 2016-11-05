@@ -12,6 +12,10 @@ import model.wips.forms.Form;
 public class EndUser extends User{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	* List of forms user has sent
 	*/
 	List<Form> sent;
@@ -75,9 +79,9 @@ public class EndUser extends User{
 	public void findWorkFlow() {
 		
 		WorkFlow extracted_wf;
-		
-		for(int i = 0; i< Wips.workflow.size(); i++) {
-			extracted_wf = Wips.workflow.get(i);
+		Wips w = Wips.getInstance();
+		for(int i = 0; i< w.getAllWorkFlows().size(); i++) {
+			extracted_wf = w.getAllWorkFlows().get(i);
 			
 			if(this.roles.contains(extracted_wf.getStartState().getEntity())) {
 				this.joinedWorkflows.add(extracted_wf);

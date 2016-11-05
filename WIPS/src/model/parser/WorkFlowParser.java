@@ -132,7 +132,7 @@ public class WorkFlowParser extends Parser {
 							}
 							
 							stateObj = new State(id, startState, entityObj);
-							stateObj.setDistinctVals(values);
+							stateObj.addDistintVals(values);
 							wfi.addStates(stateObj);
 							//add to intermediate model class.
 					

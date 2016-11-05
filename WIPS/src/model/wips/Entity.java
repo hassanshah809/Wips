@@ -1,9 +1,14 @@
 package model.wips;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Entity {
+public class Entity implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This field will hold the role of the user.
 	 */

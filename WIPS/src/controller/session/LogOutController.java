@@ -1,5 +1,7 @@
 package controller.session;
 
+import java.io.IOException;
+
 import model.Wips;
 
 public class LogOutController {
@@ -10,7 +12,7 @@ public class LogOutController {
 	public static void logInScreen() {
 		//opens Window
 		serialize();
-		Wips.currentUser = null;
+		Wips.getInstance().currentUser = null;
 		//Goes back to the login screen
 	}
 	
@@ -18,6 +20,10 @@ public class LogOutController {
 	 * This  method will serialize the wips class before logout. Internally, it will call the login screen. 
 	 */
 	private static void serialize() {
-		
+		try {
+			Wips.getInstance().make();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

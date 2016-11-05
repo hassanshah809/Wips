@@ -1,5 +1,7 @@
 package controller.session;
 
+import java.io.IOException;
+
 import errors.AbsError;
 import model.Wips;
 import model.user.User;
@@ -24,9 +26,21 @@ public class LogInController {
 	 * @param user User
 	 * @param password String
 	 */
-	public void authenticate(User user, String password) {
+	public boolean authenticate(User user, String password) {
 		//after autheticantion
-		Wips.currentUser = getUser();
+		try {
+			Wips.remake();
+			Wips w = Wips.getInstance();
+			if(w.getUsers().contains(user)){
+				if(w.getUsers().get(w.getUsers().indexOf(user)).getPassword().equals(password))
+					return true;
+			}
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
 	/**

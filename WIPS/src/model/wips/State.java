@@ -1,13 +1,15 @@
 package model.wips;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import model.Wips;
-import model.user.EndUser;
+public class State implements Serializable{
 
-public class State {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This variable will contain a unique id for the state, which will be unique in the workflow.
 	 */

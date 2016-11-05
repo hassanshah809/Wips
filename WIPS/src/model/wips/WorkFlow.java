@@ -1,5 +1,6 @@
 package model.wips;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,11 @@ import model.user.EndUser;
 import model.user.User;
 import model.wips.forms.Form;
 
-public class WorkFlow {
+public class WorkFlow implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This is the workflows unique id. This will help the system identify this particular workflow. 
 	 */
@@ -139,5 +144,9 @@ public class WorkFlow {
 	
 	public List<EndUser> getUsers() {
 		return users;
+	}
+	
+	public int getID() {
+		return id;
 	}
 }

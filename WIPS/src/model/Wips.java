@@ -1,8 +1,13 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import model.user.EndUser;
 import model.user.User;
@@ -10,33 +15,30 @@ import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
 public class Wips {
+	private static final String storeUser = "data";
+	
+	private static Wips wips = null;
 	/**
 	 * This list will have all the workflows that ever created.
 	 */
-	public static List<WorkFlow> workflow;
+	public List<WorkFlow> workflow;
 	/**
 	 * This list will have all the users that ever created.
 	 */
 	
-	public static List<Form> forms; 
+	public List<Form> forms; 
 	
-	private Set<User> users;
+	private List<User> users;
 	/**
 	 * Current logged in user will be set to this variable.
 	 */
-	public static User currentUser;
+	public User currentUser;
 	/**
 	* Current workflow the user is working on.
 	**/
-	public static WorkFlow currentWorkflow;
-	/**
-	 * Current logged in user will be set to this variable.
-	 * @param sa String array
-	 */
-	public static void main(String[] sa) {
-		
-	}
+	public WorkFlow currentWorkflow;
 	
+	private Wips() {}
 	public List<EndUser> getEndUser() {
 		List<EndUser> endusers = new ArrayList<EndUser>();  
 		for(User u: users){
@@ -47,18 +49,38 @@ public class Wips {
 	}
 	
 	public void addUser(User user) {
-		users.add(user);
+		if(!users.contains(user))
+			users.add(user);
 	}
 	
 	public List<WorkFlow> getAllWorkFlows() {
 		return this.workflow; 
 	}
 	
-	public  Set<User> getUsers() {
+	public  List<User> getUsers() {
 		return users; 
 	}
 	
 	public List<Form> getForms() {
 		return forms; 
+	}
+	
+	public static Wips getInstance() {
+		if(wips == null)
+			wips = new Wips();
+		return wips;
+	}
+
+	public void make () throws IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeUser + File.separator + "wips"));
+		oos.writeObject(this);
+		oos.close();
+	}
+
+	public static Wips remake()throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data/wips"));
+		 wips = (Wips)ois.readObject();
+		 ois.close();
+		 return wips; 
 	}
 }

@@ -1,10 +1,15 @@
 package model.wips.forms;
 
 import java.awt.GridLayout;
+import java.io.Serializable;
 
 import model.wips.forms.fields.Field;
 
-public class Couple {
+public class Couple implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * This will be a unique id for the couple object
 	 */
