@@ -3,10 +3,24 @@ package controller.session;
 import java.io.IOException;
 
 import errors.AbsError;
+import helper.OpenScreen;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import model.Wips;
 import model.user.User;
 
 public class LogInController {
+	
+	@FXML
+	Button loginBtn;
+
+	@FXML
+	TextField userField, passField;
+			 
 	/**
 	 * 	This will contain the current user information
 	 */
@@ -49,5 +63,23 @@ public class LogInController {
 	 */
 	public User getUser() {
 		return null;
+	}
+	
+	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
+		Button b = (Button) handler.getSource();
+		if (b == loginBtn) {
+			//Get Username
+			String username = userField.getText();
+			//Get Password
+			String password = passField.getText();
+			
+			//If the user is developer then open the following screen
+			Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
+			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d);
+			
+			//If the user is enduser then open the following screen
+			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+			//OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e);
+		}
 	}
 }
