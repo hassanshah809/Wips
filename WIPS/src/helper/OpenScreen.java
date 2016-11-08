@@ -16,9 +16,9 @@ public class OpenScreen {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void openScreen(String ss, ActionEvent e, String title, Parent p) throws IOException {
+	public static void openScreen(String ss, ActionEvent e, String title, Parent p, Class classname, String cssFile) throws IOException {
 		Scene s = new Scene(p);
-		//s.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		s.getStylesheets().add(classname.getResource(cssFile).toExternalForm());
 		Stage st = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		st.setScene(s);
 		st.setTitle(title);

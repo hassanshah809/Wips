@@ -24,6 +24,7 @@ public class Spoz extends Application{
 			primaryStage.setTitle("Log in");
 			//primaryStage.setResizable(false);
 			primaryStage.show();
+			root.requestFocus();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

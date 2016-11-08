@@ -35,6 +35,11 @@ public class LogInController {
 	 * Shows an error if the username or password is wrong.
 	 */
 	AbsError e;
+	
+	@FXML
+	protected void initialize() {
+		//Do something once the FXML is done
+	}
 	/**
 	 * This method will compare the username and password with the list of users in wips.
 	 * @param user User
@@ -75,11 +80,11 @@ public class LogInController {
 			
 			//If the user is developer then open the following screen
 			Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
-			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d);
+			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
 			
 			//If the user is enduser then open the following screen
 			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
-			//OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e);
+			//OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/developer/ehomescreen.css");
 		}
 	}
 }
