@@ -51,6 +51,8 @@ public class AdminHomeController {
 		Button b = (Button) handler.getSource();
 		if (b == createWFBtn) {
 			//If the user is developer then open the following screen
+			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dfilesbrowser.fxml"));
+			OpenScreen.openScreen("dfilesbrowser.fxml", handler, "Create Workflow", l, getClass(),"/view/developer/dfilesbrowser.css");
 			
 		} else if (b== logoutBtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
