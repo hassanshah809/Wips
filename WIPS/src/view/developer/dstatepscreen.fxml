@@ -28,13 +28,13 @@
                         <Font size="20.0" fx:id="x1" />
                       </font>
                     </Label>
-                    <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <ListView fx:id="allState" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                   <children>
                     <Label alignment="CENTER" font="$x1" text="Add States" />
-                    <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <ListView fx:id="incomingStates" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
@@ -46,7 +46,7 @@
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                   <children>
                     <Label alignment="CENTER" font="$x1" text="Added States" />
-                    <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <ListView fx:id="reqState" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   </children>
                 </VBox>
               </children>

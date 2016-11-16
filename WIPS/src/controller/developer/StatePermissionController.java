@@ -18,12 +18,15 @@ public class StatePermissionController {
 	@FXML
 	Button addBtn, removeBtn, nextBtn, backBtn, logoutBtn;
 	
+	@FXML
+	ListView<State> allState, incomingStates, reqState;
 	/**
 	 * This is the object which will display all states that are associated with 
 	 * this workflow. Each state listed in this view will be associated with the 
 	 * state’s unique id.
 	 */
 	ListView<State> states;
+	
 	/**
 	 * This is list of states that will help the listview
 	 */
@@ -100,6 +103,8 @@ public class StatePermissionController {
 			
 		} else if (b == nextBtn) {
 			//Go to the Form builder screen
+			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
+			OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 		} else if (b == backBtn) {
 			//Go back to the xml file browser

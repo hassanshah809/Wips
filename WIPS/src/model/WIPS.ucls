@@ -46,7 +46,7 @@
   </class>  
   <class id="8" language="java" name="model.parser.TransitionParser" project="WIPS" 
     file="/WIPS/src/model/parser/TransitionParser.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="236" y="755"/>    
+    <position height="-1" width="-1" x="128" y="656"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -82,16 +82,7 @@
     <position height="336" width="420" x="1617" y="1784"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="14" language="java" name="model.wips.forms.fields.Button" project="WIPS" 
-    file="/WIPS/src/model/wips/forms/fields/Button.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1690" y="2023"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="15" language="java" name="model.wips.forms.fields.Field" project="WIPS" 
+  <interface id="14" language="java" name="model.wips.forms.fields.Field" project="WIPS" 
     file="/WIPS/src/model/wips/forms/fields/Field.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1822" y="1860"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="16" language="java" name="model.wips.forms.fields.Text" project="WIPS" 
+  <class id="15" language="java" name="model.wips.forms.fields.Text" project="WIPS" 
     file="/WIPS/src/model/wips/forms/fields/Text.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1850" y="2009"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,12 +100,12 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <package id="17" language="java" name="errors" project="WIPS" file="/WIPS/src/errors" binary="false" 
+  <package id="16" language="java" name="errors" project="WIPS" file="/WIPS/src/errors" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="393" width="424" x="1191" y="291"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="18" language="java" name="errors.AbsError" project="WIPS" file="/WIPS/src/errors/AbsError.java" 
+  <class id="17" language="java" name="errors.AbsError" project="WIPS" file="/WIPS/src/errors/AbsError.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="98" width="135" x="1217" y="401"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -123,7 +114,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="errors.AuthenticationError" project="WIPS" 
+  <class id="18" language="java" name="errors.AuthenticationError" project="WIPS" 
     file="/WIPS/src/errors/AuthenticationError.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1493" y="395"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -132,7 +123,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="errors.FileError" project="WIPS" file="/WIPS/src/errors/FileError.java" 
+  <class id="19" language="java" name="errors.FileError" project="WIPS" file="/WIPS/src/errors/FileError.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1330" y="595"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -141,7 +132,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="errors.InputError" project="WIPS" file="/WIPS/src/errors/InputError.java" 
+  <class id="20" language="java" name="errors.InputError" project="WIPS" file="/WIPS/src/errors/InputError.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1509" y="506"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -150,7 +141,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="errors.ParserError" project="WIPS" file="/WIPS/src/errors/ParserError.java" 
+  <class id="21" language="java" name="errors.ParserError" project="WIPS" file="/WIPS/src/errors/ParserError.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1490" y="621"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -159,7 +150,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="controller.developer.AdminHomeController" project="WIPS" 
+  <class id="22" language="java" name="controller.developer.AdminHomeController" project="WIPS" 
     file="/WIPS/src/controller/developer/AdminHomeController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="671" y="350"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -168,7 +159,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="controller.developer.CreatedWorkflowController" project="WIPS" 
+  <class id="23" language="java" name="controller.developer.CreatedWorkflowController" project="WIPS" 
     file="/WIPS/src/controller/developer/CreatedWorkflowController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="707" y="481"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -177,7 +168,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="controller.developer.CreateWorkFlowController" project="WIPS" 
+  <class id="24" language="java" name="controller.developer.CreateWorkFlowController" project="WIPS" 
     file="/WIPS/src/controller/developer/CreateWorkFlowController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="831" y="654"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -186,7 +177,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="controller.endUser.ActiveWorkFlowController" project="WIPS" 
+  <class id="25" language="java" name="controller.endUser.ActiveWorkFlowController" project="WIPS" 
     file="/WIPS/src/controller/endUser/ActiveWorkFlowController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1930" y="368"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -195,7 +186,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="controller.endUser.AllWorkFlowController" project="WIPS" 
+  <class id="26" language="java" name="controller.endUser.AllWorkFlowController" project="WIPS" 
     file="/WIPS/src/controller/endUser/AllWorkFlowController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2142" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -204,7 +195,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="controller.endUser.HomeController" project="WIPS" 
+  <class id="27" language="java" name="controller.endUser.HomeController" project="WIPS" 
     file="/WIPS/src/controller/endUser/HomeController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1918" y="541"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -213,7 +204,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="controller.endUser.StatusController" project="WIPS" 
+  <class id="28" language="java" name="controller.endUser.StatusController" project="WIPS" 
     file="/WIPS/src/controller/endUser/StatusController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2126" y="550"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -222,12 +213,12 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <package id="30" language="java" name="controller.form" project="WIPS" file="/WIPS/src/controller/form" binary="false" 
+  <package id="29" language="java" name="controller.form" project="WIPS" file="/WIPS/src/controller/form" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="255" width="315" x="700" y="865"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="31" language="java" name="controller.form.FormController" project="WIPS" 
+  <class id="30" language="java" name="controller.form.FormController" project="WIPS" 
     file="/WIPS/src/controller/form/FormController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="783" y="992"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -236,7 +227,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="controller.form.RecipientWindow" project="WIPS" 
+  <class id="31" language="java" name="controller.form.RecipientWindow" project="WIPS" 
     file="/WIPS/src/controller/form/RecipientWindow.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="928" y="1007"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -245,7 +236,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="controller.session.LogInController" project="WIPS" 
+  <class id="32" language="java" name="controller.session.LogInController" project="WIPS" 
     file="/WIPS/src/controller/session/LogInController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1376" y="980"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -254,7 +245,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="controller.session.LogOutController" project="WIPS" 
+  <class id="33" language="java" name="controller.session.LogOutController" project="WIPS" 
     file="/WIPS/src/controller/session/LogOutController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1533" y="970"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -263,7 +254,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="model.Wips" project="WIPS" file="/WIPS/src/model/Wips.java" binary="false" 
+  <class id="34" language="java" name="model.Wips" project="WIPS" file="/WIPS/src/model/Wips.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1420" y="1527"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -272,7 +263,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="36" language="java" name="model.parser.intermediates.GenInter" project="WIPS" 
+  <class id="35" language="java" name="model.parser.intermediates.GenInter" project="WIPS" 
     file="/WIPS/src/model/parser/intermediates/GenInter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1742" y="1526"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -281,7 +272,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="37" language="java" name="model.parser.intermediates.Intermediate" project="WIPS" 
+  <class id="36" language="java" name="model.parser.intermediates.Intermediate" project="WIPS" 
     file="/WIPS/src/model/parser/intermediates/Intermediate.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1932" y="1555"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -290,7 +281,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="model.parser.intermediates.WorkFlowInter" project="WIPS" 
+  <class id="37" language="java" name="model.parser.intermediates.WorkFlowInter" project="WIPS" 
     file="/WIPS/src/model/parser/intermediates/WorkFlowInter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1756" y="1646"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -299,7 +290,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="39" language="java" name="model.user.Developer" project="WIPS" file="/WIPS/src/model/user/Developer.java" 
+  <class id="38" language="java" name="model.user.Developer" project="WIPS" file="/WIPS/src/model/user/Developer.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="619" y="1305"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -308,7 +299,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="40" language="java" name="model.user.EndUser" project="WIPS" file="/WIPS/src/model/user/EndUser.java" 
+  <class id="39" language="java" name="model.user.EndUser" project="WIPS" file="/WIPS/src/model/user/EndUser.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="828" y="1615"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -317,7 +308,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="41" language="java" name="model.user.User" project="WIPS" file="/WIPS/src/model/user/User.java" 
+  <class id="40" language="java" name="model.user.User" project="WIPS" file="/WIPS/src/model/user/User.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="852" y="1341"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -326,12 +317,12 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <package id="42" language="java" name="model.wips" project="WIPS" file="/WIPS/src/model/wips" binary="false" 
+  <package id="41" language="java" name="model.wips" project="WIPS" file="/WIPS/src/model/wips" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="591" width="817" x="1794" y="734"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="43" language="java" name="model.wips.Entity" project="WIPS" file="/WIPS/src/model/wips/Entity.java" 
+  <class id="42" language="java" name="model.wips.Entity" project="WIPS" file="/WIPS/src/model/wips/Entity.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2419" y="1236"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -340,7 +331,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="44" language="java" name="model.wips.State" project="WIPS" file="/WIPS/src/model/wips/State.java" 
+  <class id="43" language="java" name="model.wips.State" project="WIPS" file="/WIPS/src/model/wips/State.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2441" y="921"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -349,7 +340,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="model.wips.Transition" project="WIPS" file="/WIPS/src/model/wips/Transition.java" 
+  <class id="44" language="java" name="model.wips.Transition" project="WIPS" file="/WIPS/src/model/wips/Transition.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2112" y="1219"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -358,7 +349,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="46" language="java" name="model.wips.WorkFlow" project="WIPS" file="/WIPS/src/model/wips/WorkFlow.java" 
+  <class id="45" language="java" name="model.wips.WorkFlow" project="WIPS" file="/WIPS/src/model/wips/WorkFlow.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2064" y="937"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -367,7 +358,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="47" language="java" name="model.wips.forms.Couple" project="WIPS" 
+  <class id="46" language="java" name="model.wips.forms.Couple" project="WIPS" 
     file="/WIPS/src/model/wips/forms/Couple.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2188" y="1947"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -376,7 +367,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="48" language="java" name="model.wips.forms.Form" project="WIPS" file="/WIPS/src/model/wips/forms/Form.java" 
+  <class id="47" language="java" name="model.wips.forms.Form" project="WIPS" file="/WIPS/src/model/wips/forms/Form.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2179" y="2167"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -385,7 +376,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="49" language="java" name="controller.developer.StatePermissionController" project="WIPS" 
+  <class id="48" language="java" name="controller.developer.StatePermissionController" project="WIPS" 
     file="/WIPS/src/controller/developer/StatePermissionController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="940" y="404"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -394,274 +385,342 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="50">    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <realization id="51">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="15"/>  
-  </realization>  
-  <association id="52">    
-    <end type="SOURCE" refId="35" navigable="false">      
-      <attribute id="53" name="currentUser"/>      
-      <multiplicity id="54" minimum="0" maximum="1"/>    
+  <association id="49">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="50" name="admin">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="41" navigable="true"/>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="53" name="user">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="55">    
     <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="56" name="received"/>      
-      <multiplicity id="57" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="48" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="58">    
-    <end type="SOURCE" refId="46" navigable="false">      
-      <attribute id="59" name="state"/>      
-      <multiplicity id="60" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="44" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="61">    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="62" name="allworkflows"/>      
-      <multiplicity id="63" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="46" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="64">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="41"/>  
-  </generalization>  
-  <association id="65">    
-    <end type="SOURCE" refId="47" navigable="false">      
-      <attribute id="66" name="label"/>      
-      <multiplicity id="67" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="68">    
-    <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="69" name="sent"/>      
-      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="48" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="71">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <association id="72">    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="73" name="allValidUsers"/>      
-      <multiplicity id="74" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="41" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="75">    
-    <end type="SOURCE" refId="46" navigable="false">      
-      <attribute id="76" name="form"/>      
-      <multiplicity id="77" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="48" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="78">    
-    <end type="SOURCE" refId="49" navigable="false">      
-      <attribute id="79" name="state"/>      
-      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="44" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="81">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="82">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <generalization id="83">    
-    <end type="SOURCE" refId="38"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <association id="84">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="85" name="parser"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="87">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="88" name="wips"/>      
-      <multiplicity id="89" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="35" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="90">    
-    <end type="SOURCE" refId="35" navigable="false">      
-      <attribute id="91" name="currentWorkflow"/>      
-      <multiplicity id="92" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="46" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="93">    
-    <end type="SOURCE" refId="45" navigable="false">      
-      <attribute id="94" name="endState"/>      
-      <multiplicity id="95" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="44" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="96">    
-    <end type="SOURCE" refId="35" navigable="false">      
-      <attribute id="97" name="workflow"/>      
-      <multiplicity id="98" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="46" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="99">    
-    <end type="SOURCE" refId="47" navigable="false">      
-      <attribute id="100" name="field"/>      
-      <multiplicity id="101" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="102">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="103" name="e"/>      
-      <multiplicity id="104" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="105">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="106" name="admin"/>      
-      <multiplicity id="107" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="108">    
-    <end type="SOURCE" refId="48" navigable="false">      
-      <attribute id="109" name="couples"/>      
-      <multiplicity id="110" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="47" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="111">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="112" name="user"/>      
-      <multiplicity id="113" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="41" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="114">    
-    <end type="SOURCE" refId="46" navigable="false">      
-      <attribute id="115" name="transition"/>      
-      <multiplicity id="116" minimum="0" maximum="2147483647"/>    
+      <attribute id="56" name="allworkflows">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="45" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="117">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="118" name="e"/>      
-      <multiplicity id="119" minimum="0" maximum="1"/>    
+  <generalization id="58">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="59">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="60" name="e">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="61" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
+    <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="120">    
+  <association id="62">    
     <end type="SOURCE" refId="45" navigable="false">      
-      <attribute id="121" name="startState"/>      
-      <multiplicity id="122" minimum="0" maximum="1"/>    
+      <attribute id="63" name="entity">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="64" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="44" navigable="true"/>    
+    <end type="TARGET" refId="42" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="123">    
-    <end type="SOURCE" refId="40"/>    
-    <end type="TARGET" refId="41"/>  
-  </generalization>  
-  <association id="124">    
-    <end type="SOURCE" refId="49" navigable="false">      
-      <attribute id="125" name="e"/>      
-      <multiplicity id="126" minimum="0" maximum="1"/>    
+  <realization id="65">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="66">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="67" name="startState">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="68" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
+    <end type="TARGET" refId="43" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="127">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="18"/>  
+  <association id="69">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="70" name="entity">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="71" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
   </generalization>  
-  <association id="128">    
-    <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="129" name="joinedWorkflows"/>      
-      <multiplicity id="130" minimum="0" maximum="2147483647"/>    
+  <association id="73">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="74" name="currentWorkflow">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="75" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="76">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <association id="77">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="78" name="e">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="79" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="80">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="81">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="82" name="users">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="83" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="84">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="40"/>  
+  </generalization>  
+  <association id="85">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="86" name="endState">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="87" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="89" name="wips">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="90" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="91">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <association id="92">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="93" name="received">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="94" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="47" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="96" name="currentUser">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="97" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="98">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="40"/>  
+  </generalization>  
+  <association id="99">    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="100" name="couples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="101" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="46" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="102">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="103">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="104" name="parser">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="105" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="48" navigable="false">      
+      <attribute id="107" name="state">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="108" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="109">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="110">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="111" name="workflow">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="112" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="48" navigable="false">      
+      <attribute id="114" name="e">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="115" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="117" name="form">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="118" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="47" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="119">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="120" name="sent">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="121" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="47" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="122">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="123" name="joinedWorkflows">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="124" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="125">    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="126" name="state">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="127" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="128">    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="129" name="transition">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="130" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <generalization id="131">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="18"/>  
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="17"/>  
   </generalization>  
-  <association id="132">    
-    <end type="SOURCE" refId="44" navigable="false">      
-      <attribute id="133" name="entity"/>      
-      <multiplicity id="134" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="43" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="135">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="15"/>  
-  </realization>  
-  <generalization id="136">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="6"/>  
+  <generalization id="132">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="17"/>  
   </generalization>  
-  <association id="137">    
-    <end type="SOURCE" refId="35" navigable="false">      
-      <attribute id="138" name="users"/>      
-      <multiplicity id="139" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="41" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="140">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="141">    
-    <end type="SOURCE" refId="46" navigable="false">      
-      <attribute id="142" name="entity"/>      
-      <multiplicity id="143" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="43" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

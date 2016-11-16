@@ -52,7 +52,8 @@ public class CreateWorkFlowController {
 	@FXML
 	protected void initialize() {
 		//Do something once the FXML is done
-		enableDisableBtn(false, true, true, true);
+		//Enable this in the final product
+		//enableDisableBtn(false, true, true, true);
 	}
 	
 	private void enableDisableBtn (boolean wbtn, boolean tBtn, boolean uBtn, boolean nxtBtn) {
