@@ -17,12 +17,14 @@ public class WorkFlowParser extends Parser {
 	
 	
 	HashMap<String,Boolean> keyMap; 
+	WorkFlowInter<Entity, State> wfi = new WorkFlowInter<>();
 	
 	/**
 	 * it creates the new workflow parser object
 	 */
 	public WorkFlowParser(File workflowFile) {
 		super(workflowFile);
+		System.out.println(workflowFile.getName()+ " in super ");
 		keyMap = new HashMap<String,Boolean>(); 
 		keyMap.put("startStateError", false);
 		keyMap.put("incorrectStateTag", false);
@@ -34,7 +36,7 @@ public class WorkFlowParser extends Parser {
 	 * Stores the intermediate object where the values parsed from the XML files will be located. 
 	 */
 	
-	WorkFlowInter<Entity, State> wfi;
+	
 	
 	@Override
 	
@@ -79,7 +81,9 @@ public class WorkFlowParser extends Parser {
 					NodeList stateList = entityNode.getChildNodes();
 					Element entityElement = (Element) entityNode; 
 					role = entityElement.getAttribute("role").toString(); 
+					System.out.println("role in wfparser " + role);
 					entityObj = new Entity(role);
+					System.out.println(entityObj == null ? "haan " : "naaahhhh");
 					wfi.addAttr(entityObj);
 				
 					//Add to intermediate model class
@@ -107,6 +111,7 @@ public class WorkFlowParser extends Parser {
 							//Translating 
 							
 							id = Integer.parseInt(idAttrVal);
+							System.out.println("id " + id);
 							
 							if(startStateVal.toLowerCase().equals("true")) {
 								startState = true;

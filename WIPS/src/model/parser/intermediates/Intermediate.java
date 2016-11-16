@@ -1,12 +1,13 @@
 package model.parser.intermediates;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Intermediate <T>{
 	/**
 	 * it stores all the attributes for the type T
 	 */
-	protected List<T> tempAttr;
+	protected List<T> tempAttr = new ArrayList<>();
 	
 	/**
 	 * it adds the attributes to the temporary list

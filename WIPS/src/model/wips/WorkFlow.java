@@ -64,7 +64,7 @@ public class WorkFlow implements Serializable{
 	 * @param transition list of Transtions
 	 * @param form  Form
 	 */
-	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition, Form form) {
+	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition) {
 		id++;
 		this.state = states;
 		this.entity = entities;

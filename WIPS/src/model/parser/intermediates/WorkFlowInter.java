@@ -1,5 +1,6 @@
 package model.parser.intermediates;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkFlowInter<T, S> extends Intermediate<T> { // T = entity, S = state
@@ -8,7 +9,7 @@ public class WorkFlowInter<T, S> extends Intermediate<T> { // T = entity, S = st
 	/**
 	 * This will be the list that stores all of the State objects which have been passed from the WorkFlowParser class
 	 */
-	protected List<S> tempStates;
+	protected List<S> tempStates = new ArrayList<>();
 	
 	/**
 	 * it adds the states to the temporary states list

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-
 import errors.AbsError;
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Wips;
 import model.parser.Parser;
 import model.parser.TransitionParser;
 import model.parser.UserParser;
@@ -27,6 +27,7 @@ import model.wips.Entity;
 import model.wips.State;
 import model.wips.Transition;
 import model.wips.WorkFlow;
+import model.wips.forms.Form;
 
 public class CreateWorkFlowController {
 	
@@ -51,6 +52,7 @@ public class CreateWorkFlowController {
 	
 	@FXML
 	protected void initialize() {
+		wfi = new WorkFlowInter<Entity, State>();
 		//Do something once the FXML is done
 		//Enable this in the final product
 		//enableDisableBtn(false, true, true, true);
@@ -125,8 +127,10 @@ public class CreateWorkFlowController {
 	 * Workflow object in the workflows list in the workflow application’s class. 
 	 */
 	public void finish() {
-		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr(),null);
-		wf.addUser(users.getTempAttr());
+		System.out.println(wfi.getTempAttr().size());
+		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
+		Wips.getInstance().getAllWorkFlows().add(wf);
+		//wf.addUser(users.getTempAttr());
 		
 	}
 
@@ -138,8 +142,8 @@ public class CreateWorkFlowController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select an XML File");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser.getExtensionFilters()
-				.addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+		//fileChooser.getExtensionFilters()
+			//	.addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
 		File file = fileChooser.showOpenDialog(st);
 		return file;
 	}
@@ -150,6 +154,8 @@ public class CreateWorkFlowController {
 			File f = getFile(handler);
 			if(f != null){
 				wFileName.setText(f.getName());
+				System.out.println(f.getName());
+				workFlowXml(f);
 				enableDisableBtn(false, false, true, true);
 
 				//If file exist then call workflowxml parser
@@ -162,7 +168,7 @@ public class CreateWorkFlowController {
 				enableDisableBtn(false, false, false, true);
 
 				//If file exist then call trnasition parser
-				//transitionXml(f);
+				transitionXml(f);
 			}			
 		} else if (b == uBrowse) {
 			File f = getFile(handler);
@@ -179,6 +185,7 @@ public class CreateWorkFlowController {
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", l, getClass(),"/view/developer/dhomescreen.css");
 		} else if (b == nextBtn) {
 			//Goes to state permission window
+			finish();
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dstatepscreen.fxml"));
 			OpenScreen.openScreen("dstatepscreen.fxml", handler, "State Permission", l, getClass(),"/view/developer/dstatepscreen.css");
 		} else if (b == logoutBtn) {

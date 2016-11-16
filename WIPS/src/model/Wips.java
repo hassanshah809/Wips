@@ -21,7 +21,7 @@ public class Wips {
 	/**
 	 * This list will have all the workflows that ever created.
 	 */
-	public List<WorkFlow> workflow;
+	public List<WorkFlow> workflow = new ArrayList<>();
 	/**
 	 * This list will have all the users that ever created.
 	 */

@@ -13,7 +13,7 @@ public class State implements Serializable{
 	/**
 	 * This variable will contain a unique id for the state, which will be unique in the workflow.
 	 */
-	private static int stateID;
+	private int stateID;
 	/**
 	 * This will be set to true for the start state, otherwise it will be set to false. Therefore, 
 	 * no other start will be a start state except the first state.
@@ -40,6 +40,7 @@ public class State implements Serializable{
 	 */
 	public State(int id, boolean startState, Entity entity) {
 		this.stateID = id;
+		this.entity = entity;
 	}
 	
 	
@@ -143,8 +144,12 @@ public class State implements Serializable{
 		if(o == null || !(o instanceof State))
 			return false;
 		State state = (State) o;
-		if(this.entity.equals(state.entity))
+		if(this.getID() == state.getID())
 			return true;
 		return false;
+	}
+	@Override
+	public String toString() {
+		return getEntity().getRole() + " " + getID();
 	}
 }

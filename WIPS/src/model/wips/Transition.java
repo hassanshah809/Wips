@@ -28,6 +28,14 @@ public class Transition implements Serializable{
 		this.endState = endState;
 	}
 	
+	public State getEndState() {
+		return endState;
+	}
+	
+	public State getStartState() {
+		return startState;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(o == null || !(o instanceof Transition))
