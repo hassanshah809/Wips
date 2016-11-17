@@ -1,8 +1,14 @@
 package model.wips;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import model.Wips;
+import model.wips.intermediates.AbsReq;
+import model.wips.intermediates.AndReq;
+import model.wips.intermediates.OrReq;
 
 public class State implements Serializable{
 
@@ -34,6 +40,9 @@ public class State implements Serializable{
 	
 	private Set<String> distinctVals; 
 	
+	private List<AbsReq> startWithMe = null;
+	private List<AbsReq> endWithMe = null;
+	
 	/**
 	 * This constructor sets the unique id for the state.
 	 * @param id int
@@ -43,18 +52,40 @@ public class State implements Serializable{
 		this.entity = entity;
 	}
 	
-	
+	public void populate() {
+		startWithMe = new ArrayList<AbsReq>();
+		AbsReq andS = new AndReq();
+		endWithMe = new ArrayList<AbsReq>();
+		AbsReq andE = new AndReq();
+		for(Transition t: Wips.getInstance().getCurrentWorkFlow().getTransition()) {
+			if(this.equals(t.getStartState()) && t.getReq()){
+				andS.add(t);
+			} else {
+				AbsReq or = new OrReq(t);
+				startWithMe.add(or);
+			}
+				
+			if(this.equals(t.getEndState()) && t.getReq()){
+				andE.add(t);
+			}else {
+				AbsReq or = new OrReq(t);
+				endWithMe.add(or);
+			}
+		}
+	}
 	/**
 	 * This method checks whether the condition for the current state satisfies or not. If it does satisfies 
 	 * then it returns true otherwise it returns false.
 	 * @return boolean
 	 */
-	private boolean isAllowed(){
-		if(currentState) {
-			return true;
-		} else {
-		return false;
+	private boolean isAllowedtoSend(){
+		if(startWithMe == null && endWithMe == null)
+			populate();
+		for(AbsReq a: endWithMe){
+			if(a.isAllowed())
+				return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -139,6 +170,13 @@ public class State implements Serializable{
 		}
 	}
 	
+	public List<AbsReq> getStartWithMe() {
+		return startWithMe;
+	}
+	
+	public List<AbsReq> getEndState() {
+		return endWithMe;
+	}
 	@Override
 	public boolean equals(Object o) {
 		if(o == null || !(o instanceof State))

@@ -24,7 +24,9 @@ public class StatePermissionController {
 	Button addBtn, removeBtn, nextBtn, backBtn, logoutBtn;
 	
 	@FXML
-	ListView<State> allState, incomingStates, reqState;
+	ListView<State> allState, reqState;
+	@FXML
+	ListView<Transition> incomingStates;
 //	/**
 //	 * This is the object which will display all states that are associated with 
 //	 * this workflow. Each state listed in this view will be associated with the 
@@ -50,7 +52,7 @@ public class StatePermissionController {
 	AbsError e;
 	
 	ObservableList<State> ob;
-	ObservableList<State> incoming;
+	ObservableList<Transition> incoming;
 	Wips wips;
 	WorkFlow wf;
 	
@@ -60,7 +62,7 @@ public class StatePermissionController {
 		enableDisableBtn(true, true);
 		wips = Wips.getInstance();
 		wf = wips.getAllWorkFlows().get(wips.getAllWorkFlows().size() -1);
-		wf.getState().add(new State (1,true, new Entity("prof")));
+		//wf.getState().add(new State (1,true, new Entity("prof")));
 		System.out.println("size of states " + wf.getState().size());
 		ob = FXCollections.observableArrayList(wf.getState());
 		allState.setItems(ob);
@@ -81,11 +83,11 @@ public class StatePermissionController {
 	 */
 	public void getTransitions(int index) {
 		//gets all the transitions of each state
-		incoming = FXCollections.observableArrayList(wf.getTransition().get(0).getEndState());
+		incoming = FXCollections.observableArrayList();
 		for(Transition s: wips.getAllWorkFlows().get(wips.getAllWorkFlows().size()-1).getTransition()){
 			System.out.println("in for loop in state perm");
-			if(allState.getItems().get(index).equals(s.getEndState())){
-				incoming.add(s.getStartState());
+			if(allState.getItems().get(index).equals(s.getStartState())){
+				incoming.add(s);
 				System.out.println("in if ");
 			}
 		}

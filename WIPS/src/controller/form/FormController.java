@@ -9,7 +9,7 @@ public class FormController {
 	* This method will show the form to the user
 	*/
 	public void showForm(){
-		Form form = Wips.getInstance().currentWorkflow.form;
+		Form form = Wips.getInstance().getCurrentWorkFlow().form;
 		//Once we have the form we show the form using GUI
 	}
 

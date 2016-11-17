@@ -11,11 +11,14 @@ public class Transition implements Serializable{
 	/**
 	 * This field will store the origin of the transition 
 	 */
-	State startState;
+	private State startState;
 	/**
 	 * This field will store the destination of the transition 
 	 */
-	State endState;
+	private State endState;
+	
+	private boolean isReq = false;
+	private boolean isActive = false;
 	
 	/**
 	 * This is the constructor of the Transition module. It will take two arguments, 
@@ -34,6 +37,26 @@ public class Transition implements Serializable{
 	
 	public State getStartState() {
 		return startState;
+	}
+	
+	public String toString() {
+		return "S: " + getStartState() + " E: " + getEndState(); 
+	}
+	
+	public void setReq(boolean b) {
+		isReq = b;
+	}
+	
+	public void setIsActive(boolean b) {
+		isActive = b;
+	}
+	
+	public boolean getReq() {
+		return isReq;
+	}
+	
+	public boolean getIsActive() {
+		return isActive;
 	}
 	
 	@Override

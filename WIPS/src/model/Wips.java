@@ -21,7 +21,7 @@ public class Wips {
 	/**
 	 * This list will have all the workflows that ever created.
 	 */
-	public List<WorkFlow> workflow = new ArrayList<>();
+	private List<WorkFlow> workflow = new ArrayList<>();
 	/**
 	 * This list will have all the users that ever created.
 	 */
@@ -36,7 +36,8 @@ public class Wips {
 	/**
 	* Current workflow the user is working on.
 	**/
-	public WorkFlow currentWorkflow;
+	private WorkFlow currentWorkflow;
+	private int indexOfNextState = -1;
 	
 	private Wips() {}
 	public List<EndUser> getEndUser() {
@@ -57,12 +58,31 @@ public class Wips {
 		return this.workflow; 
 	}
 	
+	public void addWorkFlow(WorkFlow f) {
+		workflow.add(f);
+	}
 	public  List<User> getUsers() {
 		return users; 
 	}
 	
 	public List<Form> getForms() {
 		return forms; 
+	}
+	
+	public void setCurrentWorkFlow(WorkFlow f) {
+		this.currentWorkflow = f;
+	}
+	
+	public WorkFlow getCurrentWorkFlow() {
+		return currentWorkflow;
+	}
+	
+	public void setIndexOfNextState(int index) {
+		indexOfNextState = index;
+	}
+	
+	public int getIndexOfNextState() {
+		return indexOfNextState;
 	}
 	
 	public static Wips getInstance() {

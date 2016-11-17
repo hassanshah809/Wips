@@ -24,6 +24,8 @@ public class RecipientWindow {
 	
 	ListView<String> distinctValues;
 	
+	ListView<String>[] dist;  // list of list views to pick differen user
+	//wips.currentstate.startwithme.get(index from wips).size(); == # of listviews
 	//dummy list
 	List<String> l = new ArrayList<>();
 	
@@ -64,7 +66,7 @@ public class RecipientWindow {
 		Wips w = Wips.getInstance();
 		EndUser to = allValidUsers.get(i);
 		EndUser from = (EndUser) w.currentUser;
-		from.send(w.currentWorkflow.form, to);
+		from.send(w.getCurrentWorkFlow().form, to);
 		cancel();
 	}
 
