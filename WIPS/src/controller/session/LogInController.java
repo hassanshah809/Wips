@@ -78,9 +78,11 @@ public class LogInController {
 			//Get Password
 			String password = passField.getText();
 			
-			//If the user is developer then open the following screen
+//			//If the user is developer then open the following screen
 			Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
+			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
+			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 			//If the user is enduser then open the following screen
 			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
