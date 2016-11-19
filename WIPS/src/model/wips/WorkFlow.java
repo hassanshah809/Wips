@@ -16,7 +16,7 @@ public class WorkFlow implements Serializable{
 	/**
 	 * This is the workflows unique id. This will help the system identify this particular workflow. 
 	 */
-	private static int id;
+	private int id;
 	/**
 	 * This is the field which informs the system that this workflow is active. True if active. False if not active.
 	 */
@@ -44,6 +44,7 @@ public class WorkFlow implements Serializable{
 	 * this stores the start 
 	 */
 	private State startState;
+	private State currentState;
 	/**
 	 *The empty constructor
 	 */
@@ -148,5 +149,13 @@ public class WorkFlow implements Serializable{
 	
 	public int getID() {
 		return id;
+	}
+	
+	public void setCurrentState(State s) {
+		this.currentState = s;
+	}
+	
+	public State getCurrentState() {
+		return this.currentState;
 	}
 }

@@ -26,7 +26,7 @@ public class Form implements Serializable{
 	/**
 	 * This is a unique identifier for the fom
 	 */
-	private static int formID;
+	private int formID;
 	
 	private List<Entity> roles;
 	private List<EndUser> users;
@@ -59,6 +59,10 @@ public class Form implements Serializable{
 		users.add(user);
 	}
 	
+	public void updateUsers() {
+		for(EndUser user: users)
+			user.update();
+	}
 	public String getFormName() {
 		return formName;
 	}

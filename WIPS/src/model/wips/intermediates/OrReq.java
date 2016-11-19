@@ -24,4 +24,11 @@ public class OrReq implements AbsReq{
 		return 1;
 	}
 
+	public Transition getTransition() {
+		return t;
+	}
+	@Override
+	public void markedSend() {
+		t.setIsActive(true);
+	}
 }

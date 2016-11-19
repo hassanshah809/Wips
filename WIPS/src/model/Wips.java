@@ -32,7 +32,7 @@ public class Wips {
 	/**
 	 * Current logged in user will be set to this variable.
 	 */
-	public User currentUser;
+	private User currentUser;
 	/**
 	* Current workflow the user is working on.
 	**/
@@ -85,6 +85,13 @@ public class Wips {
 		return indexOfNextState;
 	}
 	
+	public User getCurrentuser() {
+		return currentUser;
+	}
+	
+	public void setCurrentUser(User user) {
+		this.currentUser = user;
+	}
 	public static Wips getInstance() {
 		if(wips == null)
 			wips = new Wips();

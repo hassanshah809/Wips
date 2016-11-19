@@ -7,4 +7,5 @@ public interface AbsReq {
 	boolean isAllowed();
 	void add(Transition t);
 	int size();
+	void markedSend();
 }

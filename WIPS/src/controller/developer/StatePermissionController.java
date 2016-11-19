@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import errors.AbsError;
 import helper.OpenScreen;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import model.Wips;
-import model.wips.Entity;
 import model.wips.State;
 import model.wips.Transition;
 import model.wips.WorkFlow;
@@ -24,9 +25,9 @@ public class StatePermissionController {
 	Button addBtn, removeBtn, nextBtn, backBtn, logoutBtn;
 	
 	@FXML
-	ListView<State> allState, reqState;
+	ListView<State> allState;
 	@FXML
-	ListView<Transition> incomingStates;
+	ListView<Transition> incomingStates, reqState;
 //	/**
 //	 * This is the object which will display all states that are associated with 
 //	 * this workflow. Each state listed in this view will be associated with the 
@@ -51,23 +52,17 @@ public class StatePermissionController {
 	 */
 	AbsError e;
 	
-	ObservableList<State> ob;
-	ObservableList<Transition> incoming;
-	Wips wips;
-	WorkFlow wf;
+	private ObservableList<State> allStatesOb;
+	private ObservableList<Transition> incomingOb;
+	private ObservableList<Transition> reqStatesOb;
+	private Wips wips;
+	private WorkFlow wf;
 	
 	@FXML
 	protected void initialize() {
 		//Do something once the FXML is done
-		enableDisableBtn(true, true);
-		wips = Wips.getInstance();
-		wf = wips.getAllWorkFlows().get(wips.getAllWorkFlows().size() -1);
-		//wf.getState().add(new State (1,true, new Entity("prof")));
-		System.out.println("size of states " + wf.getState().size());
-		ob = FXCollections.observableArrayList(wf.getState());
-		allState.setItems(ob);
-		getTransitions(1);
-		incomingStates.setItems(incoming);
+		enableDisableBtn(true, true);	
+		populate();
 	}
 	
 	private void enableDisableBtn (boolean aBtn, boolean rBtn) {
@@ -81,16 +76,17 @@ public class StatePermissionController {
 	 * class and iterate through the list to find all transitions who have a destination 
 	 * state which matches the chosen state.
 	 */
-	public void getTransitions(int index) {
+	public void getTransitions(State state) {
 		//gets all the transitions of each state
-		incoming = FXCollections.observableArrayList();
+		incomingOb = FXCollections.observableArrayList();
 		for(Transition s: wips.getAllWorkFlows().get(wips.getAllWorkFlows().size()-1).getTransition()){
 			System.out.println("in for loop in state perm");
-			if(allState.getItems().get(index).equals(s.getStartState())){
-				incoming.add(s);
+			if(state.equals(s.getStartState())){
+				incomingOb.add(s);
 				System.out.println("in if ");
 			}
 		}
+		incomingStates.setItems(incomingOb);
 	}
 	
 	/**
@@ -106,6 +102,9 @@ public class StatePermissionController {
 	 */
 	public void updateReq() {
 		//update the required field in each state
+		reqStatesOb = FXCollections.observableArrayList();
+		// get transitions from incomingstatesOb and markded them required;
+		
 	}
 	
 	/**
@@ -146,5 +145,24 @@ public class StatePermissionController {
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 			
 		}
+	}
+	
+	public void populate() {
+		
+		wips = Wips.getInstance();
+		wf = wips.getAllWorkFlows().get(wips.getAllWorkFlows().size() -1);
+		//wf.getState().add(new State (1,true, new Entity("prof")));
+		System.out.println("size of states " + wf.getState().size());
+		allStatesOb = FXCollections.observableArrayList(wf.getState());
+		allState.setItems(allStatesOb);
+		
+
+		allState.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<State>() {
+
+			@Override
+			public void changed(ObservableValue<? extends State> observable, State oldValue, State newValue) {
+				getTransitions(newValue);
+			}
+		});
 	}
 }

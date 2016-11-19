@@ -12,7 +12,7 @@ public class CreatedWorkflowController {
 	 * List of all the created workflows by the developer
 	 */
 	public ListView<WorkFlow> allWorkflowsDisplay;
-	Developer admin = (Developer) Wips.getInstance().currentUser;
+	Developer admin = (Developer) Wips.getInstance().getCurrentuser();
 	
 	public CreatedWorkflowController() {
 		// TODO Auto-generated constructor stub

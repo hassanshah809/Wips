@@ -38,4 +38,13 @@ public class AndReq implements AbsReq {
 		return and.size();
 	}
 	
+	public List<Transition> getAndTransitions() {
+		return and;
+	}
+
+	@Override
+	public void markedSend() {
+		for(Transition t: and)
+			t.setIsActive(true);
+	}
 }
