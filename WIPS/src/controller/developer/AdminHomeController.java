@@ -3,6 +3,7 @@ package controller.developer;
 import java.io.IOException;
 import java.util.List;
 
+import controller.session.LogOutController;
 import helper.OpenScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,6 +58,7 @@ public class AdminHomeController {
 		} else if (b== logoutBtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
+			LogOutController.logInScreen();
 		}
 	}
 }

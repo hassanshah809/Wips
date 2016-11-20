@@ -16,9 +16,14 @@ public class Developer extends User {
 	 */
 	public Developer(String name, List<Entity> role, List<String> val) {
 		super(name, role, val);
+		setDeveloper(true);
 		// TODO Auto-generated constructor stub
 	}
 
+	public Developer(String username) {
+		super(username);
+		setDeveloper(true);
+	}
 	/**
 	 * It deletes a specific workflow based the index provided
 	 */

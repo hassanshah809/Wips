@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,12 @@ import model.user.User;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
-public class Wips {
+public class Wips implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final String storeUser = "data";
 	
 	private static Wips wips = null;
@@ -39,7 +45,9 @@ public class Wips {
 	private WorkFlow currentWorkflow;
 	private int indexOfNextState = -1;
 	
-	private Wips() {}
+	private Wips() {
+		users = new ArrayList<User>();
+	}
 	public List<EndUser> getEndUser() {
 		List<EndUser> endusers = new ArrayList<EndUser>();  
 		for(User u: users){
@@ -99,13 +107,13 @@ public class Wips {
 	}
 
 	public void make () throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeUser + File.separator + "wips"));
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeUser + File.separator + "wips" + "/wips"));
 		oos.writeObject(this);
 		oos.close();
 	}
 
 	public static Wips remake()throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data/wips"));
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data/wips/wips"));
 		 wips = (Wips)ois.readObject();
 		 ois.close();
 		 return wips; 

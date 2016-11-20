@@ -40,6 +40,9 @@ public class EndUser extends User{
 		sent = new ArrayList<Form>();
 	}
 	
+	public EndUser(String username) {
+		super(username);
+	}
 	/**
 	 * This method is responsible for sending the form to next state
 	 * @param form Form

@@ -2,6 +2,7 @@ package model.wips;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -56,6 +57,7 @@ public class State implements Serializable {
 	public State(int id, boolean startState, Entity entity) {
 		this.stateID = id;
 		this.entity = entity;
+		distinctVals = new HashSet<String>();
 	}
 
 	public void populate() {

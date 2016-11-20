@@ -29,6 +29,8 @@ public abstract class User implements Serializable{
 	 */
 	protected String password;
 	
+	protected boolean isDeveloper = false;
+	
 	/**
 	* This list will contain all the workflows of that particular user.
 	*/
@@ -58,6 +60,9 @@ public abstract class User implements Serializable{
 		id++;
 	}
 	
+	public User(String username) {
+		this.username = username;
+	}
 	/**
 	 * This method simply returns the id of the user
 	 * @return
@@ -86,6 +91,7 @@ public abstract class User implements Serializable{
 	public void generateUsername() {
 		String[] first = name.split(" ");
 		username = first[0]+ id;
+		System.out.println("username is " + username);
 	}
 	
 	/**
@@ -100,8 +106,9 @@ public abstract class User implements Serializable{
 			int ran = (int) (Math.random()*len);
 			build.append(name[ran]);
 		}
-		build.append(Math.random()*1000);
+		build.append((int)(Math.random()*1000));
 		password = build.toString();
+		System.out.println("password is: " + password);
 	}
 	
 	public List<String> getVals() {
@@ -116,6 +123,13 @@ public abstract class User implements Serializable{
 		return password;
 	}
 	
+	public void setDeveloper(boolean b) {
+		this.isDeveloper = b;
+	}
+	
+	public boolean isDeveloper() {
+		return isDeveloper;
+	}
 	@Override
 	public boolean equals(Object o) {
 		if(o == null || !(o instanceof User))
