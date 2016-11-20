@@ -14,14 +14,14 @@ import java.util.HashMap;
 
 public class TransitionParser extends Parser {
 	
-	HashMap<String,Boolean> keyMap;
+	static HashMap<String,Boolean> keyMap;
 	
 	/**
 	 * This contains the workflow intermediate object which contains all the states and entities which 
 	 * contains  
 	 */
 	
-	WorkFlowInter<Entity,State> wfi; 
+	static WorkFlowInter<Entity,State> wfi; 
 	
 	
 	/**
@@ -29,7 +29,7 @@ public class TransitionParser extends Parser {
 	 * transitions XML file
 	 */
 	
-	GenInter<Transition> transitions = new GenInter<Transition>();
+	static GenInter<Transition> transitions = new GenInter<Transition>();
 	
 	/**
 	 * This is the constructor for the TransitionParser module. This constructor takes two arguments:
@@ -59,62 +59,73 @@ public class TransitionParser extends Parser {
 			Document doc = db.parse(fileName);
 			doc.getDocumentElement().normalize();
 			
-			Transition transition;
 		
 			NodeList transitionList = doc.getElementsByTagName("transition");
 			
-			for(int i = 0; i< transitionList.getLength(); i++) {
-				Node tranNode = transitionList.item(i);
-				String startStateStr; 
-				String endStateStr; 
-				
-				if(tranNode.getNodeType() == Node.ELEMENT_NODE) {
-					
-					if(!tranNode.getNodeName().equals("transition")) {
-						keyMap.put("incorrectTransitionTag", true);
-					}
-					
-					Element transElement = (Element) tranNode; 
-					
-					//This will hold state id. 
-					
-					startStateStr = transElement.getAttribute("startstate");
-					endStateStr = transElement.getAttribute("endstate");
-					
-					//This contains that actual id values for states 
-					
-					
-					State startState = null;
-					State endState = null;
-					
-					int startStateID = Integer.parseInt(startStateStr);
-					int endStateID = Integer.parseInt(endStateStr);
-					
-					ArrayList<State> temp_states = (ArrayList<State>) wfi.getTempStates();
-					boolean startFound = false; 
-					boolean endFound = false;
-					
-					for(int j = 0; j < temp_states.size(); j++) {
-						if(temp_states.get(i).getID() == startStateID) {
-							startState= temp_states.get(i);
-							startFound = true;
-						} else if(temp_states.get(i).getID() == endStateID) { 
-							endState = temp_states.get(i);
-							endFound = true;
-						}
-					}
-					
-					if(!startFound || !endFound) {
-						keyMap.put("invalidStateID", true);
-					}
-					
-					transition = new Transition(startState, endState);
-					transitions.getTempAttr().add(transition); 
-				}
-			}
+			extract(transitionList);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	private static void extract(NodeList transitionList) {
+		
+		for(int i = 0; i< transitionList.getLength(); i++) {
+			Node tranNode = transitionList.item(i);
+			String startStateStr; 
+			String endStateStr; 
+			
+			if(tranNode.getNodeType() == Node.ELEMENT_NODE) {
+				
+				if(!tranNode.getNodeName().equals("transition")) {
+					keyMap.put("incorrectTransitionTag", true);
+				}
+				
+				Element transElement = (Element) tranNode; 
+				
+				//This will hold state id. 
+				
+				startStateStr = transElement.getAttribute("startstate");
+				endStateStr = transElement.getAttribute("endstate");
+				
+				//This contains that actual id values for states 
+				
+				ArrayList<State> temp_states = (ArrayList<State>) wfi.getTempStates();
+				addTransIfExists(temp_states, startStateStr, endStateStr);
+			}
+		}
+	}
+	
+	private static void addTransIfExists(ArrayList<State> temp_states, String startStateStr, String endStateStr) {
+		
+		Transition transition;
+		
+		State startState = null;
+		State endState = null;
+		
+		int startStateID = Integer.parseInt(startStateStr);
+		int endStateID = Integer.parseInt(endStateStr);
+		
+		boolean startFound = false; 
+		boolean endFound = false;
+		
+		for(int j = 0; j < temp_states.size(); j++) {
+			if(temp_states.get(j).getID() == startStateID) {
+				startState= temp_states.get(j);
+				startFound = true;
+			} else if(temp_states.get(j).getID() == endStateID) { 
+				endState = temp_states.get(j);
+				endFound = true;
+			}
+		}
+		
+		if(!startFound || !endFound) {
+			keyMap.put("invalidStateID", true);
+		} else {
+			transition = new Transition(startState, endState);
+			transitions.getTempAttr().add(transition); 
 		}
 	}
 	
