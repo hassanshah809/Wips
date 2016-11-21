@@ -65,18 +65,14 @@ public class UserParser extends Parser {
 	public void parse() {
 
 		try {
-
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(fileName);
 			doc.getDocumentElement().normalize();
 
-			User user;
-
 			NodeList userList = doc.getElementsByTagName("user");
 			
 			extractUsers(userList);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,14 +82,9 @@ public class UserParser extends Parser {
 	private static void extractUsers(NodeList userList) {
 		
 		for (int i = 0; i < userList.getLength(); i++) {
-
-			ArrayList<Entity> roleArrayList = new ArrayList<Entity>();
-			ArrayList<String> valuesArrayList = new ArrayList<String>();
-
 			Node userNode = userList.item(i);
 
 			String username = "";
-			String role = "";
 
 			if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element userElement = (Element) userNode;
@@ -108,7 +99,6 @@ public class UserParser extends Parser {
 				Node node1 = userNode.getFirstChild();
 				Node node2 = node1.getNextSibling();
 				
-			
 				//If the roles come first then I order node1 and then node2.
 				//Else then I would order node2 (Which should contain roles) and then node1 which should
 				//contain values. I'm doing this because the code handles roles first and then values. 
@@ -142,7 +132,6 @@ public class UserParser extends Parser {
 					Element roleElement = (Element) roleNode;
 					role = roleElement.getAttribute("value");
 
-					Entity entity;
 					ArrayList<Entity> entities = (ArrayList<Entity>) wfi.getTempAttr();
 					boolean roleFound = false;
 
@@ -154,7 +143,7 @@ public class UserParser extends Parser {
 					}
 
 					if (!roleFound) {
-
+						keyMap.put("roleNotFound", true);
 					}
 				}
 			}
