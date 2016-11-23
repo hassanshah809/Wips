@@ -91,7 +91,7 @@ public class LogInController {
 			//if(realUser != null && realUser.isDeveloper()) {
 			//If the user is developer then open the following screen
 			 Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
-			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
+			 OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
 			//}
 			
 			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));

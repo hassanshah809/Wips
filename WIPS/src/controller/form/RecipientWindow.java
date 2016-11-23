@@ -3,6 +3,9 @@ package controller.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.forms.CoupleForSending;
@@ -13,9 +16,24 @@ import model.wips.intermediates.OrReq;
 
 public class RecipientWindow {
 
+	@FXML
+	VBox vbox;
+	
 	private CoupleForSending[] coupleForSending;
 	private AbsReq selectedStates = null;
 
+	@FXML
+	protected void initialize() {
+		//assume the size is 5
+		for (int i = 0; i < 5; i++) {
+			CoupleForSending cs = new CoupleForSending();
+			HBox hBox = new HBox();
+			hBox.getChildren().add(cs.getdisVal());
+			hBox.getChildren().add(cs.getfilUser());
+			vbox.getChildren().add(hBox);
+		}
+	}
+	
 	public void show() {
 		Wips wips = Wips.getInstance();
 		int indexOfNextStates = wips.getIndexOfNextState();
