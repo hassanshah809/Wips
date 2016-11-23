@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import model.Wips;
 import model.user.EndUser;
@@ -19,18 +25,41 @@ public class RecipientWindow {
 	@FXML
 	VBox vbox;
 	
+	@FXML
+	ScrollPane sp;
+	
 	private CoupleForSending[] coupleForSending;
 	private AbsReq selectedStates = null;
 
 	@FXML
 	protected void initialize() {
-		//assume the size is 5
-		for (int i = 0; i < 5; i++) {
+		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+		//assume the size is 10
+		for (int i = 0; i < 10; i++) {
 			CoupleForSending cs = new CoupleForSending();
-			HBox hBox = new HBox();
-			hBox.getChildren().add(cs.getdisVal());
-			hBox.getChildren().add(cs.getfilUser());
-			vbox.getChildren().add(hBox);
+			GridPane gridpane = new GridPane();
+			
+			RowConstraints row1 = new RowConstraints();
+	 	    row1.setVgrow(Priority.SOMETIMES);
+	 	        
+	 	    ColumnConstraints col1 = new ColumnConstraints();
+	 	    col1.setPercentWidth(50);
+	 	    ColumnConstraints col2 = new ColumnConstraints();
+	 	    col2.setPercentWidth(50);
+	 	     
+	 	    gridpane.add(cs.getdisVal(), 0, 1); 
+		    gridpane.add(cs.getfilUser(), 1, 1);
+		    
+		    gridpane.getRowConstraints().addAll(row1);
+ 	        gridpane.getColumnConstraints().addAll(col1,col2);
+ 	        
+ 	        gridpane.setHgap(10);
+			gridpane.setVgap(10);
+			gridpane.setPrefHeight(150);
+			gridpane.setPadding(new Insets(0, 10, 0, 10));
+			vbox.getChildren().add(gridpane);
+			
 		}
 	}
 	
