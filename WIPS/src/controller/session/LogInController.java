@@ -83,26 +83,18 @@ public class LogInController {
 			//Get Password
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works
-			User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
-			if(realUser != null && realUser.isDeveloper()) {
-//			//If the user is developer then open the following screen
-				Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
-				OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
-				
-			}
 			//User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
 			//if(realUser != null && realUser.isDeveloper()) {
-			//If the user is developer then open the following screen
-			 Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
-			 OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
-			//}
-			
+//			//If the user is developer then open the following screen
+		//		Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
+		//		OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");	
+			//}			
 			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
 			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 			//If the user is enduser then open the following screen
-			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
-			//OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
+			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+			OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
 		}
 	}
 }
