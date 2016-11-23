@@ -17,38 +17,44 @@ public class Couple implements Serializable{
 	 * This will be a unique id for the couple object
 	 */
 	private int coupleId;
-	Label l;
-	TextField tf;
-	/**
-	 * It will only contain two columns
-	 */
-	private GridLayout gridview;
+	
+	String heading;
+	boolean isrequired;
+	boolean userField;
 	
 	/**
 	 * This is the constructor that creates the new couple object
 	 */
-	public Couple(Label	l, TextField tf) {
-		this.l = l;
-		this.tf = tf;
-		coupleId++;
+	public Couple(String heading, boolean isrequired, boolean userField) {
+		this.heading = heading;
+		this.isrequired = isrequired;
+		this.userField = userField;
+		//coupleId++;
 	}
-//	/**
-//	 * This method returns the currently selected field in the couple object
-//	 * @return Field
-//	 */
-//	public Field getField(int i) {
-//		return fields[i];
-//	}
+
+	public String getHeading() {
+		return heading;
+	}
+
+	public void setHeading(String heading) {
+		this.heading = heading;
+	}
+
+	public boolean isIsrequired() {
+		return isrequired;
+	}
+
+	public void setIsrequired(boolean isrequired) {
+		this.isrequired = isrequired;
+	}
+
+	public boolean isUserField() {
+		return userField;
+	}
+
+	public void setUserField(boolean userField) {
+		this.userField = userField;
+	}
 	
-//	/**
-//	 * This will set the value of the specific field.  For example, if that field is combo box then it will set its content via this method
-//	 * @param strings String
-//	 */
-//	public void setField(String ...strings ) {
-//		//maybe
-//	}
 	
-//	public void addField(Field f, int i) {
-//		fields[i] = f;
-//	}
 }

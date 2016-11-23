@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import model.Wips;
 import model.user.EndUser;
 
@@ -52,4 +53,18 @@ public class CoupleForSending {
 			
 		});
 	}
+	
+	public CoupleForSending(){
+		distinctValues = new ListView<>();
+		filteredEndUser = new ListView<>();
+	}
+	
+	public ListView<String> getdisVal(){
+		return distinctValues;
+	}
+	
+	public ListView<EndUser> getfilUser() {
+		return filteredEndUser;
+	}
+	
 }
