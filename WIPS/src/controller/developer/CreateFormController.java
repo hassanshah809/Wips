@@ -1,15 +1,13 @@
 package controller.developer;
 
 import java.io.IOException;
-
-import com.sun.org.apache.xpath.internal.axes.ChildIterator;
+import java.util.ArrayList;
 
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -26,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import model.wips.forms.Couple;
 
 public class CreateFormController {
 
@@ -36,7 +35,7 @@ public class CreateFormController {
 	AnchorPane ap;
 	
 	@FXML
-	Button addbtn, createbtn, logoutbtn;
+	Button addbtn, createbtn, backbtn,logoutbtn;
 
 	@FXML
 	VBox vbox;
@@ -44,6 +43,7 @@ public class CreateFormController {
 	@FXML
 	ScrollPane sp;
 	
+	ArrayList<Couple> couples = new ArrayList<Couple>();
 	
 	int temp = 1, temp2 = 1;
 	
@@ -56,17 +56,21 @@ public class CreateFormController {
 
 		vbox.setFillWidth(true);
 		
-
 		tedit.setPrefRowCount(1);
 		tedit.requestLayout();
 		
-		
 		dedit.setPrefRowCount(1);
 		dedit.requestLayout();
+
+		//Add two couples for title and description.
+		Couple dummyT = new Couple("", false, false);
+		couples.add(dummyT);
+		Couple dummyD = new Couple("", false, false);
+		couples.add(dummyD);
    }	
 	
 	@FXML
-	private void textKeyPressed(KeyEvent event)	{
+	private void textKeyPressed(KeyEvent event)	{		 
 		if (event.getCode() == KeyCode.ENTER) {
 			tedit.setPrefRowCount(tedit.getPrefRowCount() + 1);
 			tedit.requestLayout();
@@ -80,6 +84,7 @@ public class CreateFormController {
 	
 	@FXML
 	private void textKeyPressedTwo(KeyEvent event)	{
+		
 		if (event.getCode() == KeyCode.ENTER) {
 			dedit.setPrefRowCount(dedit.getPrefRowCount() + 1);
 			dedit.requestLayout();
@@ -90,16 +95,29 @@ public class CreateFormController {
 			temp2 --;
 		}
 	}
+			
+	private void updateReqArray(int index, boolean tf){
+		Couple dummyCouple = couples.get(index);
+		dummyCouple.setIsrequired(tf);
+		couples.set(index, dummyCouple);
+	}
 	
-	private String getFormTD(int childindex){
-		TextArea dummy =  (TextArea)(vbox.getChildren().get(childindex));
-		String result = dummy.getText();
-		return result;	
-	}	
+	private void updateUFArray (int index, boolean tf) {
+		Couple dummyCouple = couples.get(index);
+		dummyCouple.setUserField(tf);
+		couples.set(index, dummyCouple);
+	}
+	
+	private void updateTArray(int index, String s){
+		Couple dummyCouple = couples.get(index);
+		dummyCouple.setHeading(s);
+		couples.set(index, dummyCouple);
+	}
 	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == addbtn) {
+			
 			ToggleButton addDelField = new ToggleButton("Delete user field");
 			
 			 GridPane gridpane = new GridPane();
@@ -116,21 +134,17 @@ public class CreateFormController {
 			 
 			 TextArea ta = new TextArea();
 			 ta.setWrapText(true);
+			 
 			 ta.setOnKeyPressed(new EventHandler<KeyEvent>() {
 		            @Override
 		            public void handle(KeyEvent event) {
-
-		            	if (event.getCode() == KeyCode.ENTER) {
-		        			ta.setPrefRowCount(ta.getPrefRowCount() + 1);
-		        			ta.requestLayout();
-		        		} else if (event.getCode() == KeyCode.BACK_SPACE) {
-		        			
-		        			int num2 = ta.getText().split("\n").length+1;
-		        			ta.setPrefRowCount(num2-1);
-		        			ta.requestLayout();
-		        		}
+		            	 ta.textProperty().addListener((observable, oldValue, newValue) -> {
+		 				 	int cIndex = vbox.getChildren().indexOf((GridPane)((TextArea)event.getSource()).getParent());
+		 	            	updateTArray(cIndex, ta.getText());
+		 				});
 		            }
 		        });
+
 			
 			 HBox hb = new HBox();
 			 
@@ -147,15 +161,18 @@ public class CreateFormController {
 		            @Override
 		            public void handle(ActionEvent event) {
 		            	if(requiredT.isSelected()){
+		            		int cIndex = vbox.getChildren().indexOf((GridPane) ((VBox)((ToggleButton)event.getSource()).getParent()).getParent());
+		            		updateReqArray(cIndex,true);
 		            		requiredT.setStyle("-fx-background-color: #f25c21");
 			                requiredT.setText("*Required");
 		    	 	        addDelField.setVisible(false);
 
 		            	} else {
+		            		int cIndex = vbox.getChildren().indexOf((GridPane) ((VBox)((ToggleButton)event.getSource()).getParent()).getParent());
+		            		updateReqArray(cIndex,false);
 		            		requiredT.setStyle(null);
 			                requiredT.setText("Required");
 		    	 	        addDelField.setVisible(true);
-
 		            	}
 		            }
 		        });
@@ -167,8 +184,8 @@ public class CreateFormController {
 					@Override
 					public void handle(MouseEvent event) {
 						deleteBtn.setStyle("-fx-background-color: #f25c21");
-						//System.out.println( (GridPane) ((VBox)((Button)event.getSource()).getParent()).getParent() );
-						//int slectedGridView = vBox.getSelectionModel().getSelectedItem();
+		    	 	    int cIndex = vbox.getChildren().indexOf((GridPane) ((VBox)((Button)event.getSource()).getParent()).getParent());
+		    	 	    couples.remove(cIndex);
 						vbox.getChildren().remove((GridPane) ((VBox)((Button)event.getSource()).getParent()).getParent());
 					}
 				});
@@ -185,7 +202,8 @@ public class CreateFormController {
 		    	 	        col1.setPercentWidth(80);
 		    	 	        col2.setPercentWidth(0);
 		    	 	        requiredT.setVisible(false);
-
+		    	 	       int cIndex = vbox.getChildren().indexOf((GridPane) ((VBox)((ToggleButton)event.getSource()).getParent()).getParent());
+		    	 	        updateUFArray(cIndex, true);
 	            		
 		            	} else {
 		            		addDelField.setText("Delete user field");
@@ -196,7 +214,8 @@ public class CreateFormController {
 		    	 	        col1.setPercentWidth(40);
 		    	 	        col2.setPercentWidth(40);
 		    	 	        requiredT.setVisible(true);
-
+		            		int cIndex = vbox.getChildren().indexOf((GridPane) ((VBox)((ToggleButton)event.getSource()).getParent()).getParent());
+		    	 	        updateUFArray(cIndex, false);
 		            	}
 		            }
 		        });
@@ -220,16 +239,28 @@ public class CreateFormController {
 			gridpane.setHgap(10);
 			gridpane.setVgap(10);
 			gridpane.setPrefHeight(0);
-			sp.setVvalue(1.0); 
+			sp.setVvalue(1.0);
+			
+			Couple dummyC = new Couple(ta.getText(), false, false);
+			couples.add(dummyC);
+			
 			
 		}  else if (b == createbtn) {
-			
-			
+			//Add title to the array list
+			updateTArray(0, tedit.getText());
+			//Add description to the array list
+			updateTArray(1, dedit.getText());
+			for (Couple c : couples)
+			    System.out.println(c.getHeading() + "    " + c.isIsrequired() + "    " + c.isUserField());
+				System.out.println("");
+		
 		} else if (b == logoutbtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
+		} else if (b == backbtn) {
+			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dstatepscreen.fxml"));
+			//OpenScreen.openScreen("dstatepscreen.fxml", handler, "State Permission", l, getClass(),"/view/developer/dstatepscreen.css");
 		}
-		
 	}
 
 }

@@ -94,8 +94,8 @@ public class LogInController {
 				OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");
 				
 //			}
-			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
-			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
+		//	Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
+	//		OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 			//If the user is enduser then open the following screen
 			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
