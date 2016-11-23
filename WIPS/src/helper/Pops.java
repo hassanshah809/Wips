@@ -1,15 +1,16 @@
 package helper;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
