@@ -10,6 +10,7 @@ import helper.OpenScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -68,7 +69,7 @@ public class FormController {
 		
 		//Assume we have couples from the form object
 		ArrayList<Couple> dummyC = new ArrayList<Couple>();
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 20; i++) {
 			boolean req = getRandomBoolean();
 			boolean f = getRandomBoolean();
 			if(f == true && req == true) {
@@ -90,6 +91,7 @@ public class FormController {
 		for(int i = 0; i < dummyC.size(); i++) {
 			vbox.getChildren().add(createCoupleRow(dummyC.get(i)));			
 		}
+
 		vbox.setSpacing(15);
 		System.out.println(vbox.getChildren().size());
 	}
@@ -129,7 +131,9 @@ public class FormController {
  	        gridpane.getColumnConstraints().addAll(col1,col2,col3);
  	        
  	        gridpane.setHgap(10);
-			gridpane.setVgap(10);
+//			gridpane.setVgap(10);
+			gridpane.setPadding(new Insets(5, 20, 5, 20)); //margins around the whole grid
+
 			
 		} else if (couple.isUserField() && !couple.isIsrequired()) {
 			System.out.println("b");
@@ -150,7 +154,9 @@ public class FormController {
  	        gridpane.getColumnConstraints().addAll(col1);
  	        
  	        gridpane.setHgap(10);
-			gridpane.setVgap(10);
+			//gridpane.setVgap(10);
+			gridpane.setPadding(new Insets(5, 20, 5, 20)); //margins around the whole grid
+
 			
 		} else if (!couple.isUserField() && !couple.isIsrequired()) {
 			System.out.println("c");
@@ -180,7 +186,9 @@ public class FormController {
  	        gridpane.getColumnConstraints().addAll(col1,col2);
  	        
  	        gridpane.setHgap(10);
-			gridpane.setVgap(10);
+			//gridpane.setVgap(10);
+			gridpane.setPadding(new Insets(5, 20, 5, 20)); //margins around the whole grid
+
 		}
 		return gridpane;
 	}
