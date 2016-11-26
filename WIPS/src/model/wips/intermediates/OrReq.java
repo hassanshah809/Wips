@@ -31,4 +31,9 @@ public class OrReq implements AbsReq{
 	public void markedSend() {
 		t.setIsActive(true);
 	}
+	
+	@Override
+	public String toString() {
+		return t.toString();
+	}
 }

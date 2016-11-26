@@ -19,7 +19,8 @@ public class Pops {
 	
 	public static Alert pop(Alert.AlertType c ,String message, String s) {
 		Alert alertBox = new Alert(c, message, ButtonType.OK, ButtonType.CANCEL);
-		alertBox.setContentText(s);
+		alertBox.setContentText(message);
+		alertBox.setTitle(s);
 		alertBox.showAndWait();
 		return alertBox;
 	}

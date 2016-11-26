@@ -45,9 +45,9 @@ public class State implements Serializable {
 
 	private Set<String> distinctVals;
 
-	private List<AbsReq> startWithMe = null;
-	private List<AbsReq> endWithMe = null;
-
+	private List<OrReq> startWithMe = null;
+	private List<OrReq> endWithMe = null;
+	private AndReq andr= new AndReq();
 	/**
 	 * This constructor sets the unique id for the state.
 	 * 
@@ -62,23 +62,20 @@ public class State implements Serializable {
 
 	public void populate() {
 		if (startWithMe == null && endWithMe == null) {
-			startWithMe = new ArrayList<AbsReq>();
-			AbsReq andS = new AndReq();
-			endWithMe = new ArrayList<AbsReq>();
-			AbsReq andE = new AndReq();
+			startWithMe = new ArrayList<OrReq>();
+	//		AbsReq andS = new AndReq();
+			endWithMe = new ArrayList<OrReq>();
+	//		AbsReq andE = new AndReq();
 			for (Transition t : Wips.getInstance().getCurrentWorkFlow().getTransition()) {
-				if (this.equals(t.getStartState()) && t.getReq()) {
-					andS.add(t);
-				} else {
-					AbsReq or = new OrReq(t);
+				if(this.equals(t.getStartState())){
+					OrReq or = new OrReq(t);
 					startWithMe.add(or);
 				}
+				
 
-				if (this.equals(t.getEndState()) && t.getReq()) {
-					andE.add(t);
-				} else {
-					AbsReq or = new OrReq(t);
-					endWithMe.add(or);
+				if (this.equals(t.getEndState())) {
+					OrReq orn = new OrReq(t);
+					endWithMe.add(orn);
 				}
 			}
 		}
@@ -197,11 +194,13 @@ public class State implements Serializable {
 		return distinctVals;
 	}
 
-	public List<AbsReq> getStartWithMe() {
+	public List<OrReq> getStartWithMe() {
+		populate();
 		return startWithMe;
 	}
 
-	public List<AbsReq> getEndState() {
+	public List<OrReq> getEndState() {
+		populate();
 		return endWithMe;
 	}
 
@@ -218,5 +217,13 @@ public class State implements Serializable {
 	@Override
 	public String toString() {
 		return getEntity().getRole() + " " + getID();
+	}
+	
+	public void addand(Transition t) {
+		andr.add(t);
+	}
+	
+	public AndReq getAnd() {
+		return andr;
 	}
 }

@@ -18,6 +18,7 @@ import model.Wips;
 import model.wips.State;
 import model.wips.Transition;
 import model.wips.WorkFlow;
+import model.wips.intermediates.OrReq;
 
 public class StatePermissionController {
 	
@@ -27,7 +28,10 @@ public class StatePermissionController {
 	@FXML
 	ListView<State> allState;
 	@FXML
-	ListView<Transition> incomingStates, reqState;
+	ListView<Transition> reqState;
+	@FXML
+	ListView<OrReq> incomingStates;
+
 //	/**
 //	 * This is the object which will display all states that are associated with 
 //	 * this workflow. Each state listed in this view will be associated with the 
@@ -53,7 +57,7 @@ public class StatePermissionController {
 	AbsError e;
 	
 	private ObservableList<State> allStatesOb;
-	private ObservableList<Transition> incomingOb;
+	private ObservableList<OrReq> incomingOb;
 	private ObservableList<Transition> reqStatesOb;
 	private Wips wips;
 	private WorkFlow wf;
@@ -79,13 +83,7 @@ public class StatePermissionController {
 	public void getTransitions(State state) {
 		//gets all the transitions of each state
 		incomingOb = FXCollections.observableArrayList();
-		for(Transition s: wips.getAllWorkFlows().get(wips.getAllWorkFlows().size()-1).getTransition()){
-			System.out.println("in for loop in state perm");
-			if(state.equals(s.getStartState())){
-				incomingOb.add(s);
-				System.out.println("in if ");
-			}
-		}
+		incomingOb.addAll(state.getStartWithMe());
 		incomingStates.setItems(incomingOb);
 	}
 	
@@ -100,10 +98,23 @@ public class StatePermissionController {
 	/**
 	 * This updates the required value field in the chosen State object
 	 */
-	public void updateReq() {
+	public void updateReq(State state) {
 		//update the required field in each state
 		reqStatesOb = FXCollections.observableArrayList();
-		// get transitions from incomingstatesOb and markded them required;
+		int indexOfIncomingStates = incomingStates.getSelectionModel().getSelectedIndex();
+		if(indexOfIncomingStates >= 0) {
+			OrReq t = incomingStates.getSelectionModel().getSelectedItem();
+			
+			t.getTransition().setReq(true);
+			state.addand(t.getTransition());
+			state.getStartWithMe().remove(indexOfIncomingStates);
+			System.out.println("andtr size " + state.getAnd().getAndTransitions().size());
+		}
+		
+		System.out.println("size of andr in state perm " + state.getAnd().size());
+		reqStatesOb.addAll(state.getAnd().getAndTransitions());
+		reqState.setItems(reqStatesOb);
+		getTransitions(state);
 		
 	}
 	
@@ -125,6 +136,7 @@ public class StatePermissionController {
 		Button b = (Button) handler.getSource();
 		if (b == addBtn) {
 			//adds the selected state
+			updateReq(incomingStates.getSelectionModel().getSelectedItem().getTransition().getStartState());
 			
 		} else if (b == removeBtn) {
 			//remove slected index from the added list
@@ -162,6 +174,24 @@ public class StatePermissionController {
 			@Override
 			public void changed(ObservableValue<? extends State> observable, State oldValue, State newValue) {
 				getTransitions(newValue);
+				updateReq(newValue);
+				enableDisableBtn(true, true);
+			}
+		});
+		
+		incomingStates.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<OrReq>() {
+
+			@Override
+			public void changed(ObservableValue<? extends OrReq> observable, OrReq oldValue, OrReq newValue) {
+				enableDisableBtn(false, true);
+			}
+		});
+		
+		reqState.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Transition>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Transition> observable, Transition oldValue, Transition newValue) {
+				enableDisableBtn(true, false);
 			}
 		});
 	}

@@ -130,6 +130,7 @@ public class CreateWorkFlowController {
 		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
 		Wips.getInstance().getAllWorkFlows().add(wf);
+		Wips.getInstance().setCurrentWorkFlow(wf);
 		//wf.addUser(users.getTempAttr());
 		
 	}

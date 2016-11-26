@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import errors.AbsError;
 import helper.OpenScreen;
+import helper.Pops;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.Wips;
@@ -57,6 +59,8 @@ public class LogInController {
 					w.setCurrentUser(w.getUsers().get(w.getUsers().indexOf(user)));
 					return passup;
 				}
+			}else {
+				Pops.pop(AlertType.ERROR, "this is the message", "authentication error");
 			}
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
@@ -83,18 +87,18 @@ public class LogInController {
 			//Get Password
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works
-			//User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
-			//if(realUser != null && realUser.isDeveloper()) {
-//			//If the user is developer then open the following screen
-		//		Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
-		//		OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");	
-			//}			
+		//	User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
+		//	if(realUser != null && realUser.isDeveloper()) {
+//			If the user is developer then open the following screen
+				Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
+				OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");	
+	//		}			
 			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
 			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 			//If the user is enduser then open the following screen
-			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
-			OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
+	//		Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+	//		OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
 		}
 	}
 }
