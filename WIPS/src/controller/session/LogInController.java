@@ -1,8 +1,7 @@
 package controller.session;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import errors.AbsError;
 import helper.OpenScreen;
@@ -108,8 +107,8 @@ public class LogInController {
 			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 			//If the user is enduser then open the following screen
-	//		Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
-	//		OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
+			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+			//OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
 		}
 	}
 }
