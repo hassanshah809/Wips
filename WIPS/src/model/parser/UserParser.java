@@ -21,32 +21,32 @@ public class UserParser extends Parser {
 	 * This list contains all usernames that have been found in the XML parser
 	 */
 		
-	ArrayList<String> userNames;
+	static ArrayList<String> userNames;
 	
 	/**
 	 * This hashmap contains a String regarding the "type of" error that was encountered while parsing.
 	 */
 	
-	HashMap<String,Boolean> keyMap; 
+	static HashMap<String,Boolean> keyMap; 
 	
 	/**
 	 * This contains the intermediate object which contains the list of all
 	 * States and Entities associated with the "to-be-created" workflow.
 	 */
 
-	WorkFlowInter<Entity, State> wfi;
+	static WorkFlowInter<Entity, State> wfi;
 
 	/**
 	 * This contains the intermediate object which contains all user information
 	 * parsed from the user xml file.
 	 */
 
-	GenInter<User> usersInter = new GenInter<User>();
+	static GenInter<User> usersInter = new GenInter<User>();
 
 	/**
 	 * it creates new user parser object
 	 */
-	public UserParser(File userFile, WorkFlowInter<Entity, State> wfi) {
+	public UserParser(File userFile, WorkFlowInter wfi) {
 		super(userFile);
 		this.wfi = wfi;
 		keyMap = new HashMap<String, Boolean>();
@@ -79,7 +79,7 @@ public class UserParser extends Parser {
 	}
 	
 	
-	private void extractUsers(NodeList userList) {
+	private static void extractUsers(NodeList userList) {
 		
 		for (int i = 0; i < userList.getLength(); i++) {
 			Node userNode = userList.item(i);
@@ -89,15 +89,32 @@ public class UserParser extends Parser {
 			if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element userElement = (Element) userNode;
 				username = userElement.getAttribute("name");
-
+				
+				NodeList children = userNode.getChildNodes();
+				ArrayList<Node> childNodes = new ArrayList<Node>();
+				
 				if (!userNames.contains(username)) {
 					userNames.add(username);
 				} else {
 					keyMap.put("duplicateUserName", true);
 				}
-
-				Node node1 = userNode.getFirstChild();
-				Node node2 = node1.getNextSibling();
+				
+				for(int j = 0; j < children.getLength(); j++) {
+					if(children.item(j).getNodeType() == Node.ELEMENT_NODE) {
+						childNodes.add(children.item(j));
+					}
+				}
+				
+				Node node1 = childNodes.get(0);
+				Node node2 = childNodes.get(1);
+				
+				//Node node1 = userNode.getFirstChild();
+				//Node node2 = node1.getNextSibling();
+				
+				if(node2.getNextSibling() != null) {
+					//Uh oh.. we shouldn't have more than 3 sub nodes for users.
+					//Throw some error
+				}
 				
 				//If the roles come first then I order node1 and then node2.
 				//Else then I would order node2 (Which should contain roles) and then node1 which should
@@ -112,7 +129,7 @@ public class UserParser extends Parser {
 		}
 	}
 	
-	private void handleChildren(Node node1, Node node2) {
+	private static void handleChildren(Node node1, Node node2) {
 		
 		User user;
 		
