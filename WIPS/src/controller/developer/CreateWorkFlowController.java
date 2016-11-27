@@ -90,7 +90,8 @@ public class CreateWorkFlowController {
 		parser = new TransitionParser(file,wfi);
 		parser.parse();
 		Object o = parser.getInters();
-		transitions = (o instanceof GenInter ? (GenInter<Transition>) o : null);		
+		transitions = (o instanceof GenInter ? (GenInter<Transition>) o : null);	
+		System.out.println("size of transitions in creat wf contrl   " + transitions.getTempAttr().size());
 	}
 	
 	/**
@@ -129,12 +130,18 @@ public class CreateWorkFlowController {
 	public void finish() {
 		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
-		Wips.getInstance().getAllWorkFlows().add(wf);
+	//	Wips.getInstance().getAllWorkFlows().add(wf);
 		Wips.getInstance().setCurrentWorkFlow(wf);
 		//wf.addUser(users.getTempAttr());
+		reset();
 		
 	}
 
+	public void reset() {
+		e = null;
+		users = null;
+		transitions = null;
+	}
 	/**
 	* This method will get the xml file and returns the file object
 	*/

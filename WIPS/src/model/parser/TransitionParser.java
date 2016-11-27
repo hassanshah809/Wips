@@ -4,6 +4,7 @@ import org.w3c.dom.*;
 
 import model.parser.intermediates.GenInter;
 import model.parser.intermediates.WorkFlowInter;
+import model.wips.Entity;
 import model.wips.State;
 import model.wips.Transition;
 
@@ -14,14 +15,14 @@ import java.util.HashMap;
 
 public class TransitionParser extends Parser {
 	
-	static HashMap<String,Boolean> keyMap;
+	 HashMap<String,Boolean> keyMap;
 	
 	/**
 	 * This contains the workflow intermediate object which contains all the states and entities which 
 	 * contains  
 	 */
 	
-	static WorkFlowInter<Entity,State> wfi; 
+	WorkFlowInter<Entity,State> wfi; 
 	
 	
 	/**
@@ -29,16 +30,16 @@ public class TransitionParser extends Parser {
 	 * transitions XML file
 	 */
 	
-	static GenInter<Transition> transitions = new GenInter<Transition>();
+	GenInter<Transition> transitions = new GenInter<Transition>();
 	
 	/**
 	 * This is the constructor for the TransitionParser module. This constructor takes two arguments:
 	 * A File transitionFile which stores the XML file to be parsed and the WorkFlowInter wfi
 	 * object which will be used in the parse() method to reference created states and entities.
 	 */
-	public TransitionParser(File transitionFile, WorkFlowInter wfi) {
+	public TransitionParser(File transitionFile, WorkFlowInter<Entity,State> wfi2) {
 		super(transitionFile);
-		this.wfi = wfi; 
+		this.wfi = wfi2; 
 		this.keyMap = new HashMap<String, Boolean>(); 
 		keyMap.put("incorrectTransitionTag", false);
 		keyMap.put("invalidStateID", false);
@@ -70,7 +71,7 @@ public class TransitionParser extends Parser {
 	}
 	
 	
-	private static void extract(NodeList transitionList) {
+	private void extract(NodeList transitionList) {
 		
 		for(int i = 0; i< transitionList.getLength(); i++) {
 			Node tranNode = transitionList.item(i);
@@ -98,7 +99,7 @@ public class TransitionParser extends Parser {
 		}
 	}
 	
-	private static void addTransIfExists(ArrayList<State> temp_states, String startStateStr, String endStateStr) {
+	private void addTransIfExists(ArrayList<State> temp_states, String startStateStr, String endStateStr) {
 		
 		Transition transition;
 		

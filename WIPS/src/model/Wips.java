@@ -44,9 +44,11 @@ public class Wips implements Serializable{
 	**/
 	private WorkFlow currentWorkflow;
 	private int indexOfNextState = -1;
+	private IdsOfEveryClass idsOfEveryClass;
 	
 	private Wips() {
 		users = new ArrayList<User>();
+		idsOfEveryClass = new IdsOfEveryClass();
 	}
 	public List<EndUser> getEndUser() {
 		List<EndUser> endusers = new ArrayList<EndUser>();  
@@ -106,6 +108,9 @@ public class Wips implements Serializable{
 		return wips;
 	}
 
+	public IdsOfEveryClass getIdsOfEveryClass() {
+		return idsOfEveryClass;
+	}
 	public void make () throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeUser + File.separator + "wips" + "/wips"));
 		oos.writeObject(this);

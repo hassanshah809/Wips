@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Wips;
 import model.user.EndUser;
 import model.user.User;
 import model.wips.forms.Form;
@@ -49,7 +50,7 @@ public class WorkFlow implements Serializable{
 	 *The empty constructor
 	 */
 	public WorkFlow() {
-		id++;;
+		id = Wips.getInstance().getIdsOfEveryClass().getWorkFlowId();
 		this.state = new ArrayList<State>();
 		this.entity = new ArrayList<Entity>();
 		this.transition = new ArrayList<Transition>();
@@ -66,11 +67,10 @@ public class WorkFlow implements Serializable{
 	 * @param form  Form
 	 */
 	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition) {
-		id++;
+		id = Wips.getInstance().getIdsOfEveryClass().getWorkFlowId();
 		this.state = states;
 		this.entity = entities;
 		this.transition = transition;
-		this.form = form;
 		this.users = new ArrayList<EndUser>();
 	}
 	
@@ -157,5 +157,10 @@ public class WorkFlow implements Serializable{
 	
 	public State getCurrentState() {
 		return this.currentState;
+	}
+	
+	@Override
+	public String toString() {
+		return "" + getID();
 	}
 }

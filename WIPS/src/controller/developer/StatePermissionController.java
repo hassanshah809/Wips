@@ -85,6 +85,8 @@ public class StatePermissionController {
 		incomingOb = FXCollections.observableArrayList();
 		incomingOb.addAll(state.getStartWithMe());
 		incomingStates.setItems(incomingOb);
+		System.out.println("size of the trans " + state.getStartWithMe().size());
+
 	}
 	
 	/**
@@ -116,14 +118,24 @@ public class StatePermissionController {
 		reqState.setItems(reqStatesOb);
 		getTransitions(state);
 		
+		if(incomingStates.getSelectionModel().getSelectedItems().size() <= 0)
+			enableDisableBtn(true, true);
+		
 	}
 	
 	/**
 	 * Checks the if the inputted value is less than or equal to the number of transitions 
 	 * which lead to that state
 	 */
-	public void check() {
-		//handles errors
+	public void remove(Transition t) {
+		t.setReq(false);
+		State state = allState.getSelectionModel().getSelectedItem();
+		state.getStartWithMe().add(new OrReq(t));
+		state.getAnd().getAndTransitions().remove(t);
+		getTransitions(state);
+		updateReq(state);
+		if(reqState.getSelectionModel().getSelectedItems().size() <= 0)
+			enableDisableBtn(true, true);
 	}
 
 	/**
@@ -140,6 +152,7 @@ public class StatePermissionController {
 			
 		} else if (b == removeBtn) {
 			//remove slected index from the added list
+			remove(reqState.getSelectionModel().getSelectedItem());
 			
 		} else if (b == nextBtn) {
 			//Go to the Form builder screen
@@ -162,11 +175,12 @@ public class StatePermissionController {
 	public void populate() {
 		
 		wips = Wips.getInstance();
-		wf = wips.getAllWorkFlows().get(wips.getAllWorkFlows().size() -1);
+		wf = wips.getCurrentWorkFlow();
 		//wf.getState().add(new State (1,true, new Entity("prof")));
 		System.out.println("size of states " + wf.getState().size());
 		allStatesOb = FXCollections.observableArrayList(wf.getState());
 		allState.setItems(allStatesOb);
+		
 		
 
 		allState.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<State>() {

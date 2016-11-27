@@ -1,12 +1,8 @@
 package model.wips.forms;
 
-import java.awt.GridLayout;
 import java.io.Serializable;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import model.wips.forms.fields.Field;
-import model.wips.forms.fields.Text;
+import javafx.scene.control.TextArea;
 
 public class Couple implements Serializable{
 	/**
@@ -21,6 +17,8 @@ public class Couple implements Serializable{
 	String heading;
 	boolean isrequired;
 	boolean userField;
+	private transient TextArea content;
+	String contentOfTextArea;
 	
 	/**
 	 * This is the constructor that creates the new couple object
@@ -29,6 +27,7 @@ public class Couple implements Serializable{
 		this.heading = heading;
 		this.isrequired = isrequired;
 		this.userField = userField;
+		content = new TextArea();
 		//coupleId++;
 	}
 
@@ -40,7 +39,7 @@ public class Couple implements Serializable{
 		this.heading = heading;
 	}
 
-	public boolean isIsrequired() {
+	public boolean isRequired() {
 		return isrequired;
 	}
 
@@ -56,5 +55,15 @@ public class Couple implements Serializable{
 		this.userField = userField;
 	}
 	
-	
+	public boolean isAllowed() {
+		if(isRequired() && !content.getText().isEmpty()) {
+			contentOfTextArea = content.getText();
+			return true;
+		}
+		if(!isRequired()) {
+			contentOfTextArea = content.getText();
+			return true;
+		}
+		return false;
+	}
 }

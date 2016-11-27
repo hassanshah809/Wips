@@ -1,12 +1,17 @@
 package model.wips.intermediates;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.wips.Transition;
 
-public class AndReq implements AbsReq {
+public class AndReq implements AbsReq, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Transition> and;
 	
 	public AndReq() {

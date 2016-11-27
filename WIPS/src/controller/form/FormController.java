@@ -79,7 +79,7 @@ public class FormController {
 			dummyC.add(dummyCouple);
 		}
 		for (Couple c : dummyC)
-		    System.out.println(c.getHeading() + "    " + c.isIsrequired() + "    " + c.isUserField());
+		    System.out.println(c.getHeading() + "    " + c.isRequired() + "    " + c.isUserField());
 		
 		//Generate the form that was send to the user
 		//Set the title
@@ -99,7 +99,7 @@ public class FormController {
 	private GridPane createCoupleRow(Couple couple) {
 		 GridPane gridpane = new GridPane();
 		//If required is true and user field is false
-		if(couple.isIsrequired() && !couple.isUserField()){
+		if(couple.isRequired() && !couple.isUserField()){
 			System.out.println("a");
 			RowConstraints row1 = new RowConstraints();
  	        row1.setVgrow(Priority.ALWAYS);
@@ -135,7 +135,7 @@ public class FormController {
 			gridpane.setPadding(new Insets(5, 20, 5, 20)); //margins around the whole grid
 
 			
-		} else if (couple.isUserField() && !couple.isIsrequired()) {
+		} else if (couple.isUserField() && !couple.isRequired()) {
 			System.out.println("b");
 
 			RowConstraints row1 = new RowConstraints();
@@ -158,7 +158,7 @@ public class FormController {
 			gridpane.setPadding(new Insets(5, 20, 5, 20)); //margins around the whole grid
 
 			
-		} else if (!couple.isUserField() && !couple.isIsrequired()) {
+		} else if (!couple.isUserField() && !couple.isRequired()) {
 			System.out.println("c");
 
 			RowConstraints row1 = new RowConstraints();

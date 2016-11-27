@@ -24,15 +24,23 @@ public class AdminHomeController {
 	Button createWFBtn, logoutBtn;
 	
 	@FXML
-	ListView<WorkFlow> listview;
+	ListView<WorkFlow> createdWorkFlows;
 	
 	ListView<WorkFlow> list = new ListView<WorkFlow>();
-	ObservableList<WorkFlow> items = FXCollections.observableArrayList();
+	ObservableList<WorkFlow> createdWorkFlowsOb = FXCollections.observableArrayList();
+	
+	
+	@FXML
+	protected void initialize() {
+		//Do something once the FXML is done
+		showFinished();
+	}
 	
 	/**
 	 * Running this method will redirect the workflow application developer to the window where 
 	 * he or she is able to create the workflow.
 	 */
+	
 	public void createWorkFlow() {
 		//This method will open 
 	}
@@ -43,9 +51,8 @@ public class AdminHomeController {
 	 */
 	public void showFinished() {
 		// show all workflows that has been created to list
-		CreatedWorkflowController cw = new CreatedWorkflowController();
-		items = FXCollections.observableArrayList(cw.getCreatedWorkflow());
-		listview.setItems(items);
+		createdWorkFlowsOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+		createdWorkFlows.setItems(createdWorkFlowsOb);
 	}
 	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {

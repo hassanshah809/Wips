@@ -16,8 +16,8 @@ import java.io.*;
 public class WorkFlowParser extends Parser {
 	
 	
-	static HashMap<String,Boolean> keyMap; 
-	static WorkFlowInter<Entity, State> wfi = new WorkFlowInter<>();
+	HashMap<String,Boolean> keyMap; 
+	WorkFlowInter<Entity, State> wfi = new WorkFlowInter<>();
 	
 	/**
 	 * it creates the new workflow parser object
@@ -67,7 +67,7 @@ public class WorkFlowParser extends Parser {
 	}
 	
 	
-	private static void extract(NodeList entityList) {
+	private void extract(NodeList entityList) {
 		
 		Entity entityObj;		
 		
@@ -97,7 +97,7 @@ public class WorkFlowParser extends Parser {
 		}
 	}
 	
-	private static void addToStateInter(NodeList stateList, Entity entityObj) {
+	private void addToStateInter(NodeList stateList, Entity entityObj) {
 		
 		State stateObj;
 		
@@ -147,7 +147,7 @@ public class WorkFlowParser extends Parser {
 		}
 	}
 
-	private static ArrayList<String> extractValues(NodeList valueList, ArrayList<String> values) {
+	private ArrayList<String> extractValues(NodeList valueList, ArrayList<String> values) {
 		
 		for(int k = 0; k < valueList.getLength(); k++) {
 			Node valueNode = valueList.item(k);

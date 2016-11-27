@@ -1,8 +1,10 @@
 package model.wips.forms;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
 
@@ -31,24 +33,34 @@ public class Form implements Serializable{
 	private List<Entity> roles;
 	private List<EndUser> users;
 	
+	
+	/**
+	 * This a constructor to make the new form object
+	 */
+	public Form(String formname) {
+		this.formName = formname;
+		couples = new ArrayList<Couple>();
+		message = new ArrayList<String>();
+		roles = new ArrayList<Entity>();
+		users = new ArrayList<EndUser>();
+		formID = Wips.getInstance().getIdsOfEveryClass().getFormId();
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	* This method will add message to the message list
 	*/
 	public void addMessage(String message) {
 		this.message.add(message);
 	}
-
-	/**
-	 * This a constructor to make the new form object
-	 */
-	public Form(String formname) {
-		this.formName = formname;
-		formID++;
-		// TODO Auto-generated constructor stub
+	
+	public void addCouple(List<Couple> c){
+		for(Couple p: c) {
+			couples.add(p);	
+		}
 	}
 	
-	public void addCouple(Couple c){
-		couples.add(c);
+	public List<Couple> getCouples() {
+		return couples;
 	}
 
 	public void addRoles(Entity role) {
@@ -67,4 +79,15 @@ public class Form implements Serializable{
 		return formName;
 	}
 
+	public boolean isAllowed() {
+		for(Couple c: couples) {
+			if(!c.isAllowed()) 
+				return false;
+		}
+		return true;
+	}
+	
+	public int getFormId() {
+		return formID;
+	}
 }

@@ -24,7 +24,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import model.Wips;
+import model.user.Developer;
 import model.wips.forms.Couple;
+import model.wips.forms.Form;
 
 public class CreateFormController {
 
@@ -44,10 +47,12 @@ public class CreateFormController {
 	ScrollPane sp;
 	
 	ArrayList<Couple> couples = new ArrayList<Couple>();
+	private Form form;
 	
 	int temp = 1, temp2 = 1;
 	
 	public CreateFormController() {
+		form = new Form("fuck uo");
 	}
 	
 	@FXML
@@ -247,12 +252,18 @@ public class CreateFormController {
 			
 		}  else if (b == createbtn) {
 			//Add title to the array list
+			Wips wips = Wips.getInstance();
 			updateTArray(0, tedit.getText());
 			//Add description to the array list
 			updateTArray(1, dedit.getText());
-			for (Couple c : couples)
-			    System.out.println(c.getHeading() + "    " + c.isIsrequired() + "    " + c.isUserField());
-				System.out.println("");
+			form.addCouple(couples);
+			wips.getCurrentWorkFlow().setForm(form);
+			wips.getAllWorkFlows().add(wips.getCurrentWorkFlow());
+			System.out.println(wips.getCurrentWorkFlow());
+			wips.getCurrentuser().getAllWorkflows().add(wips.getCurrentWorkFlow());
+			wips.setCurrentWorkFlow(null);
+			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
+			OpenScreen.openScreen("dhomescreen.fxml", handler, "Home Screen", l, getClass(),"/view/developer/dhomescreen.css");
 		
 		} else if (b == logoutbtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));

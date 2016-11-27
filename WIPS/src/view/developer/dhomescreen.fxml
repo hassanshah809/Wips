@@ -32,7 +32,7 @@
                 </VBox>
               </children>
             </HBox>
-            <ListView fx:id="listview" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="createdWorkFlows" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0">
               <children>
                 <Button fx:id="logoutBtn" onAction="#handle" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" text="Log out" textAlignment="CENTER" />

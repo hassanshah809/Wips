@@ -1,6 +1,8 @@
 package controller.session;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import errors.AbsError;
 import helper.OpenScreen;
@@ -13,8 +15,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.Wips;
+import model.user.Developer;
 import model.user.EndUser;
 import model.user.User;
+import model.wips.Entity;
 
 public class LogInController {
 	
@@ -87,12 +91,19 @@ public class LogInController {
 			//Get Password
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works
-		//	User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
-		//	if(realUser != null && realUser.isDeveloper()) {
-//			If the user is developer then open the following screen
+			User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
+//			List<Entity> roles = new ArrayList<>();
+//			roles.add(new Entity("dev"));
+//			
+//			List<String> val = new ArrayList<>();
+//			val.add("new");
+//			Developer admin = new Developer("shah hassan", roles, val);
+//			Wips.getInstance().addUser(admin);
+			if(realUser != null && realUser.isDeveloper()) {
+		//	If the user is developer then open the following screen
 				Parent d = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
 				OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", d, getClass(),"/view/developer/dhomescreen.css");	
-	//		}			
+			}			
 			//Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dformcreate.fxml"));
 			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			

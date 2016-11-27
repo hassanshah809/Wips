@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Wips;
 import model.wips.Entity;
 import model.wips.WorkFlow;
 
@@ -42,7 +43,7 @@ public abstract class User implements Serializable{
 	/**
 	 * unique identifier for each users
 	 */
-	private static int id = 0;
+	protected int id;
 	
 	/**
 	 * This is the constructor that will be call by the concrete classes
@@ -55,9 +56,10 @@ public abstract class User implements Serializable{
 		this.roles = roles;
 		values = new ArrayList<String>();
 		values.addAll(value);
+		id = Wips.getInstance().getIdsOfEveryClass().getUserId();
 		generateUsername();
 		generatePassword();
-		id++;
+		allworkflows = new ArrayList<WorkFlow>();
 	}
 	
 	public User(String username) {

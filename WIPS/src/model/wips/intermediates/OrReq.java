@@ -1,10 +1,17 @@
 package model.wips.intermediates;
 
+import java.io.Serializable;
+
 import model.wips.Transition;
 
-public class OrReq implements AbsReq{
+public class OrReq implements AbsReq, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Transition t;
+	
 	public OrReq(Transition t) {
 		this.t = t;
 	}
