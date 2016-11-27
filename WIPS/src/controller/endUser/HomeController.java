@@ -8,11 +8,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import model.Wips;
+import model.wips.Entity;
+import model.wips.WorkFlow;
 
 public class HomeController {
 
 	@FXML
-	Button testbtn;
+	Button testbtn, logoutbtn;
+	
+	@FXML
+	ListView<WorkFlow> allwflist, jwflist, notilist;
+	
+	@FXML
+	ComboBox<Entity> cbox;
 	
 	/**
 	 * This method will open “All workflow” tab.
@@ -20,6 +31,12 @@ public class HomeController {
 	public void allWorkFlowController(){
 		
 	}
+	
+	@FXML
+	protected void initialize() {
+		
+		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
+   }
 	
 	/**
 	 * This method will open “Active Workflow” tab.
@@ -40,6 +57,9 @@ public class HomeController {
 		if (b == testbtn) {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Sign in form", e, getClass(),"/view/enduser/eformgen.css");
+		} else if (b == logoutbtn) {
+			Parent e = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
+			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", e, getClass(),"/view/session/application.css");
 		}
 	}
 }

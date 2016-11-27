@@ -125,6 +125,10 @@ public abstract class User implements Serializable{
 		return password;
 	}
 	
+	public List<Entity> getRoles() {
+		return roles;
+	}
+	
 	public void setDeveloper(boolean b) {
 		this.isDeveloper = b;
 	}
