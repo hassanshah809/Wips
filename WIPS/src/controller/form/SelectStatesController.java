@@ -51,6 +51,8 @@ public class SelectStatesController {
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == backbtn) {
+			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
+			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(),"/view/enduser/eformgen.css");
 		} else if (b == nextbtn) {
 			next();
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/erecipient.fxml"));

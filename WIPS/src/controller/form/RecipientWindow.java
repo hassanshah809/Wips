@@ -1,16 +1,23 @@
 package controller.form;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.session.LogOutController;
+import helper.OpenScreen;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.forms.CoupleForSending;
@@ -21,6 +28,9 @@ import model.wips.intermediates.OrReq;
 
 public class RecipientWindow {
 
+	@FXML
+	Button sendbutton, backbutton;
+	
 	@FXML
 	VBox vbox;
 	
@@ -59,6 +69,16 @@ public class RecipientWindow {
 			gridpane.setPadding(new Insets(0, 10, 0, 10));
 			vbox.getChildren().add(gridpane);
 			
+		}
+	}
+	
+	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
+		Button b = (Button) handler.getSource();
+		if (b == sendbutton) {
+			
+		} else if (b== backbutton) {
+			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
+			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),"/view/endUser/eselectstates.css");
 		}
 	}
 	

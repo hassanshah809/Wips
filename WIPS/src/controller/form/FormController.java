@@ -26,7 +26,7 @@ import model.wips.forms.Couple;
 public class FormController {
 	
 	@FXML
-	Button sendbtn;
+	Button sendbtn, backbutton;
 	
 	@FXML 
 	Label title, description;
@@ -200,6 +200,9 @@ public class FormController {
 		if (b == sendbtn) {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),"/view/enduser/eselectstates.css");
+		} else if (b == backbutton) {
+			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(),"/view/enduser/ehomescreen.css");
 		}
 	}
 	
