@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -22,6 +23,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Wips;
+import model.user.EndUser;
 import model.wips.forms.Couple;
 
 public class FormController {
@@ -32,8 +34,11 @@ public class FormController {
 	@FXML 
 	Label title, description;
 	
+	CheckBox checkBox;
+	TextArea optionalTextArea;
+	
 	@FXML
-	VBox vbox;
+	VBox vbox, optionalmessage;
 
 	@FXML
 	ScrollPane sp;
@@ -90,6 +95,7 @@ public class FormController {
 		}
 
 		vbox.setSpacing(15);
+		optionalMessage();
 		System.out.println(vbox.getChildren().size());
 	}
 	
@@ -198,10 +204,28 @@ public class FormController {
 	
 	public void send() {
 		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
+		if(checkBox.isSelected() && !optionalTextArea.getText().isEmpty()){
+			Couple dummy = new Couple(optionalTextArea.getText(), false, true);
+			couples.add(dummy);
+		}
 		for (int i = 2; i< couples.size(); i++){
 			couples.get(i).setContentOfTextArea(textAreas.get(i-2).getText());
 		}
 	}
+		
+	private void  optionalMessage() {
+		List<EndUser> endUsers = Wips.getInstance().getCurrentWorkFlow().getForm().getUsers();
+		if (endUsers.size()==0) {
+			checkBox = new CheckBox("Include message");
+			checkBox.setFont(new Font("", 15));
+			optionalTextArea = new TextArea();
+			optionalmessage.getChildren().add(checkBox);
+			optionalmessage.getChildren().add(optionalTextArea);
+			optionalmessage.setPadding(new Insets(0,0,10,0));
+			optionalmessage.setSpacing(10);
+		}
+	}
+	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {

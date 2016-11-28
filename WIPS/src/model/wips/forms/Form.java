@@ -78,6 +78,10 @@ public class Form implements Serializable{
 		users.add(user);
 	}
 	
+	public List<EndUser> getUsers() {
+		return this.users;
+	}
+	
 	public void updateUsers() {
 		for(EndUser user: users)
 			user.update();
