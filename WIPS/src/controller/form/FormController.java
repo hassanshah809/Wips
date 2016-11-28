@@ -1,6 +1,7 @@
 package controller.form;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -38,6 +39,7 @@ public class FormController {
 	ScrollPane sp;
 	
 	
+	List<TextArea> textAreas = new ArrayList<>();
 	/**
 	* This method will show the form to the user
 	*/
@@ -74,8 +76,7 @@ public class FormController {
 //			Couple dummyCouple = new Couple("Title"+"["+i+"]",req, f);
 //			dummyC.add(dummyCouple);
 //		}
-		for (Couple c : dummyC)
-		    System.out.println(c.getHeading() + "    " + c.isRequired() + "    " + c.isUserField());
+		
 		
 		//Generate the form that was send to the user
 		//Set the title
@@ -115,6 +116,7 @@ public class FormController {
 	        TextArea textArea = new TextArea();
 			textArea.setWrapText(true);
 			textArea.setPrefSize( Double.MIN_VALUE, Double.MIN_VALUE );
+			this.textAreas.add(textArea);
 
 			
 			Label reqLabel = new Label ("*required");
@@ -169,10 +171,10 @@ public class FormController {
 	        label.setFont(new Font ("",15));
 	        label.setWrapText(true);
 	        
-	        
 	        TextArea textArea = new TextArea();
 			textArea.setWrapText(true);
 			textArea.setPrefSize( Double.MIN_VALUE, Double.MIN_VALUE );
+			this.textAreas.add(textArea);
 
 
 			gridpane.add(label, 0, 1); 
@@ -194,12 +196,20 @@ public class FormController {
 	    return random.nextBoolean();
 	}
 	
-	
+	public void send() {
+		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
+		for (int i = 2; i< couples.size(); i++){
+			couples.get(i).setContentOfTextArea(textAreas.get(i-2).getText());
+		}
+	}
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
-			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
-			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),"/view/enduser/eselectstates.css");
+			send();
+			if(Wips.getInstance().getCurrentWorkFlow().getForm().isAllowed()) {
+				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
+				OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),"/view/enduser/eselectstates.css");
+			}
 		} else if (b == backbutton) {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(),"/view/enduser/ehomescreen.css");

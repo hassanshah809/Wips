@@ -43,10 +43,12 @@ public class RecipientWindow {
 	@FXML
 	protected void initialize() {
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		coupleForSending = new CoupleForSending[Wips.getInstance().getCurrentWorkFlow().getStartState().getAllStartWithMe().size()];
+		Wips wips = Wips.getInstance();
+		coupleForSending = new CoupleForSending[wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size()];
+		show();
 		//assume the size is 10
 		for (int i = 0; i < coupleForSending.length; i++) {
-			CoupleForSending cs = new CoupleForSending(Wips.getInstance().getCurrentWorkFlow().getStartState().getDistinctValues());
+			
 			GridPane gridpane = new GridPane();
 			
 			RowConstraints row1 = new RowConstraints();
@@ -57,8 +59,8 @@ public class RecipientWindow {
 	 	    ColumnConstraints col2 = new ColumnConstraints();
 	 	    col2.setPercentWidth(50);
 	 	     
-	 	    gridpane.add(cs.getdisVal(), 0, 1); 
-		    gridpane.add(cs.getfilUser(), 1, 1);
+	 	    gridpane.add(coupleForSending[i].getdisVal(), 0, 1); 
+		    gridpane.add(coupleForSending[i].getfilUser(), 1, 1);
 		    
 		    gridpane.getRowConstraints().addAll(row1);
  	        gridpane.getColumnConstraints().addAll(col1,col2);

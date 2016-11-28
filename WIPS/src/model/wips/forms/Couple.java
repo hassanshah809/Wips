@@ -17,7 +17,6 @@ public class Couple implements Serializable{
 	String heading;
 	boolean isrequired;
 	boolean userField;
-	private transient TextArea content;
 	String contentOfTextArea;
 	
 	/**
@@ -27,7 +26,6 @@ public class Couple implements Serializable{
 		this.heading = heading;
 		this.isrequired = isrequired;
 		this.userField = userField;
-		content = new TextArea();
 		//coupleId++;
 	}
 
@@ -55,13 +53,19 @@ public class Couple implements Serializable{
 		this.userField = userField;
 	}
 	
+	public void setContentOfTextArea(String value) {
+		contentOfTextArea = value;
+	}
+	
+	public String getContentOfTextArea() {
+		return contentOfTextArea;
+	}
+	
 	public boolean isAllowed() {
-		if(isRequired() && !content.getText().isEmpty()) {
-			contentOfTextArea = content.getText();
+		if(isRequired() && !contentOfTextArea.isEmpty()) {
 			return true;
 		}
 		if(!isRequired()) {
-			contentOfTextArea = content.getText();
 			return true;
 		}
 		return false;
