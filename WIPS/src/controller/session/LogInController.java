@@ -91,6 +91,7 @@ public class LogInController {
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works
 			User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
+			System.out.println(realUser);
 //			List<Entity> roles = new ArrayList<>();
 //			roles.add(new Entity("dev"));
 //			
@@ -107,8 +108,10 @@ public class LogInController {
 			//OpenScreen.openScreen("dformcreate.fxml", handler, "Create Form", l, getClass(),"/view/developer/dformcreate.css");
 			
 			//If the user is enduser then open the following screen
-			//Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
-			//OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
+			if(realUser != null && !realUser.isDeveloper()){
+				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+				OpenScreen.openScreen("ehomescreen.fxml", handler, "End User", e, getClass(),"/view/enduser/ehomescreen.css");
+			}
 		}
 	}
 }

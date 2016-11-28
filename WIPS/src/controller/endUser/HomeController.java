@@ -34,10 +34,17 @@ public class HomeController {
 	
 	@FXML
 	protected void initialize() {
+		populate();
 		
-		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
    }
 	
+	public void populate() {
+		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
+		cbox.setOnAction((event) -> {
+			Entity e = cbox.getSelectionModel().getSelectedItem();
+			Wips.getInstance().setRoleOfCurrentUser(e);
+		});
+	}
 	/**
 	 * This method will open “Active Workflow” tab.
 	 */

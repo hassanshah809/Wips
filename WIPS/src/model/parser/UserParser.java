@@ -49,6 +49,7 @@ public class UserParser extends Parser {
 	public UserParser(File userFile, WorkFlowInter wfi) {
 		super(userFile);
 		this.wfi = wfi;
+		userNames = new ArrayList<String>();
 		keyMap = new HashMap<String, Boolean>();
 		keyMap.put("duplicateUserName", false);
 		keyMap.put("roleNotFound", false);
@@ -89,6 +90,7 @@ public class UserParser extends Parser {
 			if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element userElement = (Element) userNode;
 				username = userElement.getAttribute("name");
+				System.out.println("usrname is userparser " + username);
 				
 				NodeList children = userNode.getChildNodes();
 				ArrayList<Node> childNodes = new ArrayList<Node>();
@@ -121,22 +123,22 @@ public class UserParser extends Parser {
 				//contain values. I'm doing this because the code handles roles first and then values. 
 			
 				if (node1.getNodeName().equals("roles")) {
-					handleChildren(node1,node2);
+					handleChildren(node1,node2, username);
 				} else if(node1.getNodeName().equals("values")) {
-					handleChildren(node2,node1);
+					handleChildren(node2,node1, username);
 				}	
 			}
 		}
 	}
 	
-	private static void handleChildren(Node node1, Node node2) {
+	private static void handleChildren(Node node1, Node node2, String name) {
 		
 		User user;
 		
 		ArrayList<Entity> roleArrayList = new ArrayList<Entity>();
 		ArrayList<String> valuesArrayList = new ArrayList<String>();
 		
-		String username = "";
+		String username = name;
 		String role = "";
 		
 		if (node1.getNodeType() == Node.ELEMENT_NODE) {
@@ -193,11 +195,6 @@ public class UserParser extends Parser {
 	 * 
 	 * @return GenInter<User> usersInter.
 	 */
-
-	public GenInter<User> getUserInter() {
-		return this.usersInter;
-
-	}
 
 	@Override
 	public Object getInters() {

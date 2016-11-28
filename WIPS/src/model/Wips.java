@@ -12,6 +12,7 @@ import java.util.List;
 
 import model.user.EndUser;
 import model.user.User;
+import model.wips.Entity;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
@@ -45,6 +46,7 @@ public class Wips implements Serializable{
 	private WorkFlow currentWorkflow;
 	private int indexOfNextState = -1;
 	private IdsOfEveryClass idsOfEveryClass;
+	private Entity roleOfCurrentUser = null;
 	
 	private Wips() {
 		users = new ArrayList<User>();
@@ -108,6 +110,13 @@ public class Wips implements Serializable{
 		return wips;
 	}
 
+	public void setRoleOfCurrentUser(Entity e) {
+		this.roleOfCurrentUser = e;
+	}
+	
+	public Entity getRoleOfCurrentUser() {
+		return this.roleOfCurrentUser;
+	}
 	public IdsOfEveryClass getIdsOfEveryClass() {
 		return idsOfEveryClass;
 	}

@@ -45,7 +45,7 @@ public class WorkFlow implements Serializable{
 	 * this stores the start 
 	 */
 	private State startState;
-	private State currentState;
+	private State[] currentStates = null;
 	/**
 	 *The empty constructor
 	 */
@@ -151,12 +151,17 @@ public class WorkFlow implements Serializable{
 		return id;
 	}
 	
-	public void setCurrentState(State s) {
-		this.currentState = s;
+	public void setCurrentState(State[] s) {
+		currentStates = s;
+		
 	}
 	
-	public State getCurrentState() {
-		return this.currentState;
+	public State getCurrentState(Entity e) {
+		for(State s: currentStates) {
+			if(s.getEntity().equals(e))
+				return s;
+		}
+		return null;
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package controller.developer;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import errors.AbsError;
 import helper.OpenScreen;
@@ -27,7 +28,6 @@ import model.wips.Entity;
 import model.wips.State;
 import model.wips.Transition;
 import model.wips.WorkFlow;
-import model.wips.forms.Form;
 
 public class CreateWorkFlowController {
 	
@@ -109,10 +109,16 @@ public class CreateWorkFlowController {
 	public void userXmlParser(File file) {
 		UserParser up = new UserParser(file, wfi);
 		up.parse();
-		Object o = parser.getInters();
+		Object o = up.getInters();
 		users = (o instanceof GenInter ? (GenInter<User>) o : null);
+		addUsersToWips(users.getTempAttr());
 	}
 	
+	public void addUsersToWips(List<User> users) {
+		for(User user: users) {
+			Wips.getInstance().addUser(user);
+		}
+	}
 	/**
 	 * This will redirect the workflow application developer to the window where 
 	 * he/she  can set permissions for states.
@@ -185,7 +191,7 @@ public class CreateWorkFlowController {
 				enableDisableBtn(false, false, false, false);
 
 				//If file exist then call userxml parser
-				//userXmlParser(f);
+				userXmlParser(f);
 			} 			
 		} else if (b == backBtn) {
 			//Goes back to the admin home screen

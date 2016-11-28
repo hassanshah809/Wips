@@ -194,11 +194,19 @@ public class State implements Serializable {
 		return distinctVals;
 	}
 
-	public List<OrReq> getStartWithMe() {
+	public List<OrReq> getOrStartWithMe() {
 		populate();
 		return startWithMe;
 	}
 
+	public List<AbsReq> getAllStartWithMe() {
+		populate();
+		List<AbsReq> allStates = new ArrayList<>();
+		for(OrReq or : startWithMe)
+			allStates.add(or);
+		allStates.add(andr);
+		return allStates;
+	}
 	public List<OrReq> getEndState() {
 		populate();
 		return endWithMe;

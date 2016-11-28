@@ -65,7 +65,7 @@ public class RecipientWindow {
 	public void show() {
 		Wips wips = Wips.getInstance();
 		int indexOfNextStates = wips.getIndexOfNextState();
-		selectedStates = wips.getCurrentWorkFlow().getCurrentState().getStartWithMe().get(indexOfNextStates);
+		selectedStates = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).getAllStartWithMe().get(indexOfNextStates);
 		coupleForSending = new CoupleForSending[selectedStates.size()];
 
 		if (selectedStates.size() > 1) {
@@ -92,7 +92,8 @@ public class RecipientWindow {
 	}
 
 	public void send() {
-		if (Wips.getInstance().getCurrentWorkFlow().getCurrentState().isAllowedtoSend()) {
+		Wips wips = Wips.getInstance();
+		if (wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).isAllowedtoSend()) {
 			EndUser endUser = (EndUser) Wips.getInstance().getCurrentuser();
 			Form form = new Form("dummy");
 			for (EndUser user : compileListOfUsers()) {

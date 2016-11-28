@@ -83,9 +83,9 @@ public class StatePermissionController {
 	public void getTransitions(State state) {
 		//gets all the transitions of each state
 		incomingOb = FXCollections.observableArrayList();
-		incomingOb.addAll(state.getStartWithMe());
+		incomingOb.addAll(state.getOrStartWithMe());
 		incomingStates.setItems(incomingOb);
-		System.out.println("size of the trans " + state.getStartWithMe().size());
+		System.out.println("size of the trans " + state.getOrStartWithMe().size());
 
 	}
 	
@@ -109,7 +109,7 @@ public class StatePermissionController {
 			
 			t.getTransition().setReq(true);
 			state.addand(t.getTransition());
-			state.getStartWithMe().remove(indexOfIncomingStates);
+			state.getOrStartWithMe().remove(indexOfIncomingStates);
 			System.out.println("andtr size " + state.getAnd().getAndTransitions().size());
 		}
 		
@@ -130,7 +130,7 @@ public class StatePermissionController {
 	public void remove(Transition t) {
 		t.setReq(false);
 		State state = allState.getSelectionModel().getSelectedItem();
-		state.getStartWithMe().add(new OrReq(t));
+		state.getOrStartWithMe().add(new OrReq(t));
 		state.getAnd().getAndTransitions().remove(t);
 		getTransitions(state);
 		updateReq(state);

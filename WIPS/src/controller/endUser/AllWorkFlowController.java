@@ -3,21 +3,32 @@ package controller.endUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import model.Wips;
 import model.wips.WorkFlow;
 
 public class AllWorkFlowController {
 	/**
 	 * This listview will show the list of all workflows that the user can join
 	 */
-	ListView<WorkFlow> allWorkFlows;
+	private ListView<WorkFlow> allWorkFlows;
+	private ObservableList<WorkFlow> allWorkFlowsOb;
 	
 	/**
 	 * This method will contain the searchworkflows method. The purpose of 
 	 * the filter method is to call searchworkflow method and update the list and listview.
 	 */
 	public void filter() {
-		searchWorkFlows(); // set it to listview
+		Wips wips = Wips.getInstance();
+		allWorkFlowsOb = FXCollections.observableArrayList();
+		for(WorkFlow f: wips.getAllWorkFlows()) {
+			if(f.getStartState().getEntity().equals(wips.getRoleOfCurrentUser())) {
+				allWorkFlowsOb.add(f);
+			}
+		}
+		allWorkFlows.setItems(allWorkFlowsOb);
 	}
 	
 	/**
@@ -35,15 +46,5 @@ public class AllWorkFlowController {
 	 */
 	public void create(int index) {
 		
-	}
-	
-	/**
-	 * This method compares the role of the current user will the roles that are set in all 
-	 * workflows, this way we can show the workflows that only relates to him/her depending 
-	 * on the role. After it compares the role, this method will return the list of the Workflow.
-	 * @return list of workflows
-	 */
-	public List<WorkFlow> searchWorkFlows() {
-		return new ArrayList<WorkFlow>();
 	}
 }

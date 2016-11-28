@@ -29,9 +29,10 @@ public class SelectStatesController {
 	
 	public void show() {
 		//add to observable list currenstate.getStartWithMe();
-		State currenState = Wips.getInstance().getCurrentWorkFlow().getCurrentState();
+		Wips wips = Wips.getInstance();
+		State currenState = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
 		currenState.populate();
-		nextStatesOb = FXCollections.observableArrayList(currenState.getStartWithMe());
+		nextStatesOb = FXCollections.observableArrayList(currenState.getAllStartWithMe());
 		nextStates.setItems(nextStatesOb);
 	}
 	

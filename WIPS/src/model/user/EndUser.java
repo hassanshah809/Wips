@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import model.Wips;
 import model.wips.Entity;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
@@ -18,16 +17,16 @@ public class EndUser extends User{
 	/**
 	* List of forms user has sent
 	*/
-	List<Form> sent;
+	private List<Form> sent;
 	/**
 	* List of form end user received
 	*/
-	Stack<Form> received;
+	private Stack<Form> received;
 
 	/**
 	* It contains the list of all workflows that user has joined
 	*/
-	List<WorkFlow> joinedWorkflows;
+	private List<WorkFlow> joinedWorkflows;
 	/**
 	 * creates the new enduser
 	 * @param name String 
@@ -74,22 +73,6 @@ public class EndUser extends User{
 	 */
 	public WorkFlow instantiate() {
 		return new WorkFlow();
-	}
-	
-	/**
-	 * This will find all the workflows that a user can join based on their roles
-	 */
-	public void findWorkFlow() {
-		
-		WorkFlow extracted_wf;
-		Wips w = Wips.getInstance();
-		for(int i = 0; i< w.getAllWorkFlows().size(); i++) {
-			extracted_wf = w.getAllWorkFlows().get(i);
-			
-			if(this.roles.contains(extracted_wf.getStartState().getEntity())) {
-				this.joinedWorkflows.add(extracted_wf);
-			}
-		}
 	}
 
 	/**
