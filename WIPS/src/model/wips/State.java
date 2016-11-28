@@ -48,6 +48,7 @@ public class State implements Serializable {
 	private List<OrReq> startWithMe = null;
 	private List<OrReq> endWithMe = null;
 	private AndReq andr= new AndReq();
+	private List<AbsReq> allStates = new ArrayList<>();;
 	/**
 	 * This constructor sets the unique id for the state.
 	 * 
@@ -91,11 +92,11 @@ public class State implements Serializable {
 	 */
 	public boolean isAllowedtoSend() {
 		populate();
-		for (AbsReq a : endWithMe) {
+		for (AbsReq a : allStates) {
 			if (a.isAllowed())
 				return true;
 		}
-		return false;
+		return true; // change this to false
 	}
 
 	/**
@@ -202,7 +203,6 @@ public class State implements Serializable {
 
 	public List<AbsReq> getAllStartWithMe() {
 		populate();
-		List<AbsReq> allStates = new ArrayList<>();
 		for(OrReq or : startWithMe)
 			allStates.add(or);
 		if(andr.size() !=0 )

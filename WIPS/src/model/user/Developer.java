@@ -21,7 +21,7 @@ public class Developer extends User {
 	}
 
 	public Developer(String username) {
-		super(username);
+		super(username, false);
 		setDeveloper(true);
 	}
 	/**

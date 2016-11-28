@@ -65,7 +65,7 @@ public class FormController {
 		
 		//Assume we have couples from the form object
 		System.out.println("current work flow in form contrlller " + Wips.getInstance().getCurrentWorkFlow());
-		Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(1));
+		Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(0));
 		List<Couple> dummyC = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 //		for (int i = 0; i < 20; i++) {
 //			boolean req = getRandomBoolean();

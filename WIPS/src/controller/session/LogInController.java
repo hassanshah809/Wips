@@ -87,7 +87,7 @@ public class LogInController {
 		if (b == loginBtn) {
 			//Get Username
 			String username = userField.getText();
-			User user = new EndUser(username);
+			User user = new EndUser(username, false);
 			//Get Password
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works

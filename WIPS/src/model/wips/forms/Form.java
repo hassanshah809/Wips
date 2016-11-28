@@ -7,6 +7,7 @@ import java.util.List;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
+import model.wips.WorkFlow;
 
 public class Form implements Serializable{
 	/**
@@ -32,19 +33,25 @@ public class Form implements Serializable{
 	
 	private List<Entity> roles;
 	private List<EndUser> users;
+	private WorkFlow wf;
 	
 	
 	/**
 	 * This a constructor to make the new form object
 	 */
-	public Form(String formname) {
+	public Form(String formname, WorkFlow wf) {
 		this.formName = formname;
 		couples = new ArrayList<Couple>();
 		message = new ArrayList<String>();
 		roles = new ArrayList<Entity>();
 		users = new ArrayList<EndUser>();
+		this.wf = wf;
 		formID = Wips.getInstance().getIdsOfEveryClass().getFormId();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public WorkFlow getFormWorkFlow() {
+		return this.wf;
 	}
 	/**
 	* This method will add message to the message list

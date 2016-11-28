@@ -26,7 +26,9 @@ public class CoupleForSending {
 	public CoupleForSending(Set<String> distinctVal) {
 		distinctValues = new ListView<String>();
 		List<String> vals = new ArrayList<>(distinctVal);
+		filteredEndUserOb = FXCollections.observableArrayList();
 		filteredEndUser = new ListView<EndUser>();
+		filteredEndUser.setItems(filteredEndUserOb);
 		distinctValuesOb = FXCollections.observableArrayList(vals);
 		distinctValues.setItems(distinctValuesOb);
 		listner();
@@ -40,12 +42,15 @@ public class CoupleForSending {
 		Wips wips = Wips.getInstance();
 		filteredEndUserOb = FXCollections.observableArrayList();
 		List<EndUser> allUser = wips.getEndUser();
-		for(int i = 0; i<allUser.size(); i++) {
-			if(allUser.get(i).checkValue(val))
-				filteredEndUserOb.add(allUser.get(i));
-		}
-		filteredEndUserOb.add(new EndUser("hassan shah"));
+//		for(int i = 0; i<allUser.size(); i++) {
+//			if(allUser.get(i).checkValue(val))
+//				filteredEndUserOb.add(allUser.get(i));
+//		}
+		EndUser user = new EndUser("the guy", true);
+		filteredEndUserOb = FXCollections.observableArrayList();
+		filteredEndUserOb.add(user);
 		filteredEndUser.setItems(filteredEndUserOb);
+		wips.addUser(user);
 	}
 	
 	public EndUser getEndUser() {

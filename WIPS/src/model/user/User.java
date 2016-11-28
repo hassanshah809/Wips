@@ -62,8 +62,13 @@ public abstract class User implements Serializable{
 		allworkflows = new ArrayList<WorkFlow>();
 	}
 	
-	public User(String username) {
+	public User(String username, boolean b) {
 		this.username = username;
+		if(b) {
+			this.name =username;
+			generateUsername();
+			generatePassword();
+		}
 	}
 	/**
 	 * This method simply returns the id of the user

@@ -47,12 +47,10 @@ public class CreateFormController {
 	ScrollPane sp;
 	
 	ArrayList<Couple> couples = new ArrayList<Couple>();
-	private Form form;
 	
 	int temp = 1, temp2 = 1;
 	
 	public CreateFormController() {
-		form = new Form("fuck uo");
 	}
 	
 	@FXML
@@ -256,6 +254,7 @@ public class CreateFormController {
 			updateTArray(0, tedit.getText());
 			//Add description to the array list
 			updateTArray(1, dedit.getText());
+			Form form = new Form("name",wips.getCurrentWorkFlow());
 			form.addCouple(couples);
 			wips.getCurrentWorkFlow().setForm(form);
 			wips.getAllWorkFlows().add(wips.getCurrentWorkFlow());

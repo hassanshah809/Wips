@@ -30,13 +30,13 @@ public class RecipientWindow {
 
 	@FXML
 	Button sendbutton, backbutton;
-	
+
 	@FXML
 	VBox vbox;
-	
+
 	@FXML
 	ScrollPane sp;
-	
+
 	private CoupleForSending[] coupleForSending;
 	private AbsReq selectedStates = null;
 
@@ -46,48 +46,52 @@ public class RecipientWindow {
 		Wips wips = Wips.getInstance();
 		coupleForSending = new CoupleForSending[wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size()];
 		show();
-		//assume the size is 10
+		// assume the size is 10
 		for (int i = 0; i < coupleForSending.length; i++) {
-			
+
 			GridPane gridpane = new GridPane();
-			
+
 			RowConstraints row1 = new RowConstraints();
-	 	    row1.setVgrow(Priority.SOMETIMES);
-	 	        
-	 	    ColumnConstraints col1 = new ColumnConstraints();
-	 	    col1.setPercentWidth(50);
-	 	    ColumnConstraints col2 = new ColumnConstraints();
-	 	    col2.setPercentWidth(50);
-	 	     
-	 	    gridpane.add(coupleForSending[i].getdisVal(), 0, 1); 
-		    gridpane.add(coupleForSending[i].getfilUser(), 1, 1);
-		    
-		    gridpane.getRowConstraints().addAll(row1);
- 	        gridpane.getColumnConstraints().addAll(col1,col2);
- 	        
- 	        gridpane.setHgap(10);
+			row1.setVgrow(Priority.SOMETIMES);
+
+			ColumnConstraints col1 = new ColumnConstraints();
+			col1.setPercentWidth(50);
+			ColumnConstraints col2 = new ColumnConstraints();
+			col2.setPercentWidth(50);
+
+			gridpane.add(coupleForSending[i].getdisVal(), 0, 1);
+			gridpane.add(coupleForSending[i].getfilUser(), 1, 1);
+
+			gridpane.getRowConstraints().addAll(row1);
+			gridpane.getColumnConstraints().addAll(col1, col2);
+
+			gridpane.setHgap(10);
 			gridpane.setVgap(10);
 			gridpane.setPrefHeight(150);
 			gridpane.setPadding(new Insets(0, 10, 0, 10));
 			vbox.getChildren().add(gridpane);
-			
+
 		}
 	}
-	
+
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == sendbutton) {
-			
-		} else if (b== backbutton) {
+			send();
+			System.out.println("success for sending the form.....");
+			LogOutController.logInScreen();
+		} else if (b == backbutton) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
-			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),"/view/endUser/eselectstates.css");
+			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),
+					"/view/endUser/eselectstates.css");
 		}
 	}
-	
+
 	public void show() {
 		Wips wips = Wips.getInstance();
 		int indexOfNextStates = wips.getIndexOfNextState();
-		selectedStates = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).getAllStartWithMe().get(indexOfNextStates);
+		selectedStates = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).getAllStartWithMe()
+				.get(indexOfNextStates);
 		coupleForSending = new CoupleForSending[selectedStates.size()];
 
 		if (selectedStates.size() > 1) {
@@ -105,11 +109,11 @@ public class RecipientWindow {
 
 	public List<EndUser> compileListOfUsers() {
 		List<EndUser> endUsers = new ArrayList<>();
-		if (selectedStates != null) {
+		System.out.println("lengt of cople for sending in recpine " + coupleForSending.length);
 			for (int i = 0; i < coupleForSending.length; i++) {
 				endUsers.add(coupleForSending[i].getEndUser());
+				System.out.println("end use rin recipent " + coupleForSending[i].getEndUser().getUsername());
 			}
-		}
 		return endUsers;
 	}
 
@@ -117,13 +121,18 @@ public class RecipientWindow {
 		Wips wips = Wips.getInstance();
 		if (wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).isAllowedtoSend()) {
 			EndUser endUser = (EndUser) Wips.getInstance().getCurrentuser();
-			Form form = new Form("dummy");
-			for (EndUser user : compileListOfUsers()) {
-				endUser.send(form, user);
-				form.addUser(user);
+			Form form = wips.getCurrentWorkFlow().getForm();
+			form.addUser(endUser);
+			List<EndUser> compileUsers = compileListOfUsers();
+			System.out.println("compile of users " + compileUsers.size());
+			if (compileUsers.size() == coupleForSending.length) {
+				for (EndUser user : compileListOfUsers()) {
+					endUser.send(form, user);
+					form.addUser(user);
+				}
+				form.updateUsers();
+				selectedStates.markedSend();
 			}
-			form.updateUsers();
-			selectedStates.markedSend();
 		}
 	}
 

@@ -37,10 +37,12 @@ public class EndUser extends User{
 		// TODO Auto-generated constructor stub
 		super(name, role, val);
 		sent = new ArrayList<Form>();
+		received = new Stack<Form>();
 	}
 	
-	public EndUser(String username) {
-		super(username);
+	public EndUser(String username, boolean b) {
+		super(username, b);
+		received = new Stack<Form>();
 	}
 	/**
 	 * This method is responsible for sending the form to next state
@@ -57,8 +59,12 @@ public class EndUser extends User{
 	 */
 	public void recieve(Form form) {
 		received.push(form);
+		System.out.println("size of the reciev elist stave " + received.size());
 	}
 	
+	public Stack<Form> getRecievedForm() {
+		return this.received;
+	}
 	/**
 	 * This methods checks if the current state is satisfied
 	 * @return boolean
