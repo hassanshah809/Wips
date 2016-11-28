@@ -57,6 +57,7 @@ public class State implements Serializable {
 	public State(int id, boolean startState, Entity entity) {
 		this.stateID = id;
 		this.entity = entity;
+		this.startState = startState;
 		distinctVals = new HashSet<String>();
 	}
 
@@ -204,7 +205,8 @@ public class State implements Serializable {
 		List<AbsReq> allStates = new ArrayList<>();
 		for(OrReq or : startWithMe)
 			allStates.add(or);
-		allStates.add(andr);
+		if(andr.size() !=0 )
+			allStates.add(andr);
 		return allStates;
 	}
 	public List<OrReq> getEndState() {

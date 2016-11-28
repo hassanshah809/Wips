@@ -1,13 +1,17 @@
 package model.wips.forms;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import com.sun.xml.internal.bind.v2.runtime.FilterTransducer;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
 import model.Wips;
 import model.user.EndUser;
 
@@ -20,8 +24,12 @@ public class CoupleForSending {
 	private ObservableList<EndUser> filteredEndUserOb;
 	
 	public CoupleForSending(Set<String> distinctVal) {
-		distinctValuesOb.addAll(distinctValuesOb);
+		distinctValues = new ListView<String>();
+		List<String> vals = new ArrayList<>(distinctVal);
+		filteredEndUser = new ListView<EndUser>();
+		distinctValuesOb = FXCollections.observableArrayList(vals);
 		distinctValues.setItems(distinctValuesOb);
+		listner();
 	}
 	public void setDistinctOb(List<String> disticnVal) {
 		distinctValuesOb.addAll(distinctValuesOb);
@@ -30,11 +38,13 @@ public class CoupleForSending {
 	
 	public void filterUser(String val) {
 		Wips wips = Wips.getInstance();
+		filteredEndUserOb = FXCollections.observableArrayList();
 		List<EndUser> allUser = wips.getEndUser();
 		for(int i = 0; i<allUser.size(); i++) {
 			if(allUser.get(i).checkValue(val))
 				filteredEndUserOb.add(allUser.get(i));
 		}
+		filteredEndUserOb.add(new EndUser("hassan shah"));
 		filteredEndUser.setItems(filteredEndUserOb);
 	}
 	

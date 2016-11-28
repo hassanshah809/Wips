@@ -39,12 +39,12 @@ public class WorkFlow implements Serializable{
 	/**
 	 * This will store the form associated with the workflow
 	 */
-	public Form form;
+	private Form form;
 
 	/**
 	 * this stores the start 
 	 */
-	private State startState;
+	private State startState = null;
 	private State[] currentStates = null;
 	/**
 	 *The empty constructor
@@ -114,6 +114,10 @@ public class WorkFlow implements Serializable{
 		return form;
 	}
 
+	public void setStartState(State s){
+		this.startState = s;
+	}
+	
 	/**
 	 * @return the start state
 	 */

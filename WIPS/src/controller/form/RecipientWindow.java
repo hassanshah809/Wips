@@ -33,10 +33,10 @@ public class RecipientWindow {
 	@FXML
 	protected void initialize() {
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
+		coupleForSending = new CoupleForSending[Wips.getInstance().getCurrentWorkFlow().getStartState().getAllStartWithMe().size()];
 		//assume the size is 10
-		for (int i = 0; i < 10; i++) {
-			CoupleForSending cs = new CoupleForSending();
+		for (int i = 0; i < coupleForSending.length; i++) {
+			CoupleForSending cs = new CoupleForSending(Wips.getInstance().getCurrentWorkFlow().getStartState().getDistinctValues());
 			GridPane gridpane = new GridPane();
 			
 			RowConstraints row1 = new RowConstraints();

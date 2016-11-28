@@ -27,24 +27,32 @@ public class SelectStatesController {
 	private ListView<AbsReq> nextStates;
 	private ObservableList<AbsReq> nextStatesOb;
 	
+	@FXML
+	protected void initialize() {
+		show();
+	}
+	
 	public void show() {
 		//add to observable list currenstate.getStartWithMe();
 		Wips wips = Wips.getInstance();
+		State[] s = {wips.getCurrentWorkFlow().getStartState()};
+		wips.getCurrentWorkFlow().setCurrentState(s);
 		State currenState = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
 		currenState.populate();
-		nextStatesOb = FXCollections.observableArrayList(currenState.getAllStartWithMe());
-		nextStates.setItems(nextStatesOb);
+		nextStatesOb = FXCollections.observableArrayList(wips.getCurrentWorkFlow().getStartState().getAllStartWithMe());
+		listview.setItems(nextStatesOb);
 	}
 	
 	public void next() {
 		//index of currentState.getStartWithMe();
-		Wips.getInstance().setIndexOfNextState(nextStates.getSelectionModel().getSelectedIndex()); // get index from observable;
+		Wips.getInstance().setIndexOfNextState(listview.getSelectionModel().getSelectedIndex()); // get index from observable;
 	}
 	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == backbtn) {
 		} else if (b == nextbtn) {
+			next();
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/erecipient.fxml"));
 			OpenScreen.openScreen("erecipient.fxml", handler, "Recipient Window", e, getClass(),"/view/enduser/erecipient.css");
 		} else if (b == logoutbtn) {

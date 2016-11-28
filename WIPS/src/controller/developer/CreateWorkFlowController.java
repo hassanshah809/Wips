@@ -107,7 +107,7 @@ public class CreateWorkFlowController {
 	 * @param file File
 	 */
 	public void userXmlParser(File file) {
-		UserParser up = new UserParser(file, wfi);
+		UserParser up = new UserParser(file);
 		up.parse();
 		Object o = up.getInters();
 		users = (o instanceof GenInter ? (GenInter<User>) o : null);
@@ -137,10 +137,21 @@ public class CreateWorkFlowController {
 		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
 	//	Wips.getInstance().getAllWorkFlows().add(wf);
+		setStartState(wf);
 		Wips.getInstance().setCurrentWorkFlow(wf);
 		//wf.addUser(users.getTempAttr());
 		reset();
 		
+	}
+	
+	public void setStartState(WorkFlow f) {
+		for(State s: f.getState()){
+			if(s.isStartState()){
+				f.setStartState(s);
+				System.out.println("in if in create worf fle conroller ");
+			}
+				
+		}
 	}
 
 	public void reset() {

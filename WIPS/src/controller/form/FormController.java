@@ -1,10 +1,8 @@
 package controller.form;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -15,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -24,9 +21,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Wips;
-import model.user.EndUser;
 import model.wips.forms.Couple;
-import model.wips.forms.Form;
 
 public class FormController {
 	
@@ -47,7 +42,6 @@ public class FormController {
 	* This method will show the form to the user
 	*/
 	public void showForm(){
-		Form form = Wips.getInstance().getCurrentWorkFlow().form;
 		//Once we have the form we show the form using GUI
 	}
 
@@ -68,16 +62,18 @@ public class FormController {
 		vbox.setFillWidth(true);
 		
 		//Assume we have couples from the form object
-		ArrayList<Couple> dummyC = new ArrayList<Couple>();
-		for (int i = 0; i < 20; i++) {
-			boolean req = getRandomBoolean();
-			boolean f = getRandomBoolean();
-			if(f == true && req == true) {
-				f = false;
-			}
-			Couple dummyCouple = new Couple("Title"+"["+i+"]",req, f);
-			dummyC.add(dummyCouple);
-		}
+		System.out.println("current work flow in form contrlller " + Wips.getInstance().getCurrentWorkFlow());
+		Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(1));
+		List<Couple> dummyC = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
+//		for (int i = 0; i < 20; i++) {
+//			boolean req = getRandomBoolean();
+//			boolean f = getRandomBoolean();
+//			if(f == true && req == true) {
+//				f = false;
+//			}
+//			Couple dummyCouple = new Couple("Title"+"["+i+"]",req, f);
+//			dummyC.add(dummyCouple);
+//		}
 		for (Couple c : dummyC)
 		    System.out.println(c.getHeading() + "    " + c.isRequired() + "    " + c.isUserField());
 		
@@ -88,7 +84,7 @@ public class FormController {
 		//Set the description
 		temp = dummyC.get(1);
 		description.setText(temp.getHeading());
-		for(int i = 0; i < dummyC.size(); i++) {
+		for(int i = 2; i < dummyC.size(); i++) {
 			vbox.getChildren().add(createCoupleRow(dummyC.get(i)));			
 		}
 
@@ -111,7 +107,7 @@ public class FormController {
  	        ColumnConstraints col3 = new ColumnConstraints();
 	        col3.setPercentWidth(10);
 	        
-	        Label label = new Label("It is  long established fact that a reader will be distracted by the readable content of a page a long established fact that a reader will be distracted by the readable content of a page");
+	        Label label = new Label(couple.getHeading());
 	        label.setFont(new Font ("",15));
 	        label.setWrapText(true);
 	        
@@ -144,7 +140,7 @@ public class FormController {
  	        ColumnConstraints col1 = new ColumnConstraints();
  	        col1.setPercentWidth(100);
 	        
-	        Label label = new Label("It is  long established fact that a reader will be distracted by the readable content of a page a long established fact that a reader will be distracted by the readable content of a page");
+	        Label label = new Label(couple.getHeading());
 	        label.setFont(new Font ("",15));
 	        label.setWrapText(true);
 	        
@@ -169,7 +165,7 @@ public class FormController {
  	        ColumnConstraints col2 = new ColumnConstraints();
  	        col2.setPercentWidth(50);
 	        
-	        Label label = new Label("It is  long established fact that a reader will be distracted by the readable content of a page a long established fact that a reader will be distracted by the readable content of a page");
+	        Label label = new Label(couple.getHeading());
 	        label.setFont(new Font ("",15));
 	        label.setWrapText(true);
 	        

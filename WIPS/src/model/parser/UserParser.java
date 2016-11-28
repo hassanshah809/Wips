@@ -46,9 +46,8 @@ public class UserParser extends Parser {
 	/**
 	 * it creates new user parser object
 	 */
-	public UserParser(File userFile, WorkFlowInter wfi) {
+	public UserParser(File userFile) {
 		super(userFile);
-		this.wfi = wfi;
 		userNames = new ArrayList<String>();
 		keyMap = new HashMap<String, Boolean>();
 		keyMap.put("duplicateUserName", false);
@@ -150,20 +149,8 @@ public class UserParser extends Parser {
 				if (roleNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element roleElement = (Element) roleNode;
 					role = roleElement.getAttribute("value");
-
-					ArrayList<Entity> entities = (ArrayList<Entity>) wfi.getTempAttr();
-					boolean roleFound = false;
-
-					for (int k = 0; k < entities.size(); k++) {
-						if (entities.get(k).getRole().equals(role)) {
-							roleArrayList.add(entities.get(k));
-							roleFound = true;
-						}
-					}
-
-					if (!roleFound) {
-						keyMap.put("roleNotFound", true);
-					}
+					System.out.println("role in the user iparse for loop "+role);
+					roleArrayList.add(new Entity(role));
 				}
 			}
 		}
@@ -185,6 +172,7 @@ public class UserParser extends Parser {
 		}
 
 		user = new EndUser(username, roleArrayList, valuesArrayList);
+		System.out.println("roles of the use in user parser " + roleArrayList);
 		usersInter.addAttr(user);
 	}
 	

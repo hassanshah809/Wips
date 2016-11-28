@@ -60,6 +60,7 @@ public class LogInController {
 				User passup = w.getUsers().get(w.getUsers().indexOf(user));
 				if(passup.getPassword().equals(password)){
 					w.setCurrentUser(w.getUsers().get(w.getUsers().indexOf(user)));
+					System.out.println("current user in log in controller ");
 					return passup;
 				}
 			}else {
@@ -90,7 +91,7 @@ public class LogInController {
 			//Get Password
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works
-			User realUser = authenticate(user, password);   // username hassan0 pas hsnhan0
+			User realUser = authenticate(user, password);   // username hassan8 pas ahanas262
 			System.out.println(realUser);
 //			List<Entity> roles = new ArrayList<>();
 //			roles.add(new Entity("dev"));
