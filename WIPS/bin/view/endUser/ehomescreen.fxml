@@ -11,9 +11,9 @@
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-        <TabPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1.7976931348623157E308" tabMinWidth="190.0">
+        <TabPane fx:id="tabpane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1.7976931348623157E308" tabMinWidth="190.0">
           <tabs>
-            <Tab text="All Workflows">
+            <Tab fx:id="allworkflows" text="All Workflows">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
@@ -22,7 +22,7 @@
                 </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Joined Workflows">
+            <Tab fx:id="joinedworkflows" text="Joined Workflows">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
@@ -31,7 +31,7 @@
                 </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Notification">
+            <Tab fx:id="notification" text="Notification">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
@@ -47,10 +47,9 @@
       <top>
         <ToolBar BorderPane.alignment="CENTER_RIGHT">
           <items>
-            <ComboBox fx:id="cbox" prefHeight="39.0" prefWidth="92.0">
+            <ComboBox fx:id="cbox" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="-1.0" promptText="Select a Role">
               <items>
-                <FXCollections fx:factory="observableArrayList">
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList" />
               </items>
             </ComboBox>
             <Button fx:id="logoutbtn" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="92.0" text="Logout" />
