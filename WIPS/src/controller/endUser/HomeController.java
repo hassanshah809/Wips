@@ -23,7 +23,7 @@ import model.wips.WorkFlow;
 public class HomeController {
 
 	@FXML
-	Button notibtn, logoutbtn, allwfbtn;
+	Button testbtn, logoutbtn;
 
 	@FXML
 	ListView<WorkFlow> allwflist, jwflist, notilist;
@@ -107,7 +107,7 @@ public class HomeController {
 
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
-		if (b == notibtn) {
+		if (b == testbtn) {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Sign in form", e, getClass(),
 					"/view/enduser/eformgen.css");
@@ -115,8 +115,6 @@ public class HomeController {
 			LogOutController.logInScreen();
 			Parent e = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", e, getClass(), "/view/session/application.css");
-		} else if (b == allwfbtn) {
-			
 		}
 	}
 }

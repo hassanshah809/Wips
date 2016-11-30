@@ -93,8 +93,8 @@ public class RecipientWindow {
 		selectedStates = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).getAllStartWithMe()
 				.get(indexOfNextStates);
 		coupleForSending = new CoupleForSending[selectedStates.size()];
-
-		if (selectedStates.size() > 1) {
+		System.out.println("size of selected satees " + selectedStates.size());
+		if (selectedStates.size() >= 1 && selectedStates instanceof AndReq) {
 			AndReq andSelected = (AndReq) selectedStates;
 			for (int i = 0; i < coupleForSending.length; i++) {
 				coupleForSending[i] = new CoupleForSending(

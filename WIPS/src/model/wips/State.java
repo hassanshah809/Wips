@@ -45,10 +45,11 @@ public class State implements Serializable {
 
 	private Set<String> distinctVals;
 
-	private List<OrReq> startWithMe = null;
-	private List<OrReq> endWithMe = null;
-	private AndReq andr= new AndReq();
-	private List<AbsReq> allStates = new ArrayList<>();;
+	private List<OrReq> orStartWithMe = null;
+	private List<OrReq> orEndWithMe = null;
+	private AndReq andr = new AndReq();
+	private List<AbsReq> allStates = null;
+
 	/**
 	 * This constructor sets the unique id for the state.
 	 * 
@@ -63,23 +64,24 @@ public class State implements Serializable {
 	}
 
 	public void populate() {
-		if (startWithMe == null && endWithMe == null) {
-			startWithMe = new ArrayList<OrReq>();
-	//		AbsReq andS = new AndReq();
-			endWithMe = new ArrayList<OrReq>();
-	//		AbsReq andE = new AndReq();
+		System.out.println("valuu of orstar and or end in stat.java " + orStartWithMe + "  " + orEndWithMe);
+		if (orStartWithMe == null && orEndWithMe == null) {
+			orStartWithMe = new ArrayList<OrReq>();
+			// AbsReq andS = new AndReq();
+			orEndWithMe = new ArrayList<OrReq>();
+			// AbsReq andE = new AndReq();
 			for (Transition t : Wips.getInstance().getCurrentWorkFlow().getTransition()) {
-				if(this.equals(t.getStartState())){
+				if (this.equals(t.getStartState())) {
 					OrReq or = new OrReq(t);
-					startWithMe.add(or);
+					orStartWithMe.add(or);
 				}
-				
 
 				if (this.equals(t.getEndState())) {
 					OrReq orn = new OrReq(t);
-					endWithMe.add(orn);
+					orEndWithMe.add(orn);
 				}
 			}
+			System.out.println("size of orstar and or end in stat.java " + orStartWithMe.size() + "  " + orEndWithMe.size());
 		}
 	}
 
@@ -191,27 +193,31 @@ public class State implements Serializable {
 			distinctVals.add(s);
 		}
 	}
-	
+
 	public Set<String> getDistinctValues() {
 		return distinctVals;
 	}
 
 	public List<OrReq> getOrStartWithMe() {
 		populate();
-		return startWithMe;
+		return orStartWithMe;
 	}
 
 	public List<AbsReq> getAllStartWithMe() {
 		populate();
-		for(OrReq or : startWithMe)
-			allStates.add(or);
-		if(andr.size() !=0 )
+		allStates = new ArrayList<AbsReq>();
+		if (orStartWithMe.size() > 0) {
+			for (OrReq or : orStartWithMe)
+				allStates.add(or);
+		}
+		if (andr.size() != 0)
 			allStates.add(andr);
 		return allStates;
 	}
+
 	public List<OrReq> getEndState() {
 		populate();
-		return endWithMe;
+		return orEndWithMe;
 	}
 
 	@Override
@@ -228,11 +234,11 @@ public class State implements Serializable {
 	public String toString() {
 		return getEntity().getRole() + " " + getID();
 	}
-	
+
 	public void addand(Transition t) {
 		andr.add(t);
 	}
-	
+
 	public AndReq getAnd() {
 		return andr;
 	}

@@ -36,11 +36,16 @@ public class SelectStatesController {
 		//add to observable list currenstate.getStartWithMe();
 		Wips wips = Wips.getInstance();
 		State[] s = {wips.getCurrentWorkFlow().getStartState()};
+		System.out.println("siize os s in show in sleceted states " + s.length);
 		wips.getCurrentWorkFlow().setCurrentState(s);
 		State currenState = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
+		System.out.println("befor pop in seletc states " + wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size());
 		currenState.populate();
+		System.out.println("after pop in seletc states " + wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size());
+		nextStatesOb = null;
 		nextStatesOb = FXCollections.observableArrayList(wips.getCurrentWorkFlow().getStartState().getAllStartWithMe());
 		listview.setItems(nextStatesOb);
+		
 	}
 	
 	public void next() {
