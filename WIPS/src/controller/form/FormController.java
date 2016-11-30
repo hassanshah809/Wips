@@ -215,7 +215,7 @@ public class FormController {
 		
 	private void  optionalMessage() {
 		List<EndUser> endUsers = Wips.getInstance().getCurrentWorkFlow().getForm().getUsers();
-		if (endUsers.size()==0) {
+		if (endUsers.size()!=0) {
 			checkBox = new CheckBox("Include message");
 			checkBox.setFont(new Font("", 15));
 			optionalTextArea = new TextArea();

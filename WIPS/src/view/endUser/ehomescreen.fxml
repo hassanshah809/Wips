@@ -3,11 +3,12 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="682.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.endUser.HomeController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="682.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.endUser.HomeController">
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
@@ -17,14 +18,26 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                    <ListView fx:id="allwflist" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <ListView fx:id="allwflist" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="allwfbtn" onAction="#handle" mnemonicParsing="false" prefHeight="39.0" prefWidth="134.0" text="Join this Workflow">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                        </Button>
+                      </children>
+                      <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x1" />
+                      </padding>
+                    </VBox>
                   </children>
                 </AnchorPane>
               </content>
             </Tab>
             <Tab fx:id="joinedworkflows" text="Joined Workflows">
               <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" padding="$x1" prefHeight="180.0" prefWidth="200.0">
                   <children>
                     <ListView fx:id="jwflist" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   </children>
@@ -35,8 +48,12 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                    <ListView fx:id="notilist" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    <Button fx:id="testbtn" layoutX="322.0" layoutY="198.0" mnemonicParsing="false" onAction="#handle" text="Test" />
+                    <VBox alignment="BOTTOM_RIGHT" padding="$x1" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <ListView fx:id="notilist" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+                        <Button id="testbtn" fx:id="notibtn" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="134.0" text="See Notification" />
+                      </children>
+                    </VBox>
                   </children>
                 </AnchorPane>
               </content>
@@ -47,7 +64,7 @@
       <top>
         <ToolBar BorderPane.alignment="CENTER_RIGHT">
           <items>
-            <ComboBox fx:id="cbox" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="-1.0" promptText="Select a Role">
+            <ComboBox fx:id="cbox" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="119.0" promptText="Select a Role">
               <items>
                 <FXCollections fx:factory="observableArrayList" />
               </items>
