@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import errors.AbsError;
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -131,11 +133,14 @@ public class CreateWorkFlowController {
 	 * This method will finalize all changes made to this workflow and generate a
 	 * workflow object. It will access the intermediate model classes as well as 
 	 * add all forms created and users associated with this workflow and store the 
-	 * Workflow object in the workflows list in the workflow application’s class. 
+	 * Workflow object in the workflows list in the workflow applicationï¿½s class. 
 	 */
 	public void finish() {
+		
+		String name = JOptionPane.showInputDialog("Please name your workflow");
 		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
+		wf.setWorkFlowName(name);
 	//	Wips.getInstance().getAllWorkFlows().add(wf);
 		setStartState(wf);
 		Wips.getInstance().setCurrentWorkFlow(wf);
