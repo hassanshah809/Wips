@@ -30,6 +30,7 @@ public class WorkFlowParser extends Parser {
 		keyMap.put("incorrectStateTag", false);
 		keyMap.put("incorrectEntityTag",false);
 		keyMap.put("incorrectValueTag", false);
+		keyMap.put("endStateError", false); 
 	}
 
 	/**
@@ -108,8 +109,11 @@ public class WorkFlowParser extends Parser {
 			
 			String idAttrVal = "";
 			String startStateVal = "";
+			String stateNameVal = ""; 
+			String endStateVal = ""; 
 			
 			boolean startState = true;
+			boolean endState = false;
 			int id; 
 			
 			if(stateNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -122,6 +126,9 @@ public class WorkFlowParser extends Parser {
 				Element stateElement = (Element) stateNode;
 				idAttrVal = stateElement.getAttribute("id").toString();
 				startStateVal = stateElement.getAttribute("start").toString();
+				stateNameVal = stateElement.getAttribute("name").toString();
+				endStateVal = stateElement.getAttribute("end").toString();
+				
 				
 				//Translating 
 				
@@ -137,10 +144,20 @@ public class WorkFlowParser extends Parser {
 				}
 				
 				
+				if(endStateVal.toLowerCase().equals("true")) {
+					endState = true;
+				} else if(startStateVal.toLowerCase().equals("false")) {
+					endState = false;
+				} else {
+					keyMap.put("endStateError", true);
+				}
+				
 				values = new ArrayList<String> (); 
 				values = extractValues(valueList, values);
 				
 				stateObj = new State(id, startState, entityObj);
+				stateObj.setName(stateNameVal);
+				stateObj.setEndState(endState);
 				stateObj.addDistintVals(values);
 				wfi.addStates(stateObj);		
 			}
