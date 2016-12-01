@@ -1,26 +1,22 @@
 developer
 username is shah1
-password is: haah705
+password is: ahha609
 
-end users
-
-usrname is userparser deep
-role in the user iparse for loop Student
-username is deep3
-password is: epdp394
-roles of the use in user parser [Student]
-usrname is userparser hassan
-role in the user iparse for loop Student
-role in the user iparse for loop the guy
-role in the user iparse for loop professor
-username is hassan4
-password is: sanasn272
-roles of the use in user parser [Student, the guy, professor]
+username is Kush2
+password is: sssu73
+roles of the use in user parser [student]
+usrname is userparser Billy
+role in the user iparse for loop student
+username is Billy3
+password is: iiiil856
+roles of the use in user parser [student]
 usrname is userparser Borgida
-role in the user iparse for loop Professor
-username is Borgida5
-password is: ogioorr777
-roles of the use in user parser [Professor]
-
-username is the0
-password is: thh24
+role in the user iparse for loop professor
+username is Borgida4
+password is: ddgdgag549
+roles of the use in user parser [professor]
+usrname is userparser Sesh
+role in the user iparse for loop professor
+username is Sesh5
+password is: hsSs938
+roles of the use in user parser [professor]

@@ -1,11 +1,8 @@
 package model.wips.forms;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
-import com.sun.xml.internal.bind.v2.runtime.FilterTransducer;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -42,15 +39,15 @@ public class CoupleForSending {
 		Wips wips = Wips.getInstance();
 		filteredEndUserOb = FXCollections.observableArrayList();
 		List<EndUser> allUser = wips.getEndUser();
-//		for(int i = 0; i<allUser.size(); i++) {
-//			if(allUser.get(i).checkValue(val))
-//				filteredEndUserOb.add(allUser.get(i));
-//		}
-		EndUser user = new EndUser("the guy", true);
-		filteredEndUserOb = FXCollections.observableArrayList();
-		filteredEndUserOb.add(user);
+		for(int i = 0; i<allUser.size(); i++) {
+			if(!allUser.get(i).equals(wips.getCurrentuser()) && allUser.get(i).checkValue(val))
+				filteredEndUserOb.add(allUser.get(i));
+		}
+//		EndUser user = new EndUser("the guy", true);
+//		filteredEndUserOb = FXCollections.observableArrayList();
+//		filteredEndUserOb.add(user);
 		filteredEndUser.setItems(filteredEndUserOb);
-		wips.addUser(user);
+	//	wips.addUser(user);
 	}
 	
 	public EndUser getEndUser() {
@@ -63,6 +60,7 @@ public class CoupleForSending {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				String val = distinctValues.getSelectionModel().getSelectedItem();
+				System.out.println("values " + val);
 				filterUser(val);
 			}
 			
