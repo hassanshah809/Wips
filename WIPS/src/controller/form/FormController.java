@@ -53,8 +53,8 @@ public class FormController {
 	}
 
 	/**
-	* Accesses the static user variable in the WIPS class  and adds this form object to that userï¿½s sent 
-	* list. This also accesses the recipient userï¿½s received queue and adds this form to their received   
+	* Accesses the static user variable in the WIPS class  and adds this form object to that user’s sent 
+	* list. This also accesses the recipient user’s received queue and adds this form to their received   
 	* queue. 
 //	*/
 //	public void send(Form f) {
@@ -70,7 +70,7 @@ public class FormController {
 		
 		//Assume we have couples from the form object
 		System.out.println("current work flow in form contrlller " + Wips.getInstance().getCurrentWorkFlow());
-		Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(0));
+	//	Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(0));
 		List<Couple> dummyC = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 //		for (int i = 0; i < 20; i++) {
 //			boolean req = getRandomBoolean();
@@ -140,8 +140,6 @@ public class FormController {
 
 			
 		} else if (couple.isUserField() && !couple.isRequired()) {
-			
-			
 			System.out.println("b");
 
 			RowConstraints row1 = new RowConstraints();
@@ -165,9 +163,6 @@ public class FormController {
 
 			
 		} else if (!couple.isUserField() && !couple.isRequired()) {
-			
-			//Label emptyLabel = new Label("         ");
-
 			System.out.println("c");
 
 			RowConstraints row1 = new RowConstraints();
@@ -192,8 +187,6 @@ public class FormController {
 
 			gridpane.add(label, 0, 1); 
 		    gridpane.add(textArea, 1, 1); 
-		    //gridpane.add(emptyLabel, 2 , 1);
-		    
 
 	        gridpane.getRowConstraints().addAll(row1);
  	        gridpane.getColumnConstraints().addAll(col1,col2);
@@ -213,18 +206,18 @@ public class FormController {
 	
 	public void send() {
 		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
-		if(checkBox.isSelected() && !optionalTextArea.getText().isEmpty()){
-			Couple dummy = new Couple(optionalTextArea.getText(), false, true);
-			couples.add(dummy);
-		}
-		for (int i = 2; i< couples.size(); i++){
+//		if(checkBox.isSelected() && !optionalTextArea.getText().isEmpty()){
+//			Couple dummy = new Couple(optionalTextArea.getText(), false, true);
+//			couples.add(dummy);
+//		}
+		for (int i = 2; i< couples.size() && textAreas.size() > i-2; i++){
 			couples.get(i).setContentOfTextArea(textAreas.get(i-2).getText());
 		}
 	}
 		
 	private void  optionalMessage() {
 		List<EndUser> endUsers = Wips.getInstance().getCurrentWorkFlow().getForm().getUsers();
-		if (endUsers.size()==0) {
+		if (endUsers.size()!=0) {
 			checkBox = new CheckBox("Include message");
 			checkBox.setFont(new Font("", 15));
 			optionalTextArea = new TextArea();
