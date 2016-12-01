@@ -48,7 +48,9 @@ public class State implements Serializable {
 	private List<OrReq> orStartWithMe = null;
 	private List<OrReq> orEndWithMe = null;
 	private AndReq andr = new AndReq();
+	private AndReq andEndWithMe = new AndReq();
 	private List<AbsReq> allStates = null;
+	private List<AbsReq> allEndStates = null;
 
 	/**
 	 * This constructor sets the unique id for the state.
@@ -94,11 +96,14 @@ public class State implements Serializable {
 	 */
 	public boolean isAllowedtoSend() {
 		populate();
-		for (AbsReq a : allStates) {
-			if (a.isAllowed())
-				return true;
+		System.out.println("all end states in states " + allEndStates);
+		if(allEndStates == null || allEndStates.size() == 0)
+			return true;
+		for (AbsReq a : allEndStates) {
+			if (!a.isAllowed())
+				return false;
 		}
-		return true; // change this to false
+		return true; 
 	}
 
 	/**
@@ -241,5 +246,26 @@ public class State implements Serializable {
 
 	public AndReq getAnd() {
 		return andr;
+	}
+	
+	public void popAndEndWithMe() {
+		andEndWithMe.getAndTransitions().clear();
+		for (Transition t : Wips.getInstance().getCurrentWorkFlow().getTransition()) {
+			if (this.equals(t.getEndState()) && t.getReq()) {
+				andEndWithMe.add(t);
+			}
+		}
+	}
+	
+	public void getAllEndWithMe() {
+		populate();
+		allEndStates = new ArrayList<AbsReq>();
+		popAndEndWithMe();
+		if (orEndWithMe.size() > 0) {
+			for (OrReq or : orEndWithMe)
+				allEndStates.add(or);
+		}
+		if (andEndWithMe.size() != 0)
+			allEndStates.add(andEndWithMe);
 	}
 }

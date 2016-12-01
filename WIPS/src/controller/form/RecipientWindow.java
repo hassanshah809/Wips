@@ -78,8 +78,8 @@ public class RecipientWindow {
 		Button b = (Button) handler.getSource();
 		if (b == sendbutton) {
 			send();
-			System.out.println("success for sending the form.....");
-			LogOutController.logInScreen();
+			
+		//	LogOutController.logInScreen();
 		} else if (b == backbutton) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),
@@ -111,8 +111,10 @@ public class RecipientWindow {
 		List<EndUser> endUsers = new ArrayList<>();
 		System.out.println("lengt of cople for sending in recpine " + coupleForSending.length);
 			for (int i = 0; i < coupleForSending.length; i++) {
-				endUsers.add(coupleForSending[i].getEndUser());
-				System.out.println("end use rin recipent " + coupleForSending[i].getEndUser().getUsername());
+				EndUser u = coupleForSending[i].getEndUser();
+				if(u != null)
+					endUsers.add(u);
+		//		System.out.println("end use rin recipent " + coupleForSending[i].getEndUser().getUsername());
 			}
 		return endUsers;
 	}
@@ -125,6 +127,7 @@ public class RecipientWindow {
 			form.addUser(endUser);
 			List<EndUser> compileUsers = compileListOfUsers();
 			System.out.println("compile of users " + compileUsers.size());
+			System.out.println("\n current user in recepiend window " + endUser);
 			if (compileUsers.size() == coupleForSending.length) {
 				for (EndUser user : compileListOfUsers()) {
 					endUser.send(form, user);
@@ -132,6 +135,7 @@ public class RecipientWindow {
 				}
 				form.updateUsers();
 				selectedStates.markedSend();
+				System.out.println("success for sending the form.....");
 			}
 		}
 	}

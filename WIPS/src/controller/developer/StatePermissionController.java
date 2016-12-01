@@ -209,4 +209,9 @@ public class StatePermissionController {
 			}
 		});
 	}
+	
+	public void setAllEndWithReq() {
+		for(State s: Wips.getInstance().getCurrentWorkFlow().getState())
+			s.getAllEndWithMe();
+	}
 }

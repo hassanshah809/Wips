@@ -11,6 +11,11 @@ import model.wips.forms.Form;
 
 public class WorkFlow implements Serializable{
 	/**
+	 * This field contains the name of the workflow
+	 */
+	
+	private String name;
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -168,8 +173,12 @@ public class WorkFlow implements Serializable{
 		return null;
 	}
 	
+	public void setWorkFlowName(String name) {
+		this.name = name;
+	}
+	
 	@Override
 	public String toString() {
-		return "" + getID();
+		return name;
 	}
 }

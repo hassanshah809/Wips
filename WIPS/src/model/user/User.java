@@ -150,4 +150,9 @@ public abstract class User implements Serializable{
 			return true;
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return username;
+	}
 }

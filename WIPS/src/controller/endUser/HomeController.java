@@ -82,10 +82,11 @@ public class HomeController {
 
 	public void populate() {
 		System.out.println("roles of the curren usr " + Wips.getInstance().getCurrentuser().getRoles());
-	//	cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
+		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
 		cbox.setOnAction((event) -> {
 			Entity e = cbox.getSelectionModel().getSelectedItem();
 			Wips.getInstance().setRoleOfCurrentUser(e);
+			allWorkFlowController();
 			System.out.println("in populate " + e);
 			System.out.println("in ppulate in woiops " + Wips.getInstance().getRoleOfCurrentUser());
 		});
@@ -116,7 +117,9 @@ public class HomeController {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", e, getClass(), "/view/session/application.css");
 		} else if (b == allwfbtn) {
-			
+			Wips.getInstance().setCurrentWorkFlow(allwflist.getSelectionModel().getSelectedItem());
+			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
+			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(), "/view/endUser/eformgen.css");
 		}
 	}
 }
