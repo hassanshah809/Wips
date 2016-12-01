@@ -29,7 +29,7 @@ import model.wips.forms.Couple;
 public class FormController {
 	
 	@FXML
-	Button sendbtn, backbutton;
+	Button sendbtn, backbutton, logoutbtn;
 	
 	@FXML 
 	Label title, description;
@@ -239,6 +239,9 @@ public class FormController {
 		} else if (b == backbutton) {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(),"/view/enduser/ehomescreen.css");
+		} else if (b == logoutbtn) {
+			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
+			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 		}
 	}
 	

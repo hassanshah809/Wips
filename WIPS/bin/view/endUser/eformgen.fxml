@@ -18,6 +18,7 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
               <children>
                 <Button fx:id="backbutton" mnemonicParsing="false" onAction="#handle" prefHeight="35.0" prefWidth="67.0" text="Back" />
+                <Button fx:id="logoutbtn" onAction="#handle" mnemonicParsing="false" prefHeight="35.0" prefWidth="67.0" text="Logout" />
                 <Label text="Signature">
                   <font>
                     <Font size="15.0" fx:id="x3" />

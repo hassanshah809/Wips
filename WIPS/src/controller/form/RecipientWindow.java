@@ -29,7 +29,7 @@ import model.wips.intermediates.OrReq;
 public class RecipientWindow {
 
 	@FXML
-	Button sendbutton, backbutton;
+	Button sendbutton, backbutton, logoutbtn;
 
 	@FXML
 	VBox vbox;
@@ -84,6 +84,9 @@ public class RecipientWindow {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),
 					"/view/endUser/eselectstates.css");
+		} else if (b == logoutbtn) {
+			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
+			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 		}
 	}
 
