@@ -79,7 +79,7 @@ public class RecipientWindow {
 		if (b == sendbutton) {
 			send();
 			
-		//	LogOutController.logInScreen();
+			LogOutController.logInScreen();
 		} else if (b == backbutton) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),

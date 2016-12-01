@@ -14,11 +14,23 @@
       <bottom>
         <VBox prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
           <children>
-            <VBox fx:id="optionalmessage" prefHeight="-1.0" prefWidth="-1.0" />
+            <VBox prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
+              <children>
+                <CheckBox fx:id="checkbox" mnemonicParsing="false" text="Include Message" VBox.vgrow="ALWAYS">
+                  <font>
+                    <Font size="14.0" />
+                  </font>
+                </CheckBox>
+                <TextArea fx:id="optionalmessage" prefWidth="200.0" wrapText="true" />
+              </children>
+              <padding>
+                <Insets top="10.0" />
+              </padding>
+            </VBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
               <children>
                 <Button fx:id="backbutton" mnemonicParsing="false" onAction="#handle" prefHeight="35.0" prefWidth="67.0" text="Back" />
-                <Button fx:id="logoutbtn" onAction="#handle" mnemonicParsing="false" prefHeight="35.0" prefWidth="67.0" text="Logout" />
+                <Button fx:id="logoutbtn" mnemonicParsing="false" onAction="#handle" prefHeight="35.0" prefWidth="67.0" text="Logout" />
                 <Label text="Signature">
                   <font>
                     <Font size="15.0" fx:id="x3" />

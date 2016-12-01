@@ -34,11 +34,14 @@ public class FormController {
 	@FXML 
 	Label title, description;
 	
-	CheckBox checkBox;
-	TextArea optionalTextArea;
+	@FXML
+	CheckBox checkbox;
 	
 	@FXML
-	VBox vbox, optionalmessage;
+	TextArea optionalmessage;
+	
+	@FXML
+	VBox vbox;
 
 	@FXML
 	ScrollPane sp;
@@ -95,12 +98,12 @@ public class FormController {
 		}
 
 		vbox.setSpacing(15);
-		optionalMessage();
 		System.out.println(vbox.getChildren().size());
 	}
 	
 	private GridPane createCoupleRow(Couple couple) {
 		 GridPane gridpane = new GridPane();
+		 List<EndUser> endUsers = Wips.getInstance().getCurrentWorkFlow().getForm().getUsers();
 		//If required is true and user field is false
 		if(couple.isRequired() && !couple.isUserField()){
 			System.out.println("a");
@@ -120,6 +123,11 @@ public class FormController {
 	        
 	        
 	        TextArea textArea = new TextArea();
+	        if (endUsers.size()!=0) {
+	        	textArea.setText(couple.getContentOfTextArea());
+				textArea.setDisable(true);
+			    textArea.setStyle( "-fx-background-color: white" );
+			}
 			textArea.setWrapText(true);
 			textArea.setPrefSize( Double.MIN_VALUE, Double.MIN_VALUE );
 			this.textAreas.add(textArea);
@@ -180,6 +188,11 @@ public class FormController {
 	        label.setWrapText(true);
 	        
 	        TextArea textArea = new TextArea();
+	        if (endUsers.size()!=0) {
+	        	textArea.setText(couple.getContentOfTextArea());
+				textArea.setDisable(true);
+			    textArea.setStyle( "-fx-background-color: white" );
+			}
 			textArea.setWrapText(true);
 			textArea.setPrefSize( Double.MIN_VALUE, Double.MIN_VALUE );
 			this.textAreas.add(textArea);
@@ -198,36 +211,18 @@ public class FormController {
 		}
 		return gridpane;
 	}
-	
-	public boolean getRandomBoolean() {
-	    Random random = new Random();
-	    return random.nextBoolean();
-	}
-	
+		
 	public void send() {
 		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
-//		if(checkBox.isSelected() && !optionalTextArea.getText().isEmpty()){
-//			Couple dummy = new Couple(optionalTextArea.getText(), false, true);
-//			couples.add(dummy);
-//		}
+		if(checkbox.isSelected() && !optionalmessage.getText().isEmpty()){
+			Couple dummy = new Couple(optionalmessage.getText(), false, true);
+			couples.add(dummy);
+		}
 		for (int i = 2; i< couples.size() && textAreas.size() > i-2; i++){
 			couples.get(i).setContentOfTextArea(textAreas.get(i-2).getText());
 		}
 	}
 		
-	private void  optionalMessage() {
-		List<EndUser> endUsers = Wips.getInstance().getCurrentWorkFlow().getForm().getUsers();
-		if (endUsers.size()!=0) {
-			checkBox = new CheckBox("Include message");
-			checkBox.setFont(new Font("", 15));
-			optionalTextArea = new TextArea();
-			optionalmessage.getChildren().add(checkBox);
-			optionalmessage.getChildren().add(optionalTextArea);
-			optionalmessage.setPadding(new Insets(0,0,10,0));
-			optionalmessage.setSpacing(10);
-		}
-	}
-	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
