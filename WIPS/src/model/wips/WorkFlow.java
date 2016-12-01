@@ -71,8 +71,9 @@ public class WorkFlow implements Serializable{
 	 * @param transition list of Transtions
 	 * @param form  Form
 	 */
-	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition) {
-		id = Wips.getInstance().getIdsOfEveryClass().getWorkFlowId();
+	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition, int shouldIncrementId) {
+		if(shouldIncrementId == 1)
+			id = Wips.getInstance().getIdsOfEveryClass().getWorkFlowId();
 		this.state = states;
 		this.entity = entities;
 		this.transition = transition;
@@ -161,12 +162,17 @@ public class WorkFlow implements Serializable{
 	}
 	
 	public void setCurrentState(State[] s) {
-		currentStates = s;
+		currentStates = new State[s.length];
+		for(int i = 0; i < s.length; i++) {
+			currentStates[i] = s[i];
+			System.out.println("\nurrent states  " + currentStates[i]);
+		}
 		
 	}
 	
 	public State getCurrentState(Entity e) {
 		for(State s: currentStates) {
+			System.out.println("in workflow " + s);
 			if(s.getEntity().equals(e))
 				return s;
 		}
@@ -177,6 +183,13 @@ public class WorkFlow implements Serializable{
 		this.name = name;
 	}
 	
+	public String getWorkFlowName() {
+		return name;
+	}
+	
+	public State[] getCurrentStates() {
+		return currentStates;
+	}
 	@Override
 	public String toString() {
 		return name;

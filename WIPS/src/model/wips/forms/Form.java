@@ -53,6 +53,10 @@ public class Form implements Serializable{
 	public WorkFlow getFormWorkFlow() {
 		return this.wf;
 	}
+	
+	public void setWorkFlow(WorkFlow workflow) {
+		this.wf = workflow;
+	}
 	/**
 	* This method will add message to the message list
 	*/
@@ -100,5 +104,14 @@ public class Form implements Serializable{
 	
 	public int getFormId() {
 		return formID;
+	}
+	
+	public void clear() {
+		for(int i = 2; i < couples.size(); i++) {
+			couples.get(i).clear();
+		}
+		message.clear();
+		users.clear();
+		roles.clear();
 	}
 }

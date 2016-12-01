@@ -70,4 +70,8 @@ public class Couple implements Serializable{
 		}
 		return false;
 	}
+	
+	public void clear() {
+		setContentOfTextArea("");
+	}
 }

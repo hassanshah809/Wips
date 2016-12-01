@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.session.LogOutController;
 import helper.OpenScreen;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -17,9 +17,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
 import model.Wips;
 import model.user.EndUser;
+import model.wips.State;
 import model.wips.forms.CoupleForSending;
 import model.wips.forms.Form;
 import model.wips.intermediates.AbsReq;
@@ -29,7 +29,7 @@ import model.wips.intermediates.OrReq;
 public class RecipientWindow {
 
 	@FXML
-	Button sendbutton, backbutton, logoutbtn;
+	Button sendbutton, backbutton;
 
 	@FXML
 	VBox vbox;
@@ -77,16 +77,18 @@ public class RecipientWindow {
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == sendbutton) {
+			Wips wips = Wips.getInstance();
 			send();
-			
-			LogOutController.logInScreen();
+			setCurrents();
+			wips.getCurrentuser().setWorkflow(wips.getCurrentWorkFlow());
+			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home Screen", l, getClass(),
+					"/view/endUser/ehomescreen.css");
+		//	LogOutController.logInScreen();
 		} else if (b == backbutton) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),
 					"/view/endUser/eselectstates.css");
-		} else if (b == logoutbtn) {
-			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
-			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 		}
 	}
 
@@ -124,7 +126,8 @@ public class RecipientWindow {
 
 	public void send() {
 		Wips wips = Wips.getInstance();
-		if (wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).isAllowedtoSend()) {
+		State state = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
+		if (state.isAllowedtoSend()) {
 			EndUser endUser = (EndUser) Wips.getInstance().getCurrentuser();
 			Form form = wips.getCurrentWorkFlow().getForm();
 			form.addUser(endUser);
@@ -138,21 +141,28 @@ public class RecipientWindow {
 				}
 				form.updateUsers();
 				selectedStates.markedSend();
+			//	state.
 				System.out.println("success for sending the form.....");
 			}
 		}
 	}
 
-	/**
-	 * This method will return the user to the window for the FormController
-	 * without making any changes to the system.
-	 */
-	public void cancel() {
-		// Parent p = FXMLLoader.load(getClass().getResource("Path to the view
-		// FXML file"));
-		// View Package will have a class called openSCreen and it will have a
-		// method called "openScreen"
-		// It will take 3 parameters openScreen(String fxmlfile, ActionEvent e,
-		// String title, Parent p);
+	public void setCurrents() {
+		State[] s = new State[selectedStates.size()];
+		Wips wips = Wips.getInstance();
+		if (selectedStates instanceof AndReq) {
+			AndReq and = (AndReq) selectedStates;
+			for (int i = 0; i < and.size(); i++) {
+				s[i] = and.getAndTransitions().get(i).getEndState();
+			}
+			wips.getCurrentWorkFlow().setCurrentState(s);
+			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
+		}
+		if(selectedStates instanceof OrReq) {
+			OrReq or = (OrReq) selectedStates;
+			s[0] = or.getTransition().getEndState();
+			wips.getCurrentWorkFlow().setCurrentState(s);
+			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
+		}
 	}
 }

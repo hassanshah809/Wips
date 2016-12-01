@@ -19,6 +19,7 @@ import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
 import model.wips.WorkFlow;
+import model.wips.forms.Form;
 
 public class HomeController {
 
@@ -62,6 +63,7 @@ public class HomeController {
 			if (newTab.equals(allworkflows)) {
 				allWorkFlowController();
 			} else if (newTab.equals(joinedworkflows)) {
+				allJoinedWorkFlows();
 				System.out.println("Joined wf");
 			} else if (newTab.equals(notification)) {
 				System.out.println("noti");
@@ -77,6 +79,14 @@ public class HomeController {
 			System.out.println("sixe of stack " + u.getRecievedForm().size());
 			notilistOb = FXCollections.observableArrayList(u.getRecievedForm().peek().getFormWorkFlow());
 			notilist.setItems(notilistOb);
+		}
+	}
+	
+	public void allJoinedWorkFlows() {
+		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+		if (u.getAllWorkflows().size() > 0 ) {
+			jwflistOb = FXCollections.observableArrayList(u.getAllWorkflows());
+			jwflist.setItems(jwflistOb);
 		}
 	}
 
@@ -109,6 +119,8 @@ public class HomeController {
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == notibtn) {
+			Wips.getInstance().setCurrentWorkFlow(notilist.getSelectionModel().getSelectedItem());
+			System.out.println("ntoi button workflow " + Wips.getInstance().getCurrentWorkFlow().getCurrentStates());
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Sign in form", e, getClass(),
 					"/view/enduser/eformgen.css");
@@ -117,9 +129,23 @@ public class HomeController {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", e, getClass(), "/view/session/application.css");
 		} else if (b == allwfbtn) {
-			Wips.getInstance().setCurrentWorkFlow(allwflist.getSelectionModel().getSelectedItem());
+			WorkFlow wf = (WorkFlow) clone();
+			Wips.getInstance().setCurrentWorkFlow(wf);
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(), "/view/endUser/eformgen.css");
 		}
+	}
+	
+	@Override
+	public Object clone() {
+		WorkFlow wf = allwflist.getSelectionModel().getSelectedItem();
+		WorkFlow newWf = new WorkFlow(wf.getState(), wf.getEntity(), wf.getTransition(), 0);
+		newWf.setWorkFlowName(wf.getWorkFlowName());
+		Form f = wf.getForm();
+		f.clear();
+		newWf.setForm(f);
+		newWf.setCurrentState(wf.getCurrentStates());
+		newWf.setStartState(wf.getStartState());
+		return newWf;
 	}
 }

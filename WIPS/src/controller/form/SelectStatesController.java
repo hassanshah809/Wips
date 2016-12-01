@@ -35,15 +35,17 @@ public class SelectStatesController {
 	public void show() {
 		//add to observable list currenstate.getStartWithMe();
 		Wips wips = Wips.getInstance();
-		State[] s = {wips.getCurrentWorkFlow().getStartState()};
-		System.out.println("siize os s in show in sleceted states " + s.length);
-		wips.getCurrentWorkFlow().setCurrentState(s);
+//		State[] s = {wips.getCurrentWorkFlow().getStartState()};
+//		System.out.println("siize os s in show in sleceted states " + s.length);
+//		wips.getCurrentWorkFlow().setCurrentState(s);
 		State currenState = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
-		System.out.println("befor pop in seletc states " + wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size());
+		System.out.println("curent stte in selected stte " + currenState);
+//		System.out.println("befor pop in seletc states " + wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size());
+		
 		currenState.populate();
-		System.out.println("after pop in seletc states " + wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size());
+//		System.out.println("after pop in seletc states " + wips.getCurrentWorkFlow().getStartState().getAllStartWithMe().size());
 		nextStatesOb = null;
-		nextStatesOb = FXCollections.observableArrayList(wips.getCurrentWorkFlow().getStartState().getAllStartWithMe());
+		nextStatesOb = FXCollections.observableArrayList(currenState.getAllStartWithMe());
 		listview.setItems(nextStatesOb);
 		
 	}

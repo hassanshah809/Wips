@@ -140,7 +140,7 @@ public class CreateWorkFlowController {
 	public void finish() {
 		
 		System.out.println(wfi.getTempAttr().size());
-		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
+		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr(),1);
 		
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Name Your Workflow");
@@ -162,10 +162,13 @@ public class CreateWorkFlowController {
 		for(State s: f.getState()){
 			if(s.isStartState()){
 				f.setStartState(s);
+				State[] b = {s};
+				f.setCurrentState(b);
 				System.out.println("in if in create worf fle conroller ");
 			}
 				
 		}
+		Wips.getInstance().setCurrentWorkFlow(f);
 	}
 
 	public void reset() {
