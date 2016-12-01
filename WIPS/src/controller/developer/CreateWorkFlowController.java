@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Wips;
@@ -137,10 +139,17 @@ public class CreateWorkFlowController {
 	 */
 	public void finish() {
 		
-		String name = JOptionPane.showInputDialog("Please name your workflow");
 		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr());
-		wf.setWorkFlowName(name);
+		
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Name Your Workflow");
+		dialog.setHeaderText("Time to Name!");
+		dialog.setContentText("Please name your workflow");
+		
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(name -> wf.setWorkFlowName(name));
+		
 	//	Wips.getInstance().getAllWorkFlows().add(wf);
 		setStartState(wf);
 		Wips.getInstance().setCurrentWorkFlow(wf);
