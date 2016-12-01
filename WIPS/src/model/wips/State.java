@@ -12,7 +12,13 @@ import model.wips.intermediates.AndReq;
 import model.wips.intermediates.OrReq;
 
 public class State implements Serializable {
-
+	
+	/**
+	 * This is the field containing the name of the State
+	 */
+	
+	private String name;
+	
 	/**
 	 * 
 	 */
@@ -28,6 +34,13 @@ public class State implements Serializable {
 	 * state.
 	 */
 	private boolean startState;
+	
+	/**
+	 * This is the boolean value which states whether this state is the final state in the workflow. 
+	 */
+	
+	private boolean endState; 
+	
 	/**
 	 * This boolean will be set to true if the workflow is in this current
 	 * state. Otherwise it will be false.
@@ -223,6 +236,36 @@ public class State implements Serializable {
 	public List<OrReq> getEndState() {
 		populate();
 		return orEndWithMe;
+	}
+	
+	
+	/**
+	 * This method returns the name of the state object
+	 * @return
+	 */
+	
+	
+	public String getName() {
+		return name; 
+	}
+	
+	/**
+	 * This method returns a boolean value representing whether or not this state is a final state
+	 * in the workflow.
+	 * @return boolean value which states if this state is final state.
+	 */
+	
+	public boolean isEndState() {
+		return endState; 
+	}
+	
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setEndState(boolean endState) {
+		this.endState= endState; 
 	}
 
 	@Override
