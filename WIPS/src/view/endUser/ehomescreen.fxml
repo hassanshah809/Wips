@@ -7,6 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="682.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.endUser.HomeController">
   <children>
@@ -21,7 +22,7 @@
                     <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <children>
                         <ListView fx:id="allwflist" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="allwfbtn" onAction="#handle" mnemonicParsing="false" prefHeight="39.0" prefWidth="134.0" text="Join this Workflow">
+                        <Button fx:id="allwfbtn" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="134.0" text="Join this Workflow">
                           <VBox.margin>
                             <Insets />
                           </VBox.margin>
@@ -39,7 +40,16 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" padding="$x1" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                    <ListView fx:id="jwflist" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <VBox alignment="CENTER_LEFT" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <ListView fx:id="jwflist" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+                        <Label fx:id="statuslabel" text="Current Status:">
+                          <font>
+                            <Font size="14.0" />
+                          </font>
+                        </Label>
+                      </children>
+                    </VBox>
                   </children>
                 </AnchorPane>
               </content>

@@ -215,7 +215,8 @@ public class FormController {
 	public void send() {
 		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 		if(checkbox.isSelected() && !optionalmessage.getText().isEmpty()){
-			Couple dummy = new Couple(optionalmessage.getText(), false, true);
+			String s = 	Wips.getInstance().getCurrentuser().getUsername();
+			Couple dummy = new Couple("Message from " + s + " " +optionalmessage.getText(), false, true);
 			couples.add(dummy);
 		}
 		for (int i = 2; i< couples.size() && textAreas.size() > i-2; i++){
