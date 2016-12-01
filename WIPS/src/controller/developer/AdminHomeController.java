@@ -21,7 +21,7 @@ import model.wips.WorkFlow;
 public class AdminHomeController {
 	
 	@FXML
-	Button createWFBtn, logoutBtn;
+	Button createWFBtn, logoutBtn, deleteBtn;
 	
 	@FXML
 	ListView<WorkFlow> createdWorkFlows;
@@ -66,6 +66,32 @@ public class AdminHomeController {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 			LogOutController.logInScreen();
+		} else if(b == deleteBtn) {
+			int wrkflow = createdWorkFlows.getSelectionModel().getSelectedItem().getID();
+			Wips wips = Wips.getInstance();
+			
+			//Removes it from the developer
+			
+			for(int i = 0; i < wips.getCurrentuser().getAllWorkflows().size(); i++) {
+				if(wips.getCurrentuser().getAllWorkflows().get(i).getID() == wrkflow) {
+					wips.getCurrentuser().getAllWorkflows().remove(i);
+					break;
+				}
+			}
+			
+			//Removes it from the WIPS 
+			
+			for(int i = 0; i < wips.getAllWorkFlows().size(); i++) {
+				if(wips.getAllWorkFlows().get(i).getID() == wrkflow) {
+					wips.getAllWorkFlows().remove(i);
+					break;
+				}
+			}
+			
+			//Reset the Observable list. 
+			
+			createdWorkFlowsOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+			createdWorkFlows.setItems(createdWorkFlowsOb);
 		}
 	}
 }
