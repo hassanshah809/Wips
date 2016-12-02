@@ -21,27 +21,27 @@ public class UserParser extends Parser {
 	 * This list contains all usernames that have been found in the XML parser
 	 */
 		
-	static ArrayList<String> userNames;
+	ArrayList<String> userNames;
 	
 	/**
 	 * This hashmap contains a String regarding the "type of" error that was encountered while parsing.
 	 */
 	
-	static HashMap<String,Boolean> keyMap; 
+	HashMap<String,Boolean> keyMap; 
 	
 	/**
 	 * This contains the intermediate object which contains the list of all
 	 * States and Entities associated with the "to-be-created" workflow.
 	 */
 
-	static WorkFlowInter<Entity, State> wfi;
+	WorkFlowInter<Entity, State> wfi;
 
 	/**
 	 * This contains the intermediate object which contains all user information
 	 * parsed from the user xml file.
 	 */
 
-	static GenInter<User> usersInter = new GenInter<User>();
+	GenInter<User> usersInter = new GenInter<User>();
 
 	/**
 	 * it creates new user parser object
@@ -79,7 +79,7 @@ public class UserParser extends Parser {
 	}
 	
 	
-	private static void extractUsers(NodeList userList) {
+	private void extractUsers(NodeList userList) {
 		
 		for (int i = 0; i < userList.getLength(); i++) {
 			Node userNode = userList.item(i);
@@ -130,7 +130,7 @@ public class UserParser extends Parser {
 		}
 	}
 	
-	private static void handleChildren(Node node1, Node node2, String name) {
+	private void handleChildren(Node node1, Node node2, String name) {
 		
 		User user;
 		

@@ -2,7 +2,6 @@ package model.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import model.wips.Entity;
 import model.wips.WorkFlow;
@@ -21,7 +20,7 @@ public class EndUser extends User{
 	/**
 	* List of form end user received
 	*/
-	private Stack<WorkFlow> received;
+	private List<WorkFlow> received;
 
 	private int lastSizeOfStack = 0;
 	int numOfUdates = 0;
@@ -36,12 +35,12 @@ public class EndUser extends User{
 		// TODO Auto-generated constructor stub
 		super(name, role, val);
 		sent = new ArrayList<Form>();
-		received = new Stack<WorkFlow>();
+		received = new ArrayList<WorkFlow>();
 	}
 	
 	public EndUser(String username, boolean b) {
 		super(username, b);
-		received = new Stack<WorkFlow>();
+		received = new ArrayList<WorkFlow>();
 	}
 	/**
 	 * This method is responsible for sending the form to next state
@@ -57,11 +56,11 @@ public class EndUser extends User{
 	 * This receives the form sent by the users of previous states
 	 */
 	public void recieve(Form form) {
-		received.push(form.getFormWorkFlow());
+		received.add(form.getFormWorkFlow());
 		System.out.println("size of the reciev elist stave " + received.size());
 	}
 	
-	public Stack<WorkFlow> getRecievedForm() {
+	public List<WorkFlow> getRecievedForm() {
 		return this.received;
 	}
 	/**

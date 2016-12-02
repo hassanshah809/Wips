@@ -1,6 +1,7 @@
 package controller.endUser;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import controller.session.LogOutController;
 import helper.OpenScreen;
@@ -69,9 +70,9 @@ public class HomeController {
 				int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
 				if(indexOfJoinedWorkFlow >= 0){
 					Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate(false);
-					status(Wips.getInstance().getAllWorkFlows().get(indexOfJoinedWorkFlow).getForm());
-//					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-//					u.update();
+					status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).getForm());
+					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+					u.update();
 					
 					System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
 					System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
@@ -204,10 +205,14 @@ public class HomeController {
 		WorkFlow wf = allwflist.getSelectionModel().getSelectedItem();
 		WorkFlow newWf = new WorkFlow(wf.getState(), wf.getEntity(), wf.getTransition(), 0);
 		newWf.setWorkFlowName(wf.getWorkFlowName());
-		Form f = wf.getForm();
-		f.clear();
+		Form f = new Form(wf.getForm().getFormName(), newWf);
+		f.addCouple(wf.getForm().getCouples());
+//		f.clear();
 		newWf.setForm(f);
+		System.out.println();
+		System.out.println("current states in clone " + Arrays.asList(wf.getCurrentStates()));
 		newWf.setCurrentState(wf.getCurrentStates());
+		System.out.println("start state in clone " + wf.getStartState());
 		newWf.setStartState(wf.getStartState());
 		return newWf;
 	}

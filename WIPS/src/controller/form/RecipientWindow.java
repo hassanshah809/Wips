@@ -143,6 +143,7 @@ public class RecipientWindow {
 					form.addUser(user);
 					form.addRoles(selectedStates.getEntity());
 				}
+	//			form.updateUsers();
 				selectedStates.markedSend();
 			//	state.
 				System.out.println("success for sending the form.....");
@@ -160,14 +161,14 @@ public class RecipientWindow {
 				System.out.println("set currents " + s[i]);
 			}
 			wips.getCurrentWorkFlow().setCurrentState(s);
-			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
+//			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}
 		if(selectedStates instanceof OrReq) {
 			OrReq or = (OrReq) selectedStates;
 			s[0] = or.getTransition().getEndState();
 			System.out.println("set current " + s[0]);
 			wips.getCurrentWorkFlow().setCurrentState(s);
-			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
+//			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}
 	//	wips.getCurrentWorkFlow().setHasUpdate(true);
 	}
