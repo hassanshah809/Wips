@@ -21,12 +21,11 @@ public class EndUser extends User{
 	/**
 	* List of form end user received
 	*/
-	private Stack<Form> received;
+	private Stack<WorkFlow> received;
 
-	/**
-	* It contains the list of all workflows that user has joined
-	*/
-	private List<WorkFlow> joinedWorkflows;
+	private int lastSizeOfStack = 0;
+	int numOfUdates = 0;
+	int numberOfNewNotifications = 0;
 	/**
 	 * creates the new enduser
 	 * @param name String 
@@ -37,12 +36,12 @@ public class EndUser extends User{
 		// TODO Auto-generated constructor stub
 		super(name, role, val);
 		sent = new ArrayList<Form>();
-		received = new Stack<Form>();
+		received = new Stack<WorkFlow>();
 	}
 	
 	public EndUser(String username, boolean b) {
 		super(username, b);
-		received = new Stack<Form>();
+		received = new Stack<WorkFlow>();
 	}
 	/**
 	 * This method is responsible for sending the form to next state
@@ -58,11 +57,11 @@ public class EndUser extends User{
 	 * This receives the form sent by the users of previous states
 	 */
 	public void recieve(Form form) {
-		received.push(form);
+		received.push(form.getFormWorkFlow());
 		System.out.println("size of the reciev elist stave " + received.size());
 	}
 	
-	public Stack<Form> getRecievedForm() {
+	public Stack<WorkFlow> getRecievedForm() {
 		return this.received;
 	}
 	/**
@@ -85,12 +84,7 @@ public class EndUser extends User{
 	* Returns the list of joined workflows
 	*/
 	public List<WorkFlow> getJoinedWorkflows(Entity role){
-		List<WorkFlow> joined = new ArrayList<>();
-		for(WorkFlow f: joinedWorkflows){
-			if(f.hasRole(role))
-				joined.add(f);
-		}
-		return joinedWorkflows;
+		return allworkflows;
 	}
 	
 	/**
@@ -101,7 +95,22 @@ public class EndUser extends User{
 	}
 	
 	public void update() {
+		numOfUdates = 0;
+		for(WorkFlow f : allworkflows){
+			if(f.getHasUpdate())
+				numOfUdates++;
+		}
 		
+		numberOfNewNotifications = received.size() - lastSizeOfStack;
+		lastSizeOfStack = received.size();
+	}
+	
+	public int getNumOfUpdates() {
+		return numOfUdates;
+	}
+	
+	public int getNumOfNotif() {
+		return numberOfNewNotifications;
 	}
 	
 	/**

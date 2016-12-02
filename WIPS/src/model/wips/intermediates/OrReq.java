@@ -2,6 +2,7 @@ package model.wips.intermediates;
 
 import java.io.Serializable;
 
+import model.wips.Entity;
 import model.wips.Transition;
 
 public class OrReq implements AbsReq, Serializable{
@@ -42,5 +43,10 @@ public class OrReq implements AbsReq, Serializable{
 	@Override
 	public String toString() {
 		return t.toString();
+	}
+	@Override
+	public Entity getEntity() {
+		// TODO Auto-generated method stub
+		return t.getEndState().getEntity();
 	}
 }

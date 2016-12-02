@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import controller.session.LogOutController;
 import helper.OpenScreen;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,12 +14,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
+import model.wips.Transition;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
@@ -37,6 +41,9 @@ public class HomeController {
 
 	@FXML
 	Tab allworkflows, joinedworkflows, notification;
+	
+	@FXML
+	Label statuslabel;
 
 	private ObservableList<WorkFlow> allwflistOb, jwflistOb, notilistOb;
 
@@ -52,10 +59,51 @@ public class HomeController {
 
 	@FXML
 	protected void initialize() {
+	//	disabler(true);
+		jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+		jwflist.setItems(jwflistOb);
+		jwflist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<WorkFlow>() {
+
+			@Override
+			public void changed(ObservableValue<? extends WorkFlow> observable, WorkFlow oldValue, WorkFlow newValue) {
+				int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
+				if(indexOfJoinedWorkFlow >= 0){
+					Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate(false);
+					status(Wips.getInstance().getAllWorkFlows().get(indexOfJoinedWorkFlow).getForm());
+//					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+//					u.update();
+					
+					System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
+					System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
+			//	allJoinedWorkFlows();
+					jwflist.setItems(null);
+					jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+					jwflist.setItems(jwflistOb);
+					updates();
+				}
+			}
+		});
+		
+		updates();
 		populate();
 		tabListeners();
-		allWorkFlowController();
+	//	allWorkFlowController();
 	//	notif();
+	}
+
+	public void updates() {
+		EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
+		if(user.getNumOfUpdates() >= 0) {
+			joinedworkflows.setText("Joined WorkFlows ( " + user.getNumOfUpdates() + " )");
+		} else {
+			joinedworkflows.setText("Joined WorkFlows");
+		}
+		
+		if(user.getNumOfNotif() >= 0) {
+			notification.setText("Notifications ( " + user.getNumOfNotif() + " )");
+		} else {
+			notification.setText("Notificationsk");
+		}
 	}
 
 	public void tabListeners() {
@@ -63,6 +111,7 @@ public class HomeController {
 			if (newTab.equals(allworkflows)) {
 				allWorkFlowController();
 			} else if (newTab.equals(joinedworkflows)) {
+				jwflist.getSelectionModel().clearSelection();
 				allJoinedWorkFlows();
 				System.out.println("Joined wf");
 			} else if (newTab.equals(notification)) {
@@ -77,17 +126,17 @@ public class HomeController {
 		System.out.println("befor if sixe of stack " + u.getRecievedForm().size());
 		if (u.getRecievedForm().size() > 0) {
 			System.out.println("sixe of stack " + u.getRecievedForm().size());
-			notilistOb = FXCollections.observableArrayList(u.getRecievedForm().peek().getFormWorkFlow());
+			notilistOb = FXCollections.observableArrayList(u.getRecievedForm());
 			notilist.setItems(notilistOb);
 		}
 	}
 	
 	public void allJoinedWorkFlows() {
 		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-		if (u.getAllWorkflows().size() > 0 ) {
-			jwflistOb = FXCollections.observableArrayList(u.getAllWorkflows());
+//		if (u.getAllWorkflows().size() > 0 ) {
+			jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
 			jwflist.setItems(jwflistOb);
-		}
+	//	}
 	}
 
 	public void populate() {
@@ -99,6 +148,8 @@ public class HomeController {
 			allWorkFlowController();
 			System.out.println("in populate " + e);
 			System.out.println("in ppulate in woiops " + Wips.getInstance().getRoleOfCurrentUser());
+//			disabler(false);
+//			updates();
 		});
 	}
 
@@ -136,6 +187,18 @@ public class HomeController {
 		}
 	}
 	
+	public void status(Form f) {
+		StringBuilder sb = new StringBuilder();
+		for(Entity e : f.getRoles()) {
+			sb.append(e.getRole() +" ");
+		}
+		statuslabel.setText("Status: " + sb.toString());
+	}
+	
+	public void disabler(boolean b) {
+		tabpane.setDisable(b);
+		allwfbtn.setDisable(b);
+	}
 	@Override
 	public Object clone() {
 		WorkFlow wf = allwflist.getSelectionModel().getSelectedItem();

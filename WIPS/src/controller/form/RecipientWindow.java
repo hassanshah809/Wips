@@ -79,8 +79,11 @@ public class RecipientWindow {
 		if (b == sendbutton) {
 			Wips wips = Wips.getInstance();
 			send();
-			setCurrents();
+			
+			wips.getCurrentWorkFlow().setHasUpdate(true);
 			wips.getCurrentuser().setWorkflow(wips.getCurrentWorkFlow());
+			setCurrents();
+			wips.getCurrentWorkFlow().getForm().updateUsers();
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home Screen", l, getClass(),
 					"/view/endUser/ehomescreen.css");
@@ -138,8 +141,8 @@ public class RecipientWindow {
 				for (EndUser user : compileListOfUsers()) {
 					endUser.send(form, user);
 					form.addUser(user);
+					form.addRoles(selectedStates.getEntity());
 				}
-				form.updateUsers();
 				selectedStates.markedSend();
 			//	state.
 				System.out.println("success for sending the form.....");
@@ -154,6 +157,7 @@ public class RecipientWindow {
 			AndReq and = (AndReq) selectedStates;
 			for (int i = 0; i < and.size(); i++) {
 				s[i] = and.getAndTransitions().get(i).getEndState();
+				System.out.println("set currents " + s[i]);
 			}
 			wips.getCurrentWorkFlow().setCurrentState(s);
 			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
@@ -161,8 +165,10 @@ public class RecipientWindow {
 		if(selectedStates instanceof OrReq) {
 			OrReq or = (OrReq) selectedStates;
 			s[0] = or.getTransition().getEndState();
+			System.out.println("set current " + s[0]);
 			wips.getCurrentWorkFlow().setCurrentState(s);
 			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}
+	//	wips.getCurrentWorkFlow().setHasUpdate(true);
 	}
 }

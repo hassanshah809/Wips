@@ -78,6 +78,9 @@ public class Form implements Serializable{
 		roles.add(role);
 	}
 	
+	public List<Entity> getRoles() {
+		return roles;
+	}
 	public void addUser(EndUser user) {
 		users.add(user);
 	}

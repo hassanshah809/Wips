@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.wips.Entity;
 import model.wips.Transition;
 
 public class AndReq implements AbsReq, Serializable {
@@ -51,5 +52,13 @@ public class AndReq implements AbsReq, Serializable {
 	public void markedSend() {
 		for(Transition t: and)
 			t.setIsActive(true);
+	}
+
+	@Override
+	public Entity getEntity() {
+		Entity e = null;
+		if(and.size() > 0)
+			e = and.get(0).getEndState().getEntity();
+		return e;
 	}
 }

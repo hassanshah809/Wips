@@ -51,6 +51,7 @@ public class WorkFlow implements Serializable{
 	 */
 	private State startState = null;
 	private State[] currentStates = null;
+	private boolean hasUpdate;
 	/**
 	 *The empty constructor
 	 */
@@ -60,6 +61,7 @@ public class WorkFlow implements Serializable{
 		this.entity = new ArrayList<Entity>();
 		this.transition = new ArrayList<Transition>();
 		this.users = new ArrayList<EndUser>();
+		hasUpdate = false;
 	}
 
 	/**
@@ -78,6 +80,7 @@ public class WorkFlow implements Serializable{
 		this.entity = entities;
 		this.transition = transition;
 		this.users = new ArrayList<EndUser>();
+		hasUpdate = false;
 	}
 	
 	/**
@@ -190,8 +193,17 @@ public class WorkFlow implements Serializable{
 	public State[] getCurrentStates() {
 		return currentStates;
 	}
+	
+	public void setHasUpdate(boolean b) {
+		this.hasUpdate = b;
+	}
+	
+	public boolean getHasUpdate() {
+		return hasUpdate;
+	}
+	
 	@Override
 	public String toString() {
-		return name;
+		return name + (hasUpdate ? " ( Updated )" : "" );
 	}
 }
