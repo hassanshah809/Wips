@@ -83,6 +83,7 @@ public class Form implements Serializable{
 	}
 	public void addUser(EndUser user) {
 		users.add(user);
+		wf.addUpadte();
 	}
 	
 	public List<EndUser> getUsers() {

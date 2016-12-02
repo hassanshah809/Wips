@@ -80,7 +80,7 @@ public class RecipientWindow {
 			Wips wips = Wips.getInstance();
 			send();
 			
-			wips.getCurrentWorkFlow().setHasUpdate(true);
+//			wips.getCurrentWorkFlow().setHasUpdate(true);
 			wips.getCurrentuser().setWorkflow(wips.getCurrentWorkFlow());
 			setCurrents();
 			wips.getCurrentWorkFlow().getForm().updateUsers();

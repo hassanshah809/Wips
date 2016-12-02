@@ -6,8 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.JOptionPane;
-
 import errors.AbsError;
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -207,7 +205,7 @@ public class CreateWorkFlowController {
 			File f = getFile(handler);
 			if(f != null){
 				tFileName.setText(f.getName());
-				enableDisableBtn(false, false, false, true);
+				enableDisableBtn(false, false, false, false);
 
 				//If file exist then call trnasition parser
 				transitionXml(f);

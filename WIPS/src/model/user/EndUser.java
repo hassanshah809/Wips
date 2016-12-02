@@ -95,13 +95,15 @@ public class EndUser extends User{
 	
 	public void update() {
 		numOfUdates = 0;
+		numberOfNewNotifications = 0;
 		for(WorkFlow f : allworkflows){
-			if(f.getHasUpdate())
+			if(f.getHasUpdate(this))
 				numOfUdates++;
 		}
-		
-		numberOfNewNotifications = received.size() - lastSizeOfStack;
-		lastSizeOfStack = received.size();
+		for(WorkFlow s: received) {
+			if(s.getHasUpdate(this))
+				numberOfNewNotifications++;
+		}
 	}
 	
 	public int getNumOfUpdates() {

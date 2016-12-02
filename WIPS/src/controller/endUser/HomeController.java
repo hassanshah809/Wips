@@ -69,7 +69,7 @@ public class HomeController {
 			public void changed(ObservableValue<? extends WorkFlow> observable, WorkFlow oldValue, WorkFlow newValue) {
 				int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
 				if(indexOfJoinedWorkFlow >= 0){
-					Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate(false);
+					Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate((EndUser)Wips.getInstance().getCurrentuser(), false);
 					status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).getForm());
 					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
 					u.update();

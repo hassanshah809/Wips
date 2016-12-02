@@ -51,7 +51,7 @@ public class WorkFlow implements Serializable{
 	 */
 	private State startState = null;
 	private State[] currentStates = null;
-	private boolean hasUpdate;
+	private List<Boolean> hasUpdate;
 	/**
 	 *The empty constructor
 	 */
@@ -61,7 +61,7 @@ public class WorkFlow implements Serializable{
 		this.entity = new ArrayList<Entity>();
 		this.transition = new ArrayList<Transition>();
 		this.users = new ArrayList<EndUser>();
-		hasUpdate = false;
+		hasUpdate = new ArrayList<Boolean>();
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class WorkFlow implements Serializable{
 		this.entity = entities;
 		this.transition = transition;
 		this.users = new ArrayList<EndUser>();
-		hasUpdate = false;
+		hasUpdate = new ArrayList<Boolean>();
 	}
 	
 	/**
@@ -194,16 +194,25 @@ public class WorkFlow implements Serializable{
 		return currentStates;
 	}
 	
-	public void setHasUpdate(boolean b) {
-		this.hasUpdate = b;
+	public void setHasUpdate(EndUser user, boolean b) {
+		int index = form.getUsers().indexOf(user);
+		if(form.getUsers().size() > 0)
+			this.hasUpdate.set(index, b);
 	}
 	
-	public boolean getHasUpdate() {
-		return hasUpdate;
+	public void addUpadte() {
+		hasUpdate.add(true);
+		for(int i = 0; i < hasUpdate.size(); i++) {
+			hasUpdate.set(i, true);
+		}
+	}
+	public boolean getHasUpdate(EndUser user) {
+		return hasUpdate.get(form.getUsers().indexOf(user));
 	}
 	
 	@Override
 	public String toString() {
-		return name + (hasUpdate ? " ( Updated )" : "" );
+		int index = form.getUsers().indexOf(Wips.getInstance().getCurrentuser());
+		return name + (index >= 0 && hasUpdate.get(index) ? " ( Updated )" : "" );
 	}
 }
