@@ -3,7 +3,6 @@ package controller.form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -41,7 +40,7 @@ public class FormController {
 	TextArea optionalmessage;
 	
 	@FXML
-	VBox vbox;
+	VBox vbox, usernamevbox;
 
 	@FXML
 	ScrollPane sp;
@@ -99,6 +98,25 @@ public class FormController {
 
 		vbox.setSpacing(15);
 		System.out.println(vbox.getChildren().size());
+		createSenderLabel();
+	}
+	
+	private void createSenderLabel(){
+		 if(Wips.getInstance().getCurrentWorkFlow().getForm().getFromUser() != null){
+			 Label label = new Label();
+			 label.setFont(new Font(15));
+			 label.setText("Sender: "+ Wips.getInstance().getCurrentWorkFlow().getForm().getFromUser().getUsername());
+			 label.setPadding(new Insets(10,10,0,10));
+			 
+			 Label dateTime = new Label();
+			 dateTime.setFont(new Font(15));
+			 dateTime.setText("Sent on: "+ Wips.getInstance().getCurrentWorkFlow().getForm().getDate() + ", "+ 
+					 Wips.getInstance().getCurrentWorkFlow().getForm().getTime());
+			 dateTime.setPadding(new Insets(10));
+			 
+			 usernamevbox.getChildren().add(label);
+			 usernamevbox.getChildren().add(dateTime);
+		 }
 	}
 	
 	private GridPane createCoupleRow(Couple couple) {
@@ -216,7 +234,7 @@ public class FormController {
 		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 		if(checkbox.isSelected() && !optionalmessage.getText().isEmpty()){
 			String s = 	Wips.getInstance().getCurrentuser().getUsername();
-			Couple dummy = new Couple("Message from " + s + " " +optionalmessage.getText(), false, true);
+			Couple dummy = new Couple("Message from " + s + ":" + " " +optionalmessage.getText(), false, true);
 			couples.add(dummy);
 		}
 		for (int i = 2; i< couples.size() && textAreas.size() > i-2; i++){

@@ -15,7 +15,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Wips;
@@ -38,6 +41,9 @@ public class CreateWorkFlowController {
 	
 	@FXML
 	Label wFileName, tFileName, uFileName;
+
+	@FXML
+	TextField workflowname;
 	
 	/**
 	 * Abstract Error class that maybe called during workflow, transition, user errors.
@@ -54,12 +60,23 @@ public class CreateWorkFlowController {
 	
 	@FXML
 	protected void initialize() {
+		enableDisableBtn(true, true, true, true);
+
 		wfi = new WorkFlowInter<Entity, State>();
 		//Do something once the FXML is done
 		//Enable this in the final product
-		//enableDisableBtn(false, true, true, true);
+		workflowname.textProperty().addListener((observable, oldValue, newValue) -> {
+			String s = newValue.trim();
+			if (s.length() >= 1) {
+				enableDisableBtn(false, true, true, true);
+				
+			} else {
+				enableDisableBtn(true, true, true, true);
+
+			}
+		});
 	}
-	
+		
 	private void enableDisableBtn (boolean wbtn, boolean tBtn, boolean uBtn, boolean nxtBtn) {
 		wBrowse.setDisable(wbtn);
 		tBrowse.setDisable(tBtn);
@@ -139,14 +156,7 @@ public class CreateWorkFlowController {
 		
 		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr(),1);
-		
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("Name Your Workflow");
-		dialog.setHeaderText("Time to Name!");
-		dialog.setContentText("Please name your workflow");
-		
-		Optional<String> result = dialog.showAndWait();
-		result.ifPresent(name -> wf.setWorkFlowName(name));
+		wf.setWorkFlowName(workflowname.getText());
 		
 	//	Wips.getInstance().getAllWorkFlows().add(wf);
 		setStartState(wf);

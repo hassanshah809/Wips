@@ -8,19 +8,25 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="305.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.developer.CreateWorkFlowController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="305.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.developer.CreateWorkFlowController">
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
         <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
           <children>
-            <HBox alignment="CENTER_RIGHT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" spacing="30.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" VBox.vgrow="ALWAYS">
               <children>
-                <Label fx:id="wFileName"  maxHeight="-Infinity" text="Browse Workflow XML File" wrapText="false">
+                <Label text="Name Your Workflow">
                   <font>
                     <Font name="System Bold" size="12.0" fx:id="x1" />
                   </font>
                 </Label>
+                <TextField fx:id="workflowname" prefHeight="29.0" prefWidth="285.0" promptText="Please name your workflow" />
+              </children>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" spacing="30.0" VBox.vgrow="ALWAYS">
+              <children>
+                <Label fx:id="wFileName" font="$x1" maxHeight="-Infinity" text="Browse Workflow XML File" wrapText="false" />
                 <Button fx:id="wBrowse" maxHeight="-Infinity" mnemonicParsing="false" onAction="#handle" prefHeight="38.0" prefWidth="75.0" text="Browse" />
               </children>
             </HBox>

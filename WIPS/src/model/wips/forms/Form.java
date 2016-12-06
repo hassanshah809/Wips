@@ -1,7 +1,10 @@
 package model.wips.forms;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import model.Wips;
@@ -34,7 +37,10 @@ public class Form implements Serializable{
 	private List<Entity> roles;
 	private List<EndUser> users;
 	private WorkFlow wf;
+	private EndUser fromUser = null;
 	
+	private Date dateTime;
+
 	
 	/**
 	 * This a constructor to make the new form object
@@ -117,5 +123,27 @@ public class Form implements Serializable{
 		message.clear();
 		users.clear();
 		roles.clear();
+	}
+	
+	public EndUser getFromUser() {
+		return this.fromUser;
+	}
+	
+	public void setFromUser(EndUser fromuser){
+		this.fromUser = fromuser;
+	}
+	
+	public String getDate() {
+        SimpleDateFormat formatDate = new SimpleDateFormat("MM-dd-yyyy");
+        return formatDate.format(dateTime);
+	}
+	
+	public String getTime() {
+        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
+        return formatTime.format(dateTime);
+	}
+	
+	public void setFormDateTime() {
+		this.dateTime = Calendar.getInstance().getTime();
 	}
 }

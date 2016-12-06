@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.VBox;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
@@ -44,10 +45,23 @@ public class HomeController {
 	Tab allworkflows, joinedworkflows, notification;
 	
 	@FXML
-	Label statuslabel;
+	Label statuslabel, labelallwf, labeljoinedwf, labelnoti;
+
+	@FXML
+	VBox vboxalltab, vboxjoinedtab, vboxnotitab;
 
 	private ObservableList<WorkFlow> allwflistOb, jwflistOb, notilistOb;
 
+	private void anchorPaneVisibility(boolean b) {
+		labelallwf.setVisible(b);
+		labeljoinedwf.setVisible(b);
+		labelnoti.setVisible(b);
+		
+		vboxalltab.setVisible(!b);
+		vboxjoinedtab.setVisible(!b);
+		vboxnotitab.setVisible(!b);
+	}
+	
 	/**
 	 * This method will open “All workflow” tab.
 	 */
@@ -56,10 +70,16 @@ public class HomeController {
 		allwflistOb = FXCollections.observableArrayList(allWfController.getAllWorkFlowsCanJoin());
 		System.out.println("all the owrk in end home " + allWfController.getAllWorkFlowsCanJoin());
 		allwflist.setItems(allwflistOb);
+		if(allwflistOb.size()<1){
+			allwfbtn.setDisable(true);
+		} else {
+			allwfbtn.setDisable(false);
+		}
 	}
 
 	@FXML
 	protected void initialize() {
+		anchorPaneVisibility(true);
 	//	disabler(true);
 		jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
 		jwflist.setItems(jwflistOb);
@@ -129,6 +149,9 @@ public class HomeController {
 			System.out.println("sixe of stack " + u.getRecievedForm().size());
 			notilistOb = FXCollections.observableArrayList(u.getRecievedForm());
 			notilist.setItems(notilistOb);
+			notibtn.setDisable(false);
+		} else {
+			notibtn.setDisable(true);
 		}
 	}
 	
@@ -144,6 +167,7 @@ public class HomeController {
 		System.out.println("roles of the curren usr " + Wips.getInstance().getCurrentuser().getRoles());
 		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
 		cbox.setOnAction((event) -> {
+			anchorPaneVisibility(false);
 			Entity e = cbox.getSelectionModel().getSelectedItem();
 			Wips.getInstance().setRoleOfCurrentUser(e);
 			allWorkFlowController();

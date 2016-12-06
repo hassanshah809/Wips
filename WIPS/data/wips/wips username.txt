@@ -25,3 +25,32 @@ role in the user iparse for loop professor
 username is Sesh6
 password is: hSSs787
 roles of the use in user parser [professor]
+
+
+
+
+
+
+usrname is userparser Kush
+role in the user iparse for loop student
+username is Kush7
+password is: KKsK814
+roles of the use in user parser [student]
+usrname is userparser Billy
+role in the user iparse for loop student
+username is Billy8
+password is: BiByi582
+roles of the use in user parser [student]
+usrname is userparser Borgida
+role in the user iparse for loop professor
+username is Borgida9
+password is: ggBrodB121
+roles of the use in user parser [professor]
+usrname is userparser Sesh
+role in the user iparse for loop professor
+username is Sesh10
+password is: hheh621
+roles of the use in user parser [professor]
+
+
+

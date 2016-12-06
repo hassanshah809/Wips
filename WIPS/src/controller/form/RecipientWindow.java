@@ -29,7 +29,7 @@ import model.wips.intermediates.OrReq;
 public class RecipientWindow {
 
 	@FXML
-	Button sendbutton, backbutton;
+	Button sendbutton, backbutton, logoutbtn;
 
 	@FXML
 	VBox vbox;
@@ -92,6 +92,9 @@ public class RecipientWindow {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),
 					"/view/endUser/eselectstates.css");
+		} else if (b == logoutbtn) {
+			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
+			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 		}
 	}
 
@@ -126,11 +129,18 @@ public class RecipientWindow {
 			}
 		return endUsers;
 	}
+	
+	private void setfromUserNameDateTime(){
+		Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser((EndUser)Wips.getInstance().getCurrentuser());
+		Wips.getInstance().getCurrentWorkFlow().getForm().setFormDateTime();
+	}
+	
 
 	public void send() {
 		Wips wips = Wips.getInstance();
 		State state = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
 		if (state.isAllowedtoSend()) {
+			setfromUserNameDateTime();
 			EndUser endUser = (EndUser) Wips.getInstance().getCurrentuser();
 			Form form = wips.getCurrentWorkFlow().getForm();
 			form.addUser(endUser);

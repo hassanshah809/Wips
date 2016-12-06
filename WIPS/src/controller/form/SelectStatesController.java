@@ -65,6 +65,8 @@ public class SelectStatesController {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/erecipient.fxml"));
 			OpenScreen.openScreen("erecipient.fxml", handler, "Recipient Window", e, getClass(),"/view/enduser/erecipient.css");
 		} else if (b == logoutbtn) {
+			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
+			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
 		}
 	}
 }
