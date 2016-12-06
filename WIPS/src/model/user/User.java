@@ -45,6 +45,8 @@ public abstract class User implements Serializable{
 	 */
 	protected int id;
 	
+	protected String email;
+	
 	/**
 	 * This is the constructor that will be call by the concrete classes
 	 * @param name String
@@ -141,6 +143,16 @@ public abstract class User implements Serializable{
 	public boolean isDeveloper() {
 		return isDeveloper;
 	}
+	
+	public void setEmail(String email) {
+		this.email = email; 
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+
 	@Override
 	public boolean equals(Object o) {
 		if(o == null || !(o instanceof User))
