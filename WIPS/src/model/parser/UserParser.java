@@ -85,10 +85,13 @@ public class UserParser extends Parser {
 			Node userNode = userList.item(i);
 
 			String username = "";
+			String email = "";
 
 			if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element userElement = (Element) userNode;
 				username = userElement.getAttribute("name");
+				email = userElement.getAttribute("email");
+				
 				System.out.println("usrname is userparser " + username);
 				
 				NodeList children = userNode.getChildNodes();
@@ -122,15 +125,15 @@ public class UserParser extends Parser {
 				//contain values. I'm doing this because the code handles roles first and then values. 
 			
 				if (node1.getNodeName().equals("roles")) {
-					handleChildren(node1,node2, username);
+					handleChildren(node1,node2, username, email);
 				} else if(node1.getNodeName().equals("values")) {
-					handleChildren(node2,node1, username);
+					handleChildren(node2,node1, username, email);
 				}	
 			}
 		}
 	}
 	
-	private void handleChildren(Node node1, Node node2, String name) {
+	private void handleChildren(Node node1, Node node2, String name, String email) {
 		
 		User user;
 		
@@ -172,6 +175,7 @@ public class UserParser extends Parser {
 		}
 
 		user = new EndUser(username, roleArrayList, valuesArrayList);
+		user.setEmail(email);
 		System.out.println("roles of the use in user parser " + roleArrayList);
 		usersInter.addAttr(user);
 	}
