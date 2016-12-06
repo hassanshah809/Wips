@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import errors.AbsError;
+import helper.AutoEmail;
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -131,6 +132,9 @@ public class CreateWorkFlowController {
 		Object o = up.getInters();
 		users = (o instanceof GenInter ? (GenInter<User>) o : null);
 		addUsersToWips(users.getTempAttr());
+		
+		sendEmails(users);
+		
 	}
 	
 	public void addUsersToWips(List<User> users) {
@@ -242,6 +246,21 @@ public class CreateWorkFlowController {
 			//Goes back to the user login window
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
+		}
+	}
+	
+	private static void sendEmails(GenInter<User> users) {
+		for(int i = 0; i < users.getTempAttr().size(); i++) {
+			String username = users.getTempAttr().get(i).getUsername();
+			String password = users.getTempAttr().get(i).getPassword();
+			String email = users.getTempAttr().get(i).getEmail();
+			
+			try {
+				AutoEmail.generateAndSendEmail(username, password, email);
+			} catch(Exception e) {
+				
+			}
+			
 		}
 	}
 }
