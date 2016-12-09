@@ -24,6 +24,7 @@ import javafx.scene.text.Font;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.forms.Couple;
+import errors.*;
 
 public class FormController {
 	
