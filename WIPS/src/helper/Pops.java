@@ -3,7 +3,6 @@ package helper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -17,10 +16,9 @@ import javafx.stage.WindowEvent;
 public class Pops {
 	private Pops(){}
 	
-	public static Alert pop(Alert.AlertType c ,String message, String s) {
+	public static Alert pop(Alert.AlertType c ,String message, String title) {
 		Alert alertBox = new Alert(c, message, ButtonType.OK, ButtonType.CANCEL);
-		alertBox.setContentText(message);
-		alertBox.setTitle(s);
+		alertBox.setTitle(title);
 		alertBox.showAndWait();
 		return alertBox;
 	}

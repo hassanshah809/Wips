@@ -12,6 +12,7 @@ import javax.xml.parsers.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TransitionParser extends Parser {
 	
@@ -64,6 +65,16 @@ public class TransitionParser extends Parser {
 			NodeList transitionList = doc.getElementsByTagName("transition");
 			
 			extract(transitionList);
+			
+			if (keyMap.containsValue(true)) {
+				List<String> errors = new ArrayList<String>();
+				if (keyMap.get("incorrectTransitionTag"))
+					errors.add("There is an invalid transition tag in the Transition XML file.");
+				if (keyMap.get("invalidStateID"))
+					errors.add("There is an invalid state ID in the Transition XML file.");
+				
+				this.getError(errors).handle();
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

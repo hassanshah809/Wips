@@ -2,6 +2,7 @@ package model.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import org.w3c.dom.*;
 
 import errors.AbsError;
@@ -61,6 +62,21 @@ public class WorkFlowParser extends Parser {
 			wfi = new WorkFlowInter<Entity, State>();
 			extract(entityList);
 		
+			if (keyMap.containsValue(true)) {
+				List<String> errors = new ArrayList<String>();
+				if (keyMap.get("startStateError"))
+					errors.add("There is a start state error in the Workflow XML file.");
+				if (keyMap.get("incorrectStateTag"))
+					errors.add("There is an incorrect state tag in the Workflow XML file.");
+				if (keyMap.get("incorrectEntityTag"))
+					errors.add("There is an incorrect entity in the Workflow XML file.");
+				if (keyMap.get("incorrectValueTag"))
+					errors.add("There is an incorrect value in the Workflow XML file.");
+				if (keyMap.get("endStateError")) 
+					errors.add("There is an end state error in the Workflow XML file.");
+				
+				this.getError(errors).handle();
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

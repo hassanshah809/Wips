@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
-import errors.AbsError;
+import errors.*;
 import helper.AutoEmail;
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -205,43 +205,74 @@ public class CreateWorkFlowController {
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException, NoSuchAlgorithmException {
 		Button b = (Button) handler.getSource();
 		if (b == wBrowse) {
-			File f = getFile(handler);
+			File f = getFile(handler);	
 			if(f != null){
-				wFileName.setText(f.getName());
-				System.out.println(f.getName());
-				workFlowXml(f);
-				enableDisableBtn(false, false, true, true);
-
-				//If file exist then call workflowxml parser
-				//workFlowXml(f);
+				String fileName = f.getName();
+				if (fileName.length() > 3 && fileName.substring(fileName.length() - 4, fileName.length()).toLowerCase().equals(".xml")){
+					wFileName.setText(f.getName());
+					System.out.println(f.getName());
+					workFlowXml(f);
+					enableDisableBtn(false, false, true, true);
+					//If file exist then call workflowxml parser
+					//workFlowXml(f);
+				}
+				else {
+					e = new FileError();
+					e.addError("That is not a valid file for the Workflow XML file.");
+					e.handle();
+				}
 			}			
 		} else if (b == tBrowse) {
 			File f = getFile(handler);
 			if(f != null){
-				tFileName.setText(f.getName());
-				enableDisableBtn(false, false, false, false);
-
-				//If file exist then call trnasition parser
-				transitionXml(f);
+				String fileName = f.getName();
+				if (fileName.length() > 3 && fileName.substring(fileName.length() - 4, fileName.length()).toLowerCase().equals(".xml")){
+					tFileName.setText(f.getName());
+					enableDisableBtn(false, false, false, false);
+					//If file exist then call trnasition parser
+					transitionXml(f);
+				}
+				else {
+					e = new FileError();
+					e.addError("That is not a valid file for the Transition XML file.");
+					e.handle();
+				}
 			}			
 		} else if (b == uBrowse) {
 			File f = getFile(handler);
 			if(f != null){
-				uFileName.setText(f.getName());
-				enableDisableBtn(false, false, false, false);
+				String fileName = f.getName();
+				if (fileName.length() > 3 && fileName.substring(fileName.length() - 4, fileName.length()).toLowerCase().equals(".xml")){
+					uFileName.setText(f.getName());
+					enableDisableBtn(false, false, false, false);
 
-				//If file exist then call userxml parser
-				userXmlParser(f);
+					//If file exist then call userxml parser
+					userXmlParser(f);
+				}
+				else {
+					e = new FileError();
+					e.addError("That is not a valid file for the User XML file.");
+					e.handle();
+				}
 			} 			
 		} else if (b == backBtn) {
 			//Goes back to the admin home screen
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", l, getClass(),"/view/developer/dhomescreen.css");
 		} else if (b == nextBtn) {
-			//Goes to state permission window
-			finish();
-			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dstatepscreen.fxml"));
-			OpenScreen.openScreen("dstatepscreen.fxml", handler, "State Permission", l, getClass(),"/view/developer/dstatepscreen.css");
+			if (wFileName.getText().equals("Browse Workflow XML File")
+					|| tFileName.getText().equals("Browse Transition XML File") 
+					|| uFileName.getText().equals("Browse User XML File")) {
+				e = new InputError();
+				e.addError("You are missing one or more of the required XML files.");
+				e.handle();
+			}
+			else {
+				//Goes to state permission window
+				finish();
+				Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dstatepscreen.fxml"));
+				OpenScreen.openScreen("dstatepscreen.fxml", handler, "State Permission", l, getClass(),"/view/developer/dstatepscreen.css");
+			}
 		} else if (b == logoutBtn) {
 			//Goes back to the user login window
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));

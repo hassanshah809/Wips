@@ -249,6 +249,10 @@ public class FormController {
 			if(Wips.getInstance().getCurrentWorkFlow().getForm().isAllowed()) {
 				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 				OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),"/view/enduser/eselectstates.css");
+			} else {
+				AbsError e = new InputError();
+				e.addError("Please enter something in the required field.");
+				e.handle();
 			}
 		} else if (b == backbutton) {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));

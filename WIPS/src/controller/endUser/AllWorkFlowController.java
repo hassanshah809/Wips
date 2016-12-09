@@ -23,7 +23,7 @@ public class AllWorkFlowController {
 		Wips wips = Wips.getInstance();
 		for(WorkFlow f: wips.getAllWorkFlows()) {
 			System.out.println("in all wf controller " + f.getStartState());
-			if(f.getStartState().getEntity().equals(wips.getRoleOfCurrentUser())) {
+			if(f.getStartState() != null && f.getStartState().getEntity().equals(wips.getRoleOfCurrentUser())) {
 				allWorkFlows.add(f);
 			}
 		}

@@ -14,6 +14,7 @@ import javax.xml.parsers.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserParser extends Parser {
 	
@@ -73,6 +74,17 @@ public class UserParser extends Parser {
 			NodeList userList = doc.getElementsByTagName("user");
 			
 			extractUsers(userList);
+			
+			if (keyMap.containsValue(true)) {
+				List<String> errors = new ArrayList<String>();
+				if (keyMap.get("duplicateUserName"))
+					errors.add("There is a duplicate username in the User XML file.");
+				if (keyMap.get("roleNotFound"))
+					errors.add("There is an invalid role in the User XML file.");
+				
+				this.getError(errors).handle();
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

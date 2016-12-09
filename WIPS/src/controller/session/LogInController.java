@@ -2,8 +2,7 @@ package controller.session;
 
 import java.io.IOException;
 
-
-import errors.AbsError;
+import errors.*;
 import helper.OpenScreen;
 import helper.Pops;
 import javafx.event.ActionEvent;
@@ -63,8 +62,18 @@ public class LogInController {
 					System.out.println("current user in log in controller ");
 					return passup;
 				}
-			}else {
-				Pops.pop(AlertType.ERROR, "this is the message", "authentication error");
+				else	//if incorrect password entered for the user
+				{
+					e = new AuthenticationError();
+					e.addError("Incorrect password for " + user.getUsername() + ".");
+					e.handle();
+				}
+			}
+			else	//user does not exist
+			{
+				e = new AuthenticationError();
+				e.addError("Invalid username.");
+				e.handle();
 			}
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block

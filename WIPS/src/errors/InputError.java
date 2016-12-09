@@ -2,15 +2,16 @@ package errors;
 
 import java.util.List;
 
-/*
- * This module will handle all input errors done by the developer.
- * Specifically, this error message will come from the StatePermission
- * module because the developer needs to specify the number of
- * transitions in that module.
+/**
+ * This module will handle all input errors incurred by the developer.
+ * All errors will include some sort of invalid input.
  */
-
 public class InputError extends AbsError {
 
+	/**
+	 * Calls the AbsError constructor to make a new empty key list of
+	 * InputErrors.
+	 */
 	public InputError() {
 		super();
 	}

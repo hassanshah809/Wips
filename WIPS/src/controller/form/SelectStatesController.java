@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import model.Wips;
 import model.wips.State;
 import model.wips.intermediates.AbsReq;
+import errors.*;
 
 public class SelectStatesController {
 
@@ -61,9 +62,15 @@ public class SelectStatesController {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(),"/view/enduser/eformgen.css");
 		} else if (b == nextbtn) {
-			next();
-			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/erecipient.fxml"));
-			OpenScreen.openScreen("erecipient.fxml", handler, "Recipient Window", e, getClass(),"/view/enduser/erecipient.css");
+			if (listview.getSelectionModel().getSelectedItem() != null) {
+				next();
+				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/erecipient.fxml"));
+				OpenScreen.openScreen("erecipient.fxml", handler, "Recipient Window", e, getClass(),"/view/enduser/erecipient.css");
+			} else {
+				AbsError e = new InputError();
+				e.addError("Please select a state!");
+				e.handle();
+			}
 		} else if (b == logoutbtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
