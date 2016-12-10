@@ -96,11 +96,12 @@ public class WorkFlowParser extends Parser {
 
 			if(entityNode.getNodeType() == Node.ELEMENT_NODE) {
 				
+				/*
 				if(!entityNode.equals("entity")) {
 					keyMap.put("incorrectEntityTag", true);
 					
 				}
-				
+				*/
 				NodeList stateList = entityNode.getChildNodes();
 				Element entityElement = (Element) entityNode; 
 				role = entityElement.getAttribute("role").toString(); 
@@ -162,7 +163,7 @@ public class WorkFlowParser extends Parser {
 				
 				if(endStateVal.toLowerCase().equals("true")) {
 					endState = true;
-				} else if(startStateVal.toLowerCase().equals("false")) {
+				} else if(endStateVal.toLowerCase().equals("false")) {
 					endState = false;
 				} else {
 					keyMap.put("endStateError", true);

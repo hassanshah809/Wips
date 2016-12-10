@@ -78,23 +78,28 @@ public class RecipientWindow {
 		Button b = (Button) handler.getSource();
 		if (b == sendbutton) {
 			Wips wips = Wips.getInstance();
-			send();
-			
-//			wips.getCurrentWorkFlow().setHasUpdate(true);
-			wips.getCurrentuser().setWorkflow(wips.getCurrentWorkFlow());
-			setCurrents();
-			wips.getCurrentWorkFlow().getForm().updateUsers();
-			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
-			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home Screen", l, getClass(),
-					"/view/endUser/ehomescreen.css");
-		//	LogOutController.logInScreen();
+			if (send()) {
+
+				// wips.getCurrentWorkFlow().setHasUpdate(true);
+				wips.getCurrentuser().setWorkflow(wips.getCurrentWorkFlow());
+				setCurrents();
+
+				wips.getCurrentWorkFlow().getForm().updateUsers();
+				EndUser user = (EndUser) wips.getCurrentuser();
+				wips.getCurrentWorkFlow().setHasUpdate(user, false);
+				user.update();
+				Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
+				OpenScreen.openScreen("ehomescreen.fxml", handler, "Home Screen", l, getClass(),
+						"/view/endUser/ehomescreen.css");
+				// LogOutController.logInScreen();
+			}
 		} else if (b == backbutton) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 			OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", l, getClass(),
 					"/view/endUser/eselectstates.css");
 		} else if (b == logoutbtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
-			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(),"/view/session/application.css");
+			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(), "/view/session/application.css");
 		}
 	}
 
@@ -121,22 +126,22 @@ public class RecipientWindow {
 	public List<EndUser> compileListOfUsers() {
 		List<EndUser> endUsers = new ArrayList<>();
 		System.out.println("lengt of cople for sending in recpine " + coupleForSending.length);
-			for (int i = 0; i < coupleForSending.length; i++) {
-				EndUser u = coupleForSending[i].getEndUser();
-				if(u != null)
-					endUsers.add(u);
-		//		System.out.println("end use rin recipent " + coupleForSending[i].getEndUser().getUsername());
-			}
+		for (int i = 0; i < coupleForSending.length; i++) {
+			EndUser u = coupleForSending[i].getEndUser();
+			if (u != null)
+				endUsers.add(u);
+			// System.out.println("end use rin recipent " +
+			// coupleForSending[i].getEndUser().getUsername());
+		}
 		return endUsers;
 	}
-	
-	private void setfromUserNameDateTime(){
-		Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser((EndUser)Wips.getInstance().getCurrentuser());
+
+	private void setfromUserNameDateTime() {
+		Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser((EndUser) Wips.getInstance().getCurrentuser());
 		Wips.getInstance().getCurrentWorkFlow().getForm().setFormDateTime();
 	}
-	
 
-	public void send() {
+	public boolean send() {
 		Wips wips = Wips.getInstance();
 		State state = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser());
 		if (state.isAllowedtoSend()) {
@@ -153,12 +158,14 @@ public class RecipientWindow {
 					form.addUser(user);
 					form.addRoles(selectedStates.getEntity());
 				}
-	//			form.updateUsers();
+				// form.updateUsers();
 				selectedStates.markedSend();
-			//	state.
-				System.out.println("success for sending the form.....");
+				// state.
+				return true;
+//				System.out.println("success for sending the form.....");
 			}
 		}
+			return false;
 	}
 
 	public void setCurrents() {
@@ -171,15 +178,15 @@ public class RecipientWindow {
 				System.out.println("set currents " + s[i]);
 			}
 			wips.getCurrentWorkFlow().setCurrentState(s);
-//			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
+			// wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}
-		if(selectedStates instanceof OrReq) {
+		if (selectedStates instanceof OrReq) {
 			OrReq or = (OrReq) selectedStates;
 			s[0] = or.getTransition().getEndState();
 			System.out.println("set current " + s[0]);
 			wips.getCurrentWorkFlow().setCurrentState(s);
-//			wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
+			// wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}
-	//	wips.getCurrentWorkFlow().setHasUpdate(true);
+		// wips.getCurrentWorkFlow().setHasUpdate(true);
 	}
 }

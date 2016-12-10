@@ -39,7 +39,7 @@ public class State implements Serializable {
 	 * This is the boolean value which states whether this state is the final state in the workflow. 
 	 */
 	
-	private boolean endState; 
+	private boolean endState = false; 
 	
 	/**
 	 * This boolean will be set to true if the workflow is in this current

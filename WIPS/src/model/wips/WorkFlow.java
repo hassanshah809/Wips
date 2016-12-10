@@ -2,6 +2,7 @@ package model.wips;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import model.Wips;
@@ -26,7 +27,7 @@ public class WorkFlow implements Serializable{
 	/**
 	 * This is the field which informs the system that this workflow is active. True if active. False if not active.
 	 */
-	private boolean isActive;
+	private boolean isActive = false;
 	/**
 	 *  This list stores all states associated with the workflow.
 	 */
@@ -91,6 +92,9 @@ public class WorkFlow implements Serializable{
 		this.isActive = b;
 	}
 
+	public boolean isActive() {
+		return this.isActive;
+	}
 	/**
 	 * Returns the states list.
 	 * @return list of states
@@ -214,5 +218,22 @@ public class WorkFlow implements Serializable{
 	public String toString() {
 		int index = form.getUsers().indexOf(Wips.getInstance().getCurrentuser());
 		return name + (index >= 0 && hasUpdate.get(index) ? " ( Updated )" : "" );
+	}
+	
+	@Override
+	public Object clone() {
+		//WorkFlow wf = allwflist.getSelectionModel().getSelectedItem();
+		WorkFlow newWf = new WorkFlow(this.getState(), this.getEntity(), this.getTransition(), 0);
+		newWf.setWorkFlowName(this.getWorkFlowName());
+		Form f = new Form(this.getForm().getFormName(), newWf);
+		f.addCouple(this.getForm().getCouples());
+//		f.clear();
+		newWf.setForm(f);
+		System.out.println();
+		System.out.println("current states in clone " + Arrays.asList(this.getCurrentStates()));
+		newWf.setCurrentState(this.getCurrentStates());
+		System.out.println("start state in clone " + this.getStartState());
+		newWf.setStartState(this.getStartState());
+		return newWf;
 	}
 }

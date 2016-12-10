@@ -79,32 +79,8 @@ public class HomeController {
 
 	@FXML
 	protected void initialize() {
-		anchorPaneVisibility(true);
-	//	disabler(true);
-		jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
-		jwflist.setItems(jwflistOb);
-		jwflist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<WorkFlow>() {
-
-			@Override
-			public void changed(ObservableValue<? extends WorkFlow> observable, WorkFlow oldValue, WorkFlow newValue) {
-				int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
-				if(indexOfJoinedWorkFlow >= 0){
-					Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate((EndUser)Wips.getInstance().getCurrentuser(), false);
-					status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).getForm());
-					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-					u.update();
-					
-					System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
-					System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
-			//	allJoinedWorkFlows();
-					jwflist.setItems(null);
-					jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
-					jwflist.setItems(jwflistOb);
-					updates();
-				}
-			}
-		});
-		
+		anchorPaneVisibility(false);
+		allWorkFlowController();
 		updates();
 		populate();
 		tabListeners();
@@ -145,6 +121,23 @@ public class HomeController {
 	public void notif() {
 		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
 		System.out.println("befor if sixe of stack " + u.getRecievedForm().size());
+//		notilist.getSelectionModel().selectedItemProperty().addListener(e -> {
+//			int indexOfWorkFlow = notilist.getSelectionModel().getSelectedIndex();
+//			if(indexOfWorkFlow >= 0){
+//				Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfWorkFlow).setHasUpdate(u, false);
+//				status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfWorkFlow).getForm());
+////				EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+//				u.update();
+//				
+//				System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
+//				System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
+//		//	allJoinedWorkFlows();
+//				notilist.setItems(null);
+//				notilistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+//				jwflist.setItems(jwflistOb);
+//				updates();
+//			}
+//		});
 		if (u.getRecievedForm().size() > 0) {
 			System.out.println("sixe of stack " + u.getRecievedForm().size());
 			notilistOb = FXCollections.observableArrayList(u.getRecievedForm());
@@ -156,16 +149,41 @@ public class HomeController {
 	}
 	
 	public void allJoinedWorkFlows() {
-		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+//		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
 //		if (u.getAllWorkflows().size() > 0 ) {
 			jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
 			jwflist.setItems(jwflistOb);
+			jwflist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<WorkFlow>() {
+			
+						@Override
+						public void changed(ObservableValue<? extends WorkFlow> observable, WorkFlow oldValue, WorkFlow newValue) {
+							int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
+							if(indexOfJoinedWorkFlow >= 0){
+								Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate((EndUser)Wips.getInstance().getCurrentuser(), false);
+								status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).getForm());
+								EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+								u.update();
+								
+								System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
+								System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
+						//	allJoinedWorkFlows();
+								jwflist.setItems(null);
+								jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+								jwflist.setItems(jwflistOb);
+								updates();
+							}
+						}
+					});	
 	//	}
 	}
 
 	public void populate() {
 		System.out.println("roles of the curren usr " + Wips.getInstance().getCurrentuser().getRoles());
 		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
+		if(Wips.getInstance().getRoleOfCurrentUser() != null){
+			cbox.getSelectionModel().select(Wips.getInstance().getRoleOfCurrentUser());
+			anchorPaneVisibility(false);
+		}
 		cbox.setOnAction((event) -> {
 			anchorPaneVisibility(false);
 			Entity e = cbox.getSelectionModel().getSelectedItem();
@@ -205,7 +223,8 @@ public class HomeController {
 			Parent e = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", e, getClass(), "/view/session/application.css");
 		} else if (b == allwfbtn) {
-			WorkFlow wf = (WorkFlow) clone();
+			WorkFlow wf = (WorkFlow) allwflist.getSelectionModel().getSelectedItem().clone();
+			wf.setActive(true);
 			Wips.getInstance().setCurrentWorkFlow(wf);
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(), "/view/endUser/eformgen.css");
@@ -223,21 +242,5 @@ public class HomeController {
 	public void disabler(boolean b) {
 		tabpane.setDisable(b);
 		allwfbtn.setDisable(b);
-	}
-	@Override
-	public Object clone() {
-		WorkFlow wf = allwflist.getSelectionModel().getSelectedItem();
-		WorkFlow newWf = new WorkFlow(wf.getState(), wf.getEntity(), wf.getTransition(), 0);
-		newWf.setWorkFlowName(wf.getWorkFlowName());
-		Form f = new Form(wf.getForm().getFormName(), newWf);
-		f.addCouple(wf.getForm().getCouples());
-//		f.clear();
-		newWf.setForm(f);
-		System.out.println();
-		System.out.println("current states in clone " + Arrays.asList(wf.getCurrentStates()));
-		newWf.setCurrentState(wf.getCurrentStates());
-		System.out.println("start state in clone " + wf.getStartState());
-		newWf.setStartState(wf.getStartState());
-		return newWf;
 	}
 }

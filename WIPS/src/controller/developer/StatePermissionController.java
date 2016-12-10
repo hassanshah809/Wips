@@ -193,20 +193,12 @@ public class StatePermissionController {
 			}
 		});
 		
-		incomingStates.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<OrReq>() {
-
-			@Override
-			public void changed(ObservableValue<? extends OrReq> observable, OrReq oldValue, OrReq newValue) {
-				enableDisableBtn(false, true);
-			}
+		incomingStates.getSelectionModel().selectedItemProperty().addListener(listner ->{
+			enableDisableBtn(false, true);
 		});
 		
-		reqState.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Transition>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Transition> observable, Transition oldValue, Transition newValue) {
-				enableDisableBtn(true, false);
-			}
+		reqState.getSelectionModel().selectedItemProperty().addListener(listner -> {
+			enableDisableBtn(true, false);
 		});
 	}
 	
