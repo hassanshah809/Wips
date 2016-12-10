@@ -60,7 +60,6 @@ public class CoupleForSending {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				String val = distinctValues.getSelectionModel().getSelectedItem();
-				System.out.println("values " + val);
 				filterUser(val);
 			}
 			

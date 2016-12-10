@@ -258,7 +258,6 @@ public class CreateFormController {
 			form.addCouple(couples);
 			wips.getCurrentWorkFlow().setForm(form);
 			wips.getAllWorkFlows().add(wips.getCurrentWorkFlow());
-			System.out.println(wips.getCurrentWorkFlow());
 			wips.getCurrentuser().getAllWorkflows().add(wips.getCurrentWorkFlow());
 			wips.setCurrentWorkFlow(null);
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));

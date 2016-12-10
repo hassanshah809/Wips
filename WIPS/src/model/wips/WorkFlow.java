@@ -172,14 +172,12 @@ public class WorkFlow implements Serializable{
 		currentStates = new State[s.length];
 		for(int i = 0; i < s.length; i++) {
 			currentStates[i] = s[i];
-			System.out.println("\nurrent states  " + currentStates[i]);
 		}
 		
 	}
 	
 	public State getCurrentState(Entity e) {
 		for(State s: currentStates) {
-			System.out.println("in workflow " + s);
 			if(s.getEntity().equals(e))
 				return s;
 		}
@@ -229,10 +227,7 @@ public class WorkFlow implements Serializable{
 		f.addCouple(this.getForm().getCouples());
 //		f.clear();
 		newWf.setForm(f);
-		System.out.println();
-		System.out.println("current states in clone " + Arrays.asList(this.getCurrentStates()));
 		newWf.setCurrentState(this.getCurrentStates());
-		System.out.println("start state in clone " + this.getStartState());
 		newWf.setStartState(this.getStartState());
 		return newWf;
 	}

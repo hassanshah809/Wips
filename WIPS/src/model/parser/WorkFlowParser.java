@@ -25,7 +25,6 @@ public class WorkFlowParser extends Parser {
 	 */
 	public WorkFlowParser(File workflowFile) {
 		super(workflowFile);
-		System.out.println(workflowFile.getName()+ " in super ");
 		keyMap = new HashMap<String,Boolean>(); 
 		keyMap.put("startStateError", false);
 		keyMap.put("incorrectStateTag", false);
@@ -150,7 +149,6 @@ public class WorkFlowParser extends Parser {
 				//Translating 
 				
 				id = Integer.parseInt(idAttrVal);
-				System.out.println("id " + id);
 				
 				if(startStateVal.toLowerCase().equals("true")) {
 					startState = true;
@@ -193,7 +191,6 @@ public class WorkFlowParser extends Parser {
 				Element valElement = (Element) valueNode;
 				String value = valueNode.getTextContent();
 				values.add(value);
-				System.out.println(value);
 			}
 		}
 		

@@ -111,7 +111,6 @@ public class CreateWorkFlowController {
 		parser.parse();
 		Object o = parser.getInters();
 		transitions = (o instanceof GenInter ? (GenInter<Transition>) o : null);	
-		System.out.println("size of transitions in creat wf contrl   " + transitions.getTempAttr().size());
 	}
 	
 	/**
@@ -158,7 +157,6 @@ public class CreateWorkFlowController {
 	 */
 	public void finish() {
 		
-		System.out.println(wfi.getTempAttr().size());
 		WorkFlow wf = new WorkFlow(wfi.getTempStates(), wfi.getTempAttr(), transitions.getTempAttr(),1);
 		wf.setWorkFlowName(workflowname.getText());
 		
@@ -176,7 +174,6 @@ public class CreateWorkFlowController {
 				f.setStartState(s);
 				State[] b = {s};
 				f.setCurrentState(b);
-				System.out.println("in if in create worf fle conroller ");
 			}
 				
 		}
@@ -210,7 +207,6 @@ public class CreateWorkFlowController {
 				String fileName = f.getName();
 				if (fileName.length() > 3 && fileName.substring(fileName.length() - 4, fileName.length()).toLowerCase().equals(".xml")){
 					wFileName.setText(f.getName());
-					System.out.println(f.getName());
 					workFlowXml(f);
 					enableDisableBtn(false, false, true, true);
 					//If file exist then call workflowxml parser

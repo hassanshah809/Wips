@@ -2,21 +2,18 @@ package controller.session;
 
 import java.io.IOException;
 
-import errors.*;
+import errors.AbsError;
+import errors.AuthenticationError;
 import helper.OpenScreen;
-import helper.Pops;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.Wips;
-import model.user.Developer;
 import model.user.EndUser;
 import model.user.User;
-import model.wips.Entity;
 
 public class LogInController {
 	
@@ -59,7 +56,6 @@ public class LogInController {
 				User passup = w.getUsers().get(w.getUsers().indexOf(user));
 				if(passup.getPassword().equals(password)){
 					w.setCurrentUser(w.getUsers().get(w.getUsers().indexOf(user)));
-					System.out.println("current user in log in controller ");
 					return passup;
 				}
 				else	//if incorrect password entered for the user
@@ -101,7 +97,6 @@ public class LogInController {
 			String password = passField.getText();
 			//un comment 2 lines below to see serialiazable works
 			User realUser = authenticate(user, password);   // username hassan8 pas ahanas262
-			System.out.println(realUser);
 //			List<Entity> roles = new ArrayList<>();
 //			roles.add(new Entity("dev"));
 //			

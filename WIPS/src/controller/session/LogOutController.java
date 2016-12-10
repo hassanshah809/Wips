@@ -11,9 +11,9 @@ public class LogOutController {
 	 */
 	public static void logInScreen() {
 		//opens Window
-		serialize();
 		Wips.getInstance().setCurrentUser(null);
 		Wips.getInstance().setRoleOfCurrentUser(null);
+		serialize();
 		//Goes back to the login screen
 	}
 	

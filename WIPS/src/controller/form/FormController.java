@@ -81,7 +81,6 @@ public class FormController {
 		vbox.setFillWidth(true);
 
 		// Assume we have couples from the form object
-		System.out.println("current work flow in form contrlller " + Wips.getInstance().getCurrentWorkFlow());
 		// Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(0));
 		List<Couple> dummyC = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 		WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
@@ -111,7 +110,6 @@ public class FormController {
 		}
 
 		vbox.setSpacing(15);
-		System.out.println(vbox.getChildren().size());
 		createSenderLabel();
 	}
 
@@ -138,7 +136,6 @@ public class FormController {
 		List<EndUser> endUsers = Wips.getInstance().getCurrentWorkFlow().getForm().getUsers();
 		// If required is true and user field is false
 		if (couple.isRequired() && !couple.isUserField()) {
-			System.out.println("a");
 			RowConstraints row1 = new RowConstraints();
 			row1.setVgrow(Priority.ALWAYS);
 
@@ -179,7 +176,6 @@ public class FormController {
 															// whole grid
 
 		} else if (couple.isUserField() && !couple.isRequired()) {
-			System.out.println("b");
 
 			RowConstraints row1 = new RowConstraints();
 			row1.setVgrow(Priority.ALWAYS);
@@ -202,7 +198,6 @@ public class FormController {
 															// whole grid
 
 		} else if (!couple.isUserField() && !couple.isRequired()) {
-			System.out.println("c");
 
 			RowConstraints row1 = new RowConstraints();
 			row1.setVgrow(Priority.ALWAYS);
@@ -267,7 +262,6 @@ public class FormController {
 		} else {
 			optionalM = false;
 		}
-		System.out.println("Size of sending couple is: " + couples.size());
 		for (int i = 2; i < couples.size() && textAreas.size() > i - 2; i++) {
 			couples.get(i).setContentOfTextArea(textAreas.get(i - 2).getText());
 		}

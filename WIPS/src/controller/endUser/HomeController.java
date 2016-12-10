@@ -1,7 +1,6 @@
 package controller.endUser;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import controller.session.LogOutController;
 import helper.OpenScreen;
@@ -23,7 +22,6 @@ import javafx.scene.layout.VBox;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
-import model.wips.Transition;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
@@ -79,7 +77,7 @@ public class HomeController {
 
 	@FXML
 	protected void initialize() {
-		anchorPaneVisibility(false);
+		anchorPaneVisibility(true);
 		allWorkFlowController();
 		updates();
 		populate();
@@ -178,7 +176,6 @@ public class HomeController {
 	}
 
 	public void populate() {
-		System.out.println("roles of the curren usr " + Wips.getInstance().getCurrentuser().getRoles());
 		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
 		if(Wips.getInstance().getRoleOfCurrentUser() != null){
 			cbox.getSelectionModel().select(Wips.getInstance().getRoleOfCurrentUser());
@@ -189,8 +186,6 @@ public class HomeController {
 			Entity e = cbox.getSelectionModel().getSelectedItem();
 			Wips.getInstance().setRoleOfCurrentUser(e);
 			allWorkFlowController();
-			System.out.println("in populate " + e);
-			System.out.println("in ppulate in woiops " + Wips.getInstance().getRoleOfCurrentUser());
 //			disabler(false);
 //			updates();
 		});
@@ -214,7 +209,6 @@ public class HomeController {
 		Button b = (Button) handler.getSource();
 		if (b == notibtn) {
 			Wips.getInstance().setCurrentWorkFlow(notilist.getSelectionModel().getSelectedItem());
-			System.out.println("ntoi button workflow " + Wips.getInstance().getCurrentWorkFlow().getCurrentStates());
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Sign in form", e, getClass(),
 					"/view/enduser/eformgen.css");
@@ -233,8 +227,9 @@ public class HomeController {
 	
 	public void status(Form f) {
 		StringBuilder sb = new StringBuilder();
-		for(Entity e : f.getRoles()) {
-			sb.append(e.getRole() +" ");
+		int index = f.getUsers().indexOf(Wips.getInstance().getCurrentuser());
+		for(int i = index; i < f.getRoles().size(); i++) {
+			sb.append(f.getRoles().get(i).getRole() +" ");
 		}
 		statuslabel.setText("Status: " + sb.toString());
 	}

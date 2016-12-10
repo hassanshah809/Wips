@@ -57,7 +57,6 @@ public class EndUser extends User{
 	 */
 	public void recieve(Form form) {
 		received.add(form.getFormWorkFlow());
-		System.out.println("size of the reciev elist stave " + received.size());
 	}
 	
 	public List<WorkFlow> getRecievedForm() {

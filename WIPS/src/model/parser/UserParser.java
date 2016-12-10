@@ -104,7 +104,6 @@ public class UserParser extends Parser {
 				username = userElement.getAttribute("name");
 				email = userElement.getAttribute("email");
 				
-				System.out.println("usrname is userparser " + username);
 				
 				NodeList children = userNode.getChildNodes();
 				ArrayList<Node> childNodes = new ArrayList<Node>();
@@ -164,7 +163,6 @@ public class UserParser extends Parser {
 				if (roleNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element roleElement = (Element) roleNode;
 					role = roleElement.getAttribute("value");
-					System.out.println("role in the user iparse for loop "+role);
 					roleArrayList.add(new Entity(role));
 				}
 			}
@@ -188,7 +186,6 @@ public class UserParser extends Parser {
 
 		user = new EndUser(username, roleArrayList, valuesArrayList);
 		user.setEmail(email);
-		System.out.println("roles of the use in user parser " + roleArrayList);
 		usersInter.addAttr(user);
 	}
 	

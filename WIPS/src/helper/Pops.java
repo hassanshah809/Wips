@@ -1,8 +1,7 @@
 package helper;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

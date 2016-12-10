@@ -85,7 +85,6 @@ public class StatePermissionController {
 		incomingOb = FXCollections.observableArrayList();
 		incomingOb.addAll(state.getOrStartWithMe());
 		incomingStates.setItems(incomingOb);
-		System.out.println("size of the trans " + state.getOrStartWithMe().size());
 
 	}
 	
@@ -110,10 +109,8 @@ public class StatePermissionController {
 			t.getTransition().setReq(true);
 			state.addand(t.getTransition());
 			state.getOrStartWithMe().remove(indexOfIncomingStates);
-			System.out.println("andtr size " + state.getAnd().getAndTransitions().size());
 		}
 		
-		System.out.println("size of andr in state perm " + state.getAnd().size());
 		reqStatesOb.addAll(state.getAnd().getAndTransitions());
 		reqState.setItems(reqStatesOb);
 		getTransitions(state);
@@ -177,7 +174,6 @@ public class StatePermissionController {
 		wips = Wips.getInstance();
 		wf = wips.getCurrentWorkFlow();
 		//wf.getState().add(new State (1,true, new Entity("prof")));
-		System.out.println("size of states " + wf.getState().size());
 		allStatesOb = FXCollections.observableArrayList(wf.getState());
 		allState.setItems(allStatesOb);
 		

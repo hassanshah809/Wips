@@ -35,7 +35,7 @@ public class AndReq implements AbsReq, Serializable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for(Transition t: and)
-			sb.append(t+ " ");
+			sb.append(t+ ",\n");
 		return sb.toString();
 	}
 

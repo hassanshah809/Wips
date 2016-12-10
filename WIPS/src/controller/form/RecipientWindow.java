@@ -109,7 +109,6 @@ public class RecipientWindow {
 		selectedStates = wips.getCurrentWorkFlow().getCurrentState(wips.getRoleOfCurrentUser()).getAllStartWithMe()
 				.get(indexOfNextStates);
 		coupleForSending = new CoupleForSending[selectedStates.size()];
-		System.out.println("size of selected satees " + selectedStates.size());
 		if (selectedStates.size() >= 1 && selectedStates instanceof AndReq) {
 			AndReq andSelected = (AndReq) selectedStates;
 			for (int i = 0; i < coupleForSending.length; i++) {
@@ -125,12 +124,10 @@ public class RecipientWindow {
 
 	public List<EndUser> compileListOfUsers() {
 		List<EndUser> endUsers = new ArrayList<>();
-		System.out.println("lengt of cople for sending in recpine " + coupleForSending.length);
 		for (int i = 0; i < coupleForSending.length; i++) {
 			EndUser u = coupleForSending[i].getEndUser();
 			if (u != null)
 				endUsers.add(u);
-			// System.out.println("end use rin recipent " +
 			// coupleForSending[i].getEndUser().getUsername());
 		}
 		return endUsers;
@@ -150,8 +147,6 @@ public class RecipientWindow {
 			Form form = wips.getCurrentWorkFlow().getForm();
 			form.addUser(endUser);
 			List<EndUser> compileUsers = compileListOfUsers();
-			System.out.println("compile of users " + compileUsers.size());
-			System.out.println("\n current user in recepiend window " + endUser);
 			if (compileUsers.size() == coupleForSending.length) {
 				for (EndUser user : compileListOfUsers()) {
 					endUser.send(form, user);
@@ -162,7 +157,6 @@ public class RecipientWindow {
 				selectedStates.markedSend();
 				// state.
 				return true;
-//				System.out.println("success for sending the form.....");
 			}
 		}
 			return false;
@@ -175,7 +169,6 @@ public class RecipientWindow {
 			AndReq and = (AndReq) selectedStates;
 			for (int i = 0; i < and.size(); i++) {
 				s[i] = and.getAndTransitions().get(i).getEndState();
-				System.out.println("set currents " + s[i]);
 			}
 			wips.getCurrentWorkFlow().setCurrentState(s);
 			// wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
@@ -183,7 +176,6 @@ public class RecipientWindow {
 		if (selectedStates instanceof OrReq) {
 			OrReq or = (OrReq) selectedStates;
 			s[0] = or.getTransition().getEndState();
-			System.out.println("set current " + s[0]);
 			wips.getCurrentWorkFlow().setCurrentState(s);
 			// wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}

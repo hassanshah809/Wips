@@ -79,7 +79,6 @@ public class State implements Serializable {
 	}
 
 	public void populate() {
-		System.out.println("valuu of orstar and or end in stat.java " + orStartWithMe + "  " + orEndWithMe);
 		if (orStartWithMe == null && orEndWithMe == null) {
 			orStartWithMe = new ArrayList<OrReq>();
 			// AbsReq andS = new AndReq();
@@ -96,7 +95,6 @@ public class State implements Serializable {
 					orEndWithMe.add(orn);
 				}
 			}
-			System.out.println("size of orstar and or end in stat.java " + orStartWithMe.size() + "  " + orEndWithMe.size());
 		}
 	}
 
@@ -109,7 +107,6 @@ public class State implements Serializable {
 	 */
 	public boolean isAllowedtoSend() {
 		populate();
-		System.out.println("all end states in states " + allEndStates);
 		if(allEndStates == null || allEndStates.size() == 0)
 			return true;
 		for (AbsReq a : allEndStates) {
