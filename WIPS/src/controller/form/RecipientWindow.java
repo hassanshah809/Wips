@@ -135,9 +135,9 @@ public class RecipientWindow {
 		}
 		return endUsers;
 	}
-
-	private void setfromUserNameDateTime() {
-		Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser((EndUser) Wips.getInstance().getCurrentuser());
+	
+	private void setfromUserNameDateTime(){
+		//Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser((EndUser)Wips.getInstance().getCurrentuser());
 		Wips.getInstance().getCurrentWorkFlow().getForm().setFormDateTime();
 	}
 

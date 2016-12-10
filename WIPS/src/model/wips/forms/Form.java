@@ -37,7 +37,7 @@ public class Form implements Serializable{
 	private List<Entity> roles;
 	private List<EndUser> users;
 	private WorkFlow wf;
-	private EndUser fromUser = null;
+	private String fromUser = null;
 	
 	private Date dateTime;
 
@@ -125,11 +125,11 @@ public class Form implements Serializable{
 		roles.clear();
 	}
 	
-	public EndUser getFromUser() {
+	public String getFromUser() {
 		return this.fromUser;
 	}
 	
-	public void setFromUser(EndUser fromuser){
+	public void setFromUser(String fromuser){
 		this.fromUser = fromuser;
 	}
 	

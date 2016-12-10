@@ -36,7 +36,7 @@
                     <Font size="15.0" fx:id="x3" />
                   </font>
                 </Label>
-                <TextField prefHeight="25.0" prefWidth="200.0" promptText="Print your name" />
+                <TextField fx:id="requiredsign" prefHeight="25.0" prefWidth="200.0" promptText="Print your name" />
                 <Button fx:id="sendbtn" mnemonicParsing="false" onAction="#handle" prefHeight="35.0" prefWidth="67.0" text="Send" textAlignment="CENTER" />
               </children>
               <padding>

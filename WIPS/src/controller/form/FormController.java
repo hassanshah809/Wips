@@ -17,6 +17,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -35,6 +36,9 @@ public class FormController {
 	Button sendbtn, backbutton, logoutbtn;
 
 	@FXML
+	TextField requiredsign;
+
+	@FXML
 	Label title, description;
 
 	@FXML
@@ -48,6 +52,8 @@ public class FormController {
 
 	@FXML
 	ScrollPane sp;
+
+	boolean optionalM = false;
 
 	List<TextArea> textAreas = new ArrayList<>();
 
@@ -73,19 +79,15 @@ public class FormController {
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		vbox.setFillWidth(true);
-		WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
-//		if(wf.getForm().getUsers().size() != 0 && Wips.getInstance().getCurrentuser().equals(wf.getForm().getUsers().get(0))) {
-//			sendbtn.setDisable(true);
-//		}
-		
-		if(!wf.isActive()) {
-			sendbtn.setDisable(true);
-		}
 
 		// Assume we have couples from the form object
 		System.out.println("current work flow in form contrlller " + Wips.getInstance().getCurrentWorkFlow());
 		// Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(0));
 		List<Couple> dummyC = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
+		WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
+		if (!wf.isActive()) {
+			sendbtn.setDisable(true);
+		}
 		// for (int i = 0; i < 20; i++) {
 		// boolean req = getRandomBoolean();
 		// boolean f = getRandomBoolean();
@@ -103,6 +105,7 @@ public class FormController {
 		// Set the description
 		temp = dummyC.get(1);
 		description.setText(temp.getHeading());
+
 		for (int i = 2; i < dummyC.size(); i++) {
 			vbox.getChildren().add(createCoupleRow(dummyC.get(i)));
 		}
@@ -116,7 +119,7 @@ public class FormController {
 		if (Wips.getInstance().getCurrentWorkFlow().getForm().getFromUser() != null) {
 			Label label = new Label();
 			label.setFont(new Font(15));
-			label.setText("Sender: " + Wips.getInstance().getCurrentWorkFlow().getForm().getFromUser().getUsername());
+			label.setText("Sender: " + Wips.getInstance().getCurrentWorkFlow().getForm().getFromUser());
 			label.setPadding(new Insets(10, 10, 0, 10));
 
 			Label dateTime = new Label();
@@ -153,7 +156,8 @@ public class FormController {
 			TextArea textArea = new TextArea();
 			if (endUsers.size() != 0) {
 				textArea.setText(couple.getContentOfTextArea());
-				textArea.setDisable(true);
+				// textArea.setDisable(true);
+				textArea.setEditable(false);
 				textArea.setStyle("-fx-background-color: white");
 			}
 			textArea.setWrapText(true);
@@ -217,7 +221,8 @@ public class FormController {
 			TextArea textArea = new TextArea();
 			if (endUsers.size() != 0) {
 				textArea.setText(couple.getContentOfTextArea());
-				textArea.setDisable(true);
+				// textArea.setDisable(true);
+				textArea.setEditable(false);
 				textArea.setStyle("-fx-background-color: white");
 			}
 			textArea.setWrapText(true);
@@ -239,13 +244,30 @@ public class FormController {
 		return gridpane;
 	}
 
+	private boolean hasSignature() {
+		boolean sign = false;
+		if (!requiredsign.getText().trim().isEmpty()) {
+			Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser(requiredsign.getText().trim());
+			sign = true;
+		}
+		return sign;
+	}
+
+	private Couple getOptionalMessage() {
+		String s = Wips.getInstance().getCurrentuser().getUsername();
+		Couple dummy = new Couple("Message from " + s + ":" + " " + optionalmessage.getText(), false, true);
+		return dummy;
+	}
+
 	public void send() {
 		List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 		if (checkbox.isSelected() && !optionalmessage.getText().isEmpty()) {
-			String s = Wips.getInstance().getCurrentuser().getUsername();
-			Couple dummy = new Couple("Message from " + s + ":" + " " + optionalmessage.getText(), false, true);
-			couples.add(dummy);
+			couples.add(getOptionalMessage());
+			optionalM = true;
+		} else {
+			optionalM = false;
 		}
+		System.out.println("Size of sending couple is: " + couples.size());
 		for (int i = 2; i < couples.size() && textAreas.size() > i - 2; i++) {
 			couples.get(i).setContentOfTextArea(textAreas.get(i - 2).getText());
 		}
@@ -255,29 +277,28 @@ public class FormController {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
 			WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
-			System.out.println();
-//			System.out.println(
-//					"is end state " + wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState());
-			System.out.println();
-			if (Wips.getInstance().getCurrentWorkFlow().isActive()&&wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState()) {
-				System.out.println(
-						"in the if statement of it it is end state klsdjflsdkjf;sdlkfjsd;lkfjsd;lfkjsd;fljsda;lkjdf;l");
+			if (wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
+				send();
 				Form f = wf.getForm();
-				EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-				u.send(f, f.getUsers().get(0));
-				Wips.getInstance().getCurrentWorkFlow().setActive(false);
+				EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
+				user.send(f, f.getUsers().get(0));
+				wf.setActive(false);
 				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 				OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(),
 						"/view/enduser/ehomescreen.css");
+
 			} else {
 				send();
+				if (wf.getForm().isAllowed() && hasSignature() && wf.isActive()) {
 
-				// send();
-				if (wf.getForm().isAllowed() && Wips.getInstance().getCurrentWorkFlow().isActive()) {
 					Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 					OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),
 							"/view/enduser/eselectstates.css");
 				} else {
+					if (!optionalmessage.getText().trim().isEmpty() && optionalM == true) {
+						List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
+						couples.remove(couples.size() - 1);
+					}
 					AbsError e = new InputError();
 					e.addError("Please enter something in the required field.");
 					e.handle();
