@@ -271,7 +271,8 @@ public class FormController {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
 			WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
-			if (wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
+			System.out.println("current state "+ Wips.getInstance().getRoleOfCurrentUser());
+			if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
 				send();
 				Form f = wf.getForm();
 				EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
@@ -283,7 +284,7 @@ public class FormController {
 
 			} else {
 				send();
-				if (wf.getForm().isAllowed() && hasSignature() && wf.isActive()) {
+				if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.getForm().isAllowed() && hasSignature() && wf.isActive()) {
 
 					Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 					OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),

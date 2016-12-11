@@ -3,10 +3,12 @@ package controller.developer;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import errors.*;
+import errors.AbsError;
+import errors.FileError;
+import errors.InputError;
 import helper.AutoEmail;
 import helper.OpenScreen;
 import javafx.event.ActionEvent;
@@ -17,9 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Wips;
@@ -172,7 +171,8 @@ public class CreateWorkFlowController {
 		for(State s: f.getState()){
 			if(s.isStartState()){
 				f.setStartState(s);
-				State[] b = {s};
+				List<State> b = new ArrayList<>();
+				b.add(s);
 				f.setCurrentState(b);
 			}
 				

@@ -155,6 +155,7 @@ public class RecipientWindow {
 				}
 				// form.updateUsers();
 				selectedStates.markedSend();
+				System.out.println("selected states " + selectedStates);
 				// state.
 				return true;
 			}
@@ -163,19 +164,22 @@ public class RecipientWindow {
 	}
 
 	public void setCurrents() {
-		State[] s = new State[selectedStates.size()];
+		List<State> s = new ArrayList<>();
 		Wips wips = Wips.getInstance();
 		if (selectedStates instanceof AndReq) {
 			AndReq and = (AndReq) selectedStates;
 			for (int i = 0; i < and.size(); i++) {
-				s[i] = and.getAndTransitions().get(i).getEndState();
+				s.add(and.getAndTransitions().get(i).getEndState());
 			}
 			wips.getCurrentWorkFlow().setCurrentState(s);
 			// wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}
 		if (selectedStates instanceof OrReq) {
 			OrReq or = (OrReq) selectedStates;
-			s[0] = or.getTransition().getEndState();
+//			for(State state : wips.getCurrentWorkFlow().getCurrentStates()) {
+//				if(state.)
+//			}
+			s.add(or.getTransition().getEndState());
 			wips.getCurrentWorkFlow().setCurrentState(s);
 			// wips.getCurrentWorkFlow().getForm().setWorkFlow(wips.getCurrentWorkFlow());
 		}

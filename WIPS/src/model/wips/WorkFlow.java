@@ -24,6 +24,7 @@ public class WorkFlow implements Serializable{
 	 * This is the workflows unique id. This will help the system identify this particular workflow. 
 	 */
 	private int id;
+	private int cloneId;
 	/**
 	 * This is the field which informs the system that this workflow is active. True if active. False if not active.
 	 */
@@ -51,7 +52,7 @@ public class WorkFlow implements Serializable{
 	 * this stores the start 
 	 */
 	private State startState = null;
-	private State[] currentStates = null;
+	private List<State> currentStates = new ArrayList<>();
 	private List<Boolean> hasUpdate;
 	/**
 	 *The empty constructor
@@ -75,8 +76,11 @@ public class WorkFlow implements Serializable{
 	 * @param form  Form
 	 */
 	public WorkFlow(List<State> states, List<Entity> entities, List<Transition> transition, int shouldIncrementId) {
-		if(shouldIncrementId == 1)
+		if(shouldIncrementId == 1) {
 			id = Wips.getInstance().getIdsOfEveryClass().getWorkFlowId();
+		}else {
+			cloneId = Wips.getInstance().getIdsOfEveryClass().getWorkFlowCloneId();
+		}
 		this.state = states;
 		this.entity = entities;
 		this.transition = transition;
@@ -164,20 +168,23 @@ public class WorkFlow implements Serializable{
 		return users;
 	}
 	
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setCurrentState(State[] s) {
-		currentStates = new State[s.length];
-		for(int i = 0; i < s.length; i++) {
-			currentStates[i] = s[i];
+	public int getCloneId() {
+		return cloneId;
+	}
+	public void setCurrentState(List<State> s) {
+		for(int i = 0; i < s.size(); i++) {
+			currentStates.add(s.get(i));
 		}
 		
 	}
 	
 	public State getCurrentState(Entity e) {
 		for(State s: currentStates) {
+			System.out.println("in workflow current state loop " + s);
 			if(s.getEntity().equals(e))
 				return s;
 		}
@@ -192,7 +199,7 @@ public class WorkFlow implements Serializable{
 		return name;
 	}
 	
-	public State[] getCurrentStates() {
+	public List<State> getCurrentStates() {
 		return currentStates;
 	}
 	
@@ -230,5 +237,16 @@ public class WorkFlow implements Serializable{
 		newWf.setCurrentState(this.getCurrentStates());
 		newWf.setStartState(this.getStartState());
 		return newWf;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null || !(o instanceof WorkFlow))
+			return false;
+		WorkFlow f = (WorkFlow) o;
+		if(this.getId() == f.getId() && this.getCloneId() == f.getCloneId()){
+			return true;
+		}
+		return false;
 	}
 }

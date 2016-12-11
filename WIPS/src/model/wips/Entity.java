@@ -36,7 +36,7 @@ public class Entity implements Serializable{
 		if(o == null || !(o instanceof Entity))
 			return false;
 		Entity entity = (Entity) o;
-		if(this.role.equals(entity.role))
+		if(this.role.equalsIgnoreCase(entity.role))
 			return true;
 		return false;
 	}

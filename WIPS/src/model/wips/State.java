@@ -106,9 +106,10 @@ public class State implements Serializable {
 	 * @return boolean
 	 */
 	public boolean isAllowedtoSend() {
-		populate();
-		if(allEndStates == null || allEndStates.size() == 0)
+		getAllEndWithMe();
+		if(allEndStates == null || allEndStates.size() == 0) {
 			return true;
+		}
 		for (AbsReq a : allEndStates) {
 			if (!a.isAllowed())
 				return false;

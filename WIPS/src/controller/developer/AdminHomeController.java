@@ -69,13 +69,13 @@ public class AdminHomeController {
 			LogOutController.logInScreen();
 		} else if(b == deleteBtn) {
 			if (createdWorkFlows.getSelectionModel().getSelectedItem() != null)	{
-				int wrkflow = createdWorkFlows.getSelectionModel().getSelectedItem().getID();
+				int wrkflow = createdWorkFlows.getSelectionModel().getSelectedItem().getId();
 				Wips wips = Wips.getInstance();
 				
 				//Removes it from the developer
 				
 				for(int i = 0; i < wips.getCurrentuser().getAllWorkflows().size(); i++) {
-					if(wips.getCurrentuser().getAllWorkflows().get(i).getID() == wrkflow) {
+					if(wips.getCurrentuser().getAllWorkflows().get(i).getId() == wrkflow) {
 						wips.getCurrentuser().getAllWorkflows().remove(i);
 						break;
 					}
@@ -84,7 +84,7 @@ public class AdminHomeController {
 				//Removes it from the WIPS 
 				
 				for(int i = 0; i < wips.getAllWorkFlows().size(); i++) {
-					if(wips.getAllWorkFlows().get(i).getID() == wrkflow) {
+					if(wips.getAllWorkFlows().get(i).getId() == wrkflow) {
 						wips.getAllWorkFlows().remove(i);
 						break;
 					}
