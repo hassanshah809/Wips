@@ -63,7 +63,14 @@ public abstract class User implements Serializable{
 		generatePassword();
 		allworkflows = new ArrayList<WorkFlow>();
 	}
-	
+	public User(String name){
+		this.name = name;
+		values = new ArrayList<String>();
+		roles = new ArrayList<Entity>();
+		id = Wips.getInstance().getIdsOfEveryClass().getUserId();
+		generateUsername();
+		generatePassword();
+	}
 	public User(String username, boolean b) {
 		this.username = username;
 		if(b) {

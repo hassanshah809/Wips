@@ -2,6 +2,10 @@ package controller.developer;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import helper.AutoEmail;
 import helper.OpenScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,7 +45,7 @@ public class EditWorkflowController {
 	TabPane tabpane;
 
 	@FXML
-	Tab workflowtab, usertab;
+	Tab workflowtab, usertab, newUser;
 
 	private ObservableList<State> allstatesOb;
 	private ObservableList<EndUser> allusersOb;
@@ -49,6 +53,7 @@ public class EditWorkflowController {
 	@FXML
 	protected void initialize() {
 		tabListeners();
+		showStates();
 	}
 
 	public EditWorkflowController() {
@@ -61,10 +66,39 @@ public class EditWorkflowController {
 				showStates();
 			} else if (newTab.equals(usertab)) {
 				showUsers();
+			}else if(newTab.equals(newUser)){
+				makeUser();
 			}
 		});
 	}
 
+	public void makeUser() {
+		String name = nametextfield.getText();
+		String roles = rolestextfield.getText();
+		String values = valuestextfield.getText();
+		String email = emailtextfield.getText();
+		boolean verifyEmail = email.matches("([1-9]*[A-Za-z]*[1-9]*)+[@gmail.com]");
+		if(verifyEmail || name.trim().isEmpty() || !roles.matches("([\\s]*[A-Za-z][1-9]*+[,]*)+") || !values.matches("([\\s]*[A-Za-z][1-9]*+[,]*)+")){
+			//show error
+			System.out.println("error");
+		}else{
+			EndUser user = new EndUser(name);
+			user.addTempRoles(roles);
+			user.addTempVals(values);
+			user.setEmail(email);
+			user.finalizeUsers();
+			try {
+				AutoEmail.generateAndSendEmail(user.getUsername(), user.getPassword(), user.getEmail());
+			} catch (AddressException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Wips.getInstance().addUser(user);
+		}
+	}
 	public void showUsers() {
 		allusersOb = FXCollections.observableArrayList(Wips.getInstance().getEndUser());
 		allusers.setItems(allusersOb);
@@ -150,7 +184,7 @@ public class EditWorkflowController {
 		if (b == addnewuser) {
 
 		} else if (b == backbtn) {
-			confirm();
+			//confirm();
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", l, getClass(),
 					"/view/developer/dhomescreen.css");
@@ -158,9 +192,10 @@ public class EditWorkflowController {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(), "/view/session/application.css");
 		} else if (b == savebtn) {
-			
+			confirm();
+//			makeUser();
 		} else if (b == addbtn) {
-			
+			makeUser();
 			
 		} else if (b == deletebtn) {
 			

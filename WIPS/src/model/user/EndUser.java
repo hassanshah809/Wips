@@ -45,8 +45,12 @@ public class EndUser extends User {
 		received = new ArrayList<WorkFlow>();
 	}
 
+	public EndUser(String name){
+		super(name);
+	}
 	public EndUser(String username, boolean b) {
 		super(username, b);
+		sent = new ArrayList<Form>();
 		received = new ArrayList<WorkFlow>();
 	}
 
