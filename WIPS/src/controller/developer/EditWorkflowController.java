@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.Entity;
@@ -22,15 +23,19 @@ import model.wips.State;
 public class EditWorkflowController {
 
 	@FXML
-	Button addnewuser, backbtn, logoutbtn;
+	Button addnewuser, backbtn, logoutbtn, savebtn, addbtn, deletebtn;
 
 	@FXML
 	ListView<State> allstates;
+	
+	@FXML
+	TextField nametextfield, emailtextfield;
+	
 	@FXML
 	ListView<EndUser> allusers;
 
 	@FXML
-	TextArea distinctstatevalues, userroles, uservalues;
+	TextArea distinctstatevalues, userroles, uservalues, rolestextfield, valuestextfield;
 
 	@FXML
 	TabPane tabpane;
@@ -152,6 +157,13 @@ public class EditWorkflowController {
 		} else if (b == logoutbtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(), "/view/session/application.css");
+		} else if (b == savebtn) {
+			
+		} else if (b == addbtn) {
+			
+			
+		} else if (b == deletebtn) {
+			
 		}
 	}
 
