@@ -24,7 +24,7 @@
       <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
           <tabs>
-            <Tab text="Workflow XML ">
+            <Tab fx:id="workflowtab" text="Workflow XML ">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
@@ -38,7 +38,7 @@
                 </AnchorPane>
               </content>
             </Tab>
-            <Tab text="User XML">
+            <Tab fx:id="usertab" text="User XML">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
