@@ -22,7 +22,7 @@ import errors.*;
 public class AdminHomeController {
 	
 	@FXML
-	Button createWFBtn, logoutBtn, deleteBtn;
+	Button createWFBtn, logoutBtn, editbtn,deleteBtn;
 	
 	@FXML
 	ListView<WorkFlow> createdWorkFlows;
@@ -99,6 +99,10 @@ public class AdminHomeController {
 				e.addError("No workflow selected for deletion.");
 				e.handle();
 			}
+		} else if (b == editbtn){
+			//Open the edit window
+			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/deditworkflow.fxml"));
+			OpenScreen.openScreen("deditworkflow.fxml", handler, "Edit Workflow", l, getClass(),"/view/developer/deditworkflow.css");
 		}
 	}
 }
