@@ -25,6 +25,8 @@ public class EndUser extends User {
 	private int lastSizeOfStack = 0;
 	int numOfUdates = 0;
 	int numberOfNewNotifications = 0;
+	private List<String> tempRoles = new ArrayList<>();
+	private List<String> tempVals = new ArrayList<>();
 
 	/**
 	 * creates the new enduser
@@ -151,4 +153,58 @@ public class EndUser extends User {
 		return roles;
 	}
 
+	public List<String> getTempRoles() {
+		return tempRoles;
+	}
+	
+	public void addTempRoles(String tempRolesString) {
+		tempRoles.clear();
+		String[] tokens = tempRolesString.split(",");
+		for(String s : tokens){
+			if(!s.trim().isEmpty()){
+				tempRoles.add(s);
+			}
+		}
+	}
+	
+	public String getTempRolesAsString() {
+		StringBuilder sb = new StringBuilder();
+		for(String s: tempRoles){
+			sb.append(s.trim()+", ");
+		}
+		return sb.toString();
+	}
+	
+	public List<String> getTempVals() {
+		return tempVals;
+	}
+	public void addTempVals(String tempValsString) {
+		tempVals.clear();
+		String[] tokens = tempValsString.split(",");
+		for(String s : tokens){
+			if(!s.trim().isEmpty()){
+				tempVals.add(s);
+			}
+		}
+	}
+	
+	public String getTempValsAsString() {
+		StringBuilder sb = new StringBuilder();
+		for(String s: tempVals){
+			sb.append(s.trim()+", ");
+		}
+		return sb.toString();
+	}
+	
+	public void finalizeUsers() {
+		getVals().clear();
+		for(String s: tempVals) {
+			getVals().add(s);
+		}
+		
+		getRoles().clear();
+		for(String role: tempRoles) {
+			getRoles().add(new Entity(role));
+		}
+	}
 }

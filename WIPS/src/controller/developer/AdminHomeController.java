@@ -101,6 +101,7 @@ public class AdminHomeController {
 			}
 		} else if (b == editbtn){
 			//Open the edit window
+			Wips.getInstance().setCurrentWorkFlow(createdWorkFlows.getSelectionModel().getSelectedItem());
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/deditworkflow.fxml"));
 			OpenScreen.openScreen("deditworkflow.fxml", handler, "Edit Workflow", l, getClass(),"/view/developer/deditworkflow.css");
 		}

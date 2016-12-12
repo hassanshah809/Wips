@@ -65,6 +65,7 @@ public class State implements Serializable {
 	private AndReq andEndWithMe = new AndReq();
 	private List<AbsReq> allStates = null;
 	private List<AbsReq> allEndStates = null;
+	private List<String> tempDistinctVals = new ArrayList<>();
 
 	/**
 	 * This constructor sets the unique id for the state.
@@ -325,8 +326,34 @@ public class State implements Serializable {
 				allEndStates.add(or);
 		}
 		if (andEndWithMe.size() > 0) {
-			System.out.println("in and with me in stat.java");
 			allEndStates.add(andEndWithMe);
 		}
+	}
+	
+	public void addTempDistinctVals(String temDistVals) {
+		tempDistinctVals.clear();
+		String[] tokens = temDistVals.split(",");
+		for(int i = 0; i< tokens.length; i++) {
+			if(!tokens[i].trim().isEmpty())
+				tempDistinctVals.add(tokens[i]);
+		}
+	}
+	
+	public void finalizeDistinctVals() {
+		for(String dVal: tempDistinctVals){
+			distinctVals.add(dVal);
+		}
+	}
+	
+	public List<String> getTempDistVals() {
+		return tempDistinctVals;
+	}
+	
+	public String getTempDistValsAsString() {
+		StringBuilder sb = new StringBuilder();
+		for(String s : tempDistinctVals){
+			sb.append(s.trim() + ", ");
+		}
+		return sb.toString();
 	}
 }
