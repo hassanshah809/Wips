@@ -12,13 +12,13 @@ import model.wips.intermediates.AndReq;
 import model.wips.intermediates.OrReq;
 
 public class State implements Serializable {
-	
+
 	/**
 	 * This is the field containing the name of the State
 	 */
-	
+
 	private String name;
-	
+
 	/**
 	 * 
 	 */
@@ -34,13 +34,14 @@ public class State implements Serializable {
 	 * state.
 	 */
 	private boolean startState;
-	
+
 	/**
-	 * This is the boolean value which states whether this state is the final state in the workflow. 
+	 * This is the boolean value which states whether this state is the final
+	 * state in the workflow.
 	 */
-	
-	private boolean endState = false; 
-	
+
+	private boolean endState = false;
+
 	/**
 	 * This boolean will be set to true if the workflow is in this current
 	 * state. Otherwise it will be false.
@@ -106,15 +107,33 @@ public class State implements Serializable {
 	 * @return boolean
 	 */
 	public boolean isAllowedtoSend() {
+		int counter = 0;
 		getAllEndWithMe();
-		if(allEndStates == null || allEndStates.size() == 0) {
+		if (allEndStates == null || allEndStates.size() == 0) {
 			return true;
 		}
-		for (AbsReq a : allEndStates) {
-			if (!a.isAllowed())
-				return false;
+		for (int i = 0; i < allEndStates.size() - 1; i++) {
+			if (allEndStates.get(i).isAllowed()) {
+				System.out.println("in for loop in stat.java");
+				counter = 1;
+			}
 		}
-		return true; 
+
+		if (counter == 1 && (allEndStates.get(allEndStates.size() - 1) instanceof AndReq)
+				&& allEndStates.get(allEndStates.size() - 1).isAllowed()) {
+			return true;
+		}
+
+		if (allEndStates.get(allEndStates.size() - 1) instanceof OrReq && allEndStates.get(allEndStates.size() - 1).isAllowed()) {
+			return true;
+		}else if(counter == 1 && !(allEndStates.get(allEndStates.size() - 1) instanceof AndReq)){
+			return true;
+		}
+
+		if (allEndStates.size() == 1 && allEndStates.get(0).isAllowed()) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -235,35 +254,34 @@ public class State implements Serializable {
 		populate();
 		return orEndWithMe;
 	}
-	
-	
+
 	/**
 	 * This method returns the name of the state object
+	 * 
 	 * @return
 	 */
-	
-	
+
 	public String getName() {
-		return name; 
+		return name;
 	}
-	
+
 	/**
-	 * This method returns a boolean value representing whether or not this state is a final state
-	 * in the workflow.
+	 * This method returns a boolean value representing whether or not this
+	 * state is a final state in the workflow.
+	 * 
 	 * @return boolean value which states if this state is final state.
 	 */
-	
+
 	public boolean isEndState() {
-		return endState; 
+		return endState;
 	}
-	
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setEndState(boolean endState) {
-		this.endState= endState; 
+		this.endState = endState;
 	}
 
 	@Override
@@ -288,7 +306,7 @@ public class State implements Serializable {
 	public AndReq getAnd() {
 		return andr;
 	}
-	
+
 	public void popAndEndWithMe() {
 		andEndWithMe.getAndTransitions().clear();
 		for (Transition t : Wips.getInstance().getCurrentWorkFlow().getTransition()) {
@@ -297,7 +315,7 @@ public class State implements Serializable {
 			}
 		}
 	}
-	
+
 	public void getAllEndWithMe() {
 		populate();
 		allEndStates = new ArrayList<AbsReq>();
@@ -306,7 +324,9 @@ public class State implements Serializable {
 			for (OrReq or : orEndWithMe)
 				allEndStates.add(or);
 		}
-		if (andEndWithMe.size() != 0)
+		if (andEndWithMe.size() > 0) {
+			System.out.println("in and with me in stat.java");
 			allEndStates.add(andEndWithMe);
+		}
 	}
 }

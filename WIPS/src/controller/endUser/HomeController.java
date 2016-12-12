@@ -88,16 +88,16 @@ public class HomeController {
 
 	public void updates() {
 		EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
-		if(user.getNumOfUpdates() >= 0) {
+		if(user.getNumOfUpdates() > 0) {
 			joinedworkflows.setText("Joined WorkFlows ( " + user.getNumOfUpdates() + " )");
 		} else {
 			joinedworkflows.setText("Joined WorkFlows");
 		}
 		
-		if(user.getNumOfNotif() >= 0) {
+		if(user.getNumOfNotif() > 0) {
 			notification.setText("Notifications ( " + user.getNumOfNotif() + " )");
 		} else {
-			notification.setText("Notificationsk");
+			notification.setText("Notifications");
 		}
 	}
 

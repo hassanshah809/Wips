@@ -155,7 +155,6 @@ public class RecipientWindow {
 				}
 				// form.updateUsers();
 				selectedStates.markedSend();
-				System.out.println("selected states " + selectedStates);
 				// state.
 				return true;
 			}

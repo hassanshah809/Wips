@@ -184,7 +184,6 @@ public class WorkFlow implements Serializable{
 	
 	public State getCurrentState(Entity e) {
 		for(State s: currentStates) {
-			System.out.println("in workflow current state loop " + s);
 			if(s.getEntity().equals(e))
 				return s;
 		}

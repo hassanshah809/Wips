@@ -271,7 +271,6 @@ public class FormController {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
 			WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
-			System.out.println("current state "+ Wips.getInstance().getRoleOfCurrentUser());
 			if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
 				send();
 				Form f = wf.getForm();
