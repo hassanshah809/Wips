@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import model.wips.State;
 
@@ -24,12 +26,28 @@ public class EditWorkflowController {
 	TextArea distinctstatevalues, userroles, uservalues;
 	
 	@FXML
+	TabPane tabpane;
+	
+	@FXML
+	Tab workflowtab, usertab;
+	
+	@FXML
 	protected void initialize() {
 		
 	}
 	
 	public EditWorkflowController() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void tabListeners() {
+		tabpane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+			if (newTab.equals(workflowtab)) {
+			
+			} else if (newTab.equals(usertab)) {
+				
+			}
+		});
 	}
 	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {

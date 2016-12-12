@@ -22,7 +22,7 @@
         </HBox>
       </bottom>
       <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane fx:id="tabpane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
           <tabs>
             <Tab fx:id="workflowtab" text="Workflow XML ">
               <content>
