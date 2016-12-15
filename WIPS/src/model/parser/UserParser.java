@@ -117,14 +117,8 @@ public class UserParser extends Parser {
 				this.getError(errors).handle();
 			}
 			
-			
-			//If there is an error. Send all emails to wipssystem@gmail.com
-			
 			if(errorFound) {
-				System.out.println("Rewriting emails");
-				for(int i = 0; i< usersInter.getTempAttr().size(); i++) {
-					usersInter.getTempAttr().get(i).setEmail("wipssystem@gmail.com");
-				}
+				usersInter = null;
 			}
 			
 		} catch (Exception e) {
