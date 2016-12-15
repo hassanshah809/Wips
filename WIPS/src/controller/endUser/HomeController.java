@@ -1,6 +1,8 @@
 package controller.endUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import controller.session.LogOutController;
 import helper.OpenScreen;
@@ -86,6 +88,7 @@ public class HomeController {
 	}
 	
 	private void allWorkflowBtnDisabler() {
+		allwfbtn.setDisable(true);
 		allwflist.getSelectionModel().selectedItemProperty()
 	     .addListener(new ChangeListener<WorkFlow>() {
 	       public void changed(ObservableValue<? extends WorkFlow> observable,
@@ -257,11 +260,13 @@ public class HomeController {
 
 	public void status(Form f) {
 		StringBuilder sb = new StringBuilder();
+		List<Entity> set = new ArrayList<>();
 		int index = f.getUsers().indexOf(Wips.getInstance().getCurrentuser());
 		for (int i = index; i < f.getRoles().size(); i++) {
-			sb.append(f.getRoles().get(i).getRole() + " ");
+			if(!set.contains(f.getRoles().get(i)))
+				set.add(f.getRoles().get(i));
 		}
-		statuslabel.setText("Status: " + sb.toString());
+		statuslabel.setText("Status: " + set);
 	}
 
 	public void disabler(boolean b) {

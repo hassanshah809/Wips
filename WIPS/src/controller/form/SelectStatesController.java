@@ -75,6 +75,7 @@ public class SelectStatesController {
 	
 	private void fromUserToNull() {
 		Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser(null);
+		Wips.getInstance().setHasPressedBack(true);
 	}
 	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {

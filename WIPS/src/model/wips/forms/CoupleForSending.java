@@ -16,7 +16,7 @@ public class CoupleForSending {
 
 	private ListView<String> distinctValues;
 	private ListView<EndUser> filteredEndUser;
-	
+	private String label = "";
 	private ObservableList<String> distinctValuesOb;
 	private ObservableList<EndUser> filteredEndUserOb;
 	
@@ -79,4 +79,11 @@ public class CoupleForSending {
 		return filteredEndUser;
 	}
 	
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
+	public String getLabel() {
+		return this.label;
+	}
 }

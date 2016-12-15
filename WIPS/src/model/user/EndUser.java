@@ -216,4 +216,9 @@ public class EndUser extends User {
 			}
 		}
 	}
+	
+	public void clearTempRolesAndVals() {
+		tempRoles.clear();
+		tempVals.clear();
+	}
 }

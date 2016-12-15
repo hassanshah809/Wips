@@ -51,7 +51,7 @@ public class RecipientWindow {
 		// assume the size is 10
 		for (int i = 0; i < coupleForSending.length; i++) {
 			
-			Label label = new Label("This is Label");
+			Label label = new Label(coupleForSending[i].getLabel());
 			label.setFont(new Font(15));
 			label.setPadding(new Insets(10,10,0,0));
 			
@@ -67,7 +67,7 @@ public class RecipientWindow {
 			col1.setPercentWidth(50);
 			ColumnConstraints col2 = new ColumnConstraints();
 			col2.setPercentWidth(50);
-
+			
 			gridpane.add(label, 0, 1);
 			gridpane.add(coupleForSending[i].getdisVal(), 0, 2);
 			gridpane.add(coupleForSending[i].getfilUser(), 1, 2);
@@ -125,11 +125,14 @@ public class RecipientWindow {
 			for (int i = 0; i < coupleForSending.length; i++) {
 				coupleForSending[i] = new CoupleForSending(
 						andSelected.getAndTransitions().get(i).getEndState().getDistinctValues());
+				coupleForSending[i].setLabel(andSelected.getAndTransitions().get(i).getEndState().getEntity().getRole());
 			}
 		} else {
 			OrReq orselectedStates = (OrReq) selectedStates;
 			coupleForSending[0] = new CoupleForSending(
 					orselectedStates.getTransition().getEndState().getDistinctValues());
+			
+			coupleForSending[0].setLabel(orselectedStates.getTransition().getEndState().getEntity().getRole());
 		}
 	}
 

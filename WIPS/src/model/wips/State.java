@@ -345,6 +345,9 @@ public class State implements Serializable {
 		}
 	}
 	
+	public void clearTempVals() {
+		tempDistinctVals.clear();
+	}
 	public List<String> getTempDistVals() {
 		return tempDistinctVals;
 	}

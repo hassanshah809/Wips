@@ -95,6 +95,7 @@ public class EditUserController {
 	}
 	
 	public void showRoles(EndUser user) {
+		userroles.clear();
 		StringBuilder sb = new StringBuilder();
 		if (user != null) {
 			for (Entity e : user.getRoles()) {
@@ -110,6 +111,7 @@ public class EditUserController {
 	}
 
 	public void showValues(EndUser user) {
+		uservalues.clear();
 		StringBuilder sb = new StringBuilder();
 		if (user != null) {
 			for (String s : user.getVals()) {

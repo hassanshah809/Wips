@@ -257,8 +257,7 @@ public class CreateWorkFlowController {
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", l, getClass(),"/view/developer/dhomescreen.css");
 		} else if (b == nextBtn) {
 			if (wFileName.getText().equals("Browse Workflow XML File")
-					|| tFileName.getText().equals("Browse Transition XML File") 
-					|| uFileName.getText().equals("Browse User XML File")) {
+					|| tFileName.getText().equals("Browse Transition XML File")) {
 				e = new InputError();
 				e.addError("You are missing one or more of the required XML files.");
 				e.handle();

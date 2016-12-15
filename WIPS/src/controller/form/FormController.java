@@ -157,14 +157,16 @@ public class FormController {
 				textArea.setEditable(false);
 				textArea.setStyle("-fx-background-color: white");
 			}
-			
-			if (endUsers.size() == 0) {
-				textArea.setText(couple.getContentOfTextArea());
-				// textArea.setDisable(true);
-				textArea.setEditable(true);
-				textArea.setStyle("-fx-background-color: white");
+
+			if (Wips.getInstance().getHasPressedBack()) {
+				if (endUsers.size() == 0) {
+					textArea.setText(couple.getContentOfTextArea());
+					// textArea.setDisable(true);
+					textArea.setEditable(true);
+					textArea.setStyle("-fx-background-color: white");
+				}
 			}
-			
+
 			textArea.setWrapText(true);
 			textArea.setPrefSize(Double.MIN_VALUE, Double.MIN_VALUE);
 			this.textAreas.add(textArea);
@@ -280,23 +282,26 @@ public class FormController {
 		if (b == sendbtn) {
 			WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
 			System.out.println("current work flow   " + wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()));
-			if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
+			if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.isActive()
+					&& wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
 				send();
 				Form f = wf.getForm();
 				EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
 				user.send(f, f.getUsers().get(0));
 				wf.setActive(false);
 				int index = user.getRecievedForm().indexOf(wf);
-				if(index >=0 )
+				if (index >= 0)
 					user.getRecievedForm().get(index).setActive(false);
+				Wips.getInstance().setHasPressedBack(false);
 				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 				OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(),
 						"/view/enduser/ehomescreen.css");
 
 			} else {
 				send();
-				if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.getForm().isAllowed() && hasSignature() && wf.isActive()) {
-
+				if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend()
+						&& wf.getForm().isAllowed() && hasSignature() && wf.isActive()) {
+					Wips.getInstance().setHasPressedBack(false);
 					Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 					OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),
 							"/view/enduser/eselectstates.css");
@@ -311,6 +316,7 @@ public class FormController {
 				}
 			}
 		} else if (b == backbutton) {
+			Wips.getInstance().setHasPressedBack(false);
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 			OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(), "/view/enduser/ehomescreen.css");
 		} else if (b == logoutbtn) {

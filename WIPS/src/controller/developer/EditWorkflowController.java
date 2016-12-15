@@ -82,6 +82,7 @@ public class EditWorkflowController {
 	}
 
 	public void distinctVals(State state) {
+		distinctstatevalues.clear();
 		StringBuilder sb = new StringBuilder();
 		if (state != null) {
 			for (String dVal : state.getDistinctValues()) {

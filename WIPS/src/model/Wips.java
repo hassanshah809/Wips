@@ -24,6 +24,7 @@ public class Wips implements Serializable{
 
 	private static final String storeUser = "data";
 	
+	private boolean hasPressedBack = false;
 	private static Wips wips = null;
 	/**
 	 * This list will have all the workflows that ever created.
@@ -119,6 +120,14 @@ public class Wips implements Serializable{
 	}
 	public IdsOfEveryClass getIdsOfEveryClass() {
 		return idsOfEveryClass;
+	}
+	
+	public void setHasPressedBack(boolean b) {
+		this.hasPressedBack = b;
+	}
+	
+	public boolean getHasPressedBack() {
+		return this.hasPressedBack;
 	}
 	public void make () throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeUser + File.separator + "wips" + "/wips"));
