@@ -78,17 +78,24 @@
           </tabs>
         </TabPane>
       </center>
+      <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x1" />
+      </padding>
       <top>
-        <ToolBar BorderPane.alignment="CENTER_RIGHT">
-          <items>
+        <HBox prefHeight="-1.0" prefWidth="-1.0" BorderPane.alignment="CENTER">
+          <children>
             <ComboBox fx:id="cbox" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="119.0" promptText="Select a Role">
               <items>
                 <FXCollections fx:factory="observableArrayList" />
               </items>
             </ComboBox>
-            <Button fx:id="logoutbtn" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="92.0" text="Logout" />
-          </items>
-        </ToolBar>
+            <VBox prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="logoutbtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="92.0" text="Logout" textAlignment="CENTER" />
+          </children>
+          <padding>
+            <Insets bottom="10.0" />
+          </padding>
+        </HBox>
       </top>
     </BorderPane>
   </children>
