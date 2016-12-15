@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.developer.EditWorkflowController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.developer.EditWorkflowController">
   <children>
     <BorderPane prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
@@ -26,7 +28,7 @@
       <center>
         <TabPane fx:id="tabpane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
           <tabs>
-            <Tab fx:id="workflowtab" text="Workflow XML ">
+            <Tab fx:id="workflowtab" text="Edit Workflow">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
@@ -34,82 +36,6 @@
                       <children>
                         <ListView fx:id="allstates" prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
                         <TextArea fx:id="distinctstatevalues" prefWidth="-1.0" wrapText="true" HBox.hgrow="ALWAYS" />
-                      </children>
-                    </HBox>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab fx:id="usertab" text="User XML">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <children>
-                        <ListView fx:id="allusers" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                          <children>
-                            <TextArea fx:id="userroles" prefWidth="-1.0" promptText="Roles" wrapText="true" VBox.vgrow="ALWAYS" />
-                            <TextArea fx:id="uservalues" prefWidth="-1.0" promptText="Values" wrapText="true" VBox.vgrow="ALWAYS" />
-                          </children>
-                        </VBox>
-                      </children>
-                      <padding>
-                        <Insets top="10.0" fx:id="x2" />
-                      </padding>
-                    </HBox>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab fx:id="newUser" text="Add new User">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <HBox padding="$x2" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <children>
-                        <ListView fx:id="listofallusers" prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="TOP_CENTER" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                          <children>
-                            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                              <children>
-                                <Label alignment="CENTER" prefWidth="-1.0" text="Name:" HBox.hgrow="ALWAYS">
-                                  <font>
-                                    <Font size="12.0" fx:id="x1" />
-                                  </font>
-                                </Label>
-                                <TextField fx:id="nametextfield" prefHeight="29.0" prefWidth="268.0" HBox.hgrow="ALWAYS" />
-                              </children>
-                            </HBox>
-                            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
-                              <children>
-                                <Label alignment="CENTER" font="$x1" prefWidth="-1.0" text="Email:" HBox.hgrow="ALWAYS" />
-                                <TextField fx:id="emailtextfield" prefHeight="29.0" prefWidth="265.0" HBox.hgrow="ALWAYS" />
-                              </children>
-                            </HBox>
-                            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
-                              <children>
-                                <Label alignment="CENTER" font="$x1" prefWidth="-1.0" text="Roles:" HBox.hgrow="ALWAYS" />
-                                <TextArea fx:id="rolestextfield" prefHeight="73.0" prefWidth="264.0" wrapText="true" HBox.hgrow="ALWAYS" />
-                              </children>
-                            </HBox>
-                            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
-                              <children>
-                                <Label alignment="CENTER" font="$x1" prefWidth="-1.0" text="Values:" HBox.hgrow="ALWAYS" />
-                                <TextArea fx:id="valuestextfield" prefHeight="73.0" prefWidth="264.0" wrapText="true" HBox.hgrow="ALWAYS" />
-                              </children>
-                            </HBox>
-                            <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" VBox.vgrow="NEVER">
-                              <children>
-                                <Button fx:id="addbtn" mnemonicParsing="false" onAction="#handle" prefHeight="34.0" prefWidth="94.0" text="Add" />
-                                <Button fx:id="deletebtn" mnemonicParsing="false" onAction="#handle" prefHeight="34.0" prefWidth="94.0" text="Delete" />
-                              </children>
-                            </HBox>
-                          </children>
-                          <HBox.margin>
-                            <Insets left="10.0" />
-                          </HBox.margin>
-                        </VBox>
                       </children>
                     </HBox>
                   </children>
