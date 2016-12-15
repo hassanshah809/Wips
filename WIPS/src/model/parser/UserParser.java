@@ -18,6 +18,8 @@ import java.util.List;
 
 public class UserParser extends Parser {
 	
+	boolean errorFound = false;
+	
 	/**
 	 * This list contains all usernames that have been found in the XML parser
 	 */
@@ -51,8 +53,16 @@ public class UserParser extends Parser {
 		super(userFile);
 		userNames = new ArrayList<String>();
 		keyMap = new HashMap<String, Boolean>();
+		keyMap.put("incorrectUserTag", false);
 		keyMap.put("duplicateUserName", false);
 		keyMap.put("roleNotFound", false);
+		keyMap.put("incorrectSubTag", false);
+		keyMap.put("incorrectRoleTag", false);
+		keyMap.put("incorrectValueTag", false);
+		keyMap.put("emptyRoleValueAttr", false);
+		keyMap.put("emptyValueValueAttr", false);
+		keyMap.put("invalidEmail", false);
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -62,6 +72,8 @@ public class UserParser extends Parser {
 	 * GenInter<User> object to be used later.
 	 * 
 	 */
+	
+	@Override
 
 	public void parse() {
 
@@ -73,7 +85,12 @@ public class UserParser extends Parser {
 
 			NodeList userList = doc.getElementsByTagName("user");
 			
-			extractUsers(userList);
+			if(userList.getLength() == 0) {
+				keyMap.put("incorrectUserTag",true);
+				errorFound = true;
+			} else {
+				extractUsers(userList);
+			}
 			
 			if (keyMap.containsValue(true)) {
 				List<String> errors = new ArrayList<String>();
@@ -81,8 +98,33 @@ public class UserParser extends Parser {
 					errors.add("There is a duplicate username in the User XML file.");
 				if (keyMap.get("roleNotFound"))
 					errors.add("There is an invalid role in the User XML file.");
+				if (keyMap.get("incorrectSubTag"))
+					errors.add("User sub tags should only be roles or values. Please check your user file.");
+				if (keyMap.get("incorrectUserTag")) 
+					errors.add("Your User XML file does not contain user tags. Please try again!!");
+				if (keyMap.get("incorrectRoleTag"))
+					errors.add("One tags under <roles> isn't <role>. Please check.");
+				if (keyMap.get("incorrectValueTag"))
+					errors.add("One tags under <values> isn't <value>. Please check.");
+				if (keyMap.get("emptyRoleValueAttr")) 
+					errors.add("One of the value attributes for the <role> tag is empty");
+				if (keyMap.get("emptyValueValueAttr")) 
+					errors.add("One of the value attributes for the <value> tag is empty");
+				if (keyMap.get("invalidEmail")) 
+					errors.add("Invalid email detected!!!");
+				
 				
 				this.getError(errors).handle();
+			}
+			
+			
+			//If there is an error. Send all emails to wipssystem@gmail.com
+			
+			if(errorFound) {
+				System.out.println("Rewriting emails");
+				for(int i = 0; i< usersInter.getTempAttr().size(); i++) {
+					usersInter.getTempAttr().get(i).setEmail("wipssystem@gmail.com");
+				}
 			}
 			
 		} catch (Exception e) {
@@ -102,8 +144,12 @@ public class UserParser extends Parser {
 			if (userNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element userElement = (Element) userNode;
 				username = userElement.getAttribute("name");
-				email = userElement.getAttribute("email");
+				email = userElement.getAttribute("email"); 
 				
+				if(!isValidEmailAddress(email)) {
+					keyMap.put("invalidEmail", true);
+					errorFound = true;
+				} 
 				
 				NodeList children = userNode.getChildNodes();
 				ArrayList<Node> childNodes = new ArrayList<Node>();
@@ -112,6 +158,7 @@ public class UserParser extends Parser {
 					userNames.add(username);
 				} else {
 					keyMap.put("duplicateUserName", true);
+					errorFound = true;
 				}
 				
 				for(int j = 0; j < children.getLength(); j++) {
@@ -123,14 +170,6 @@ public class UserParser extends Parser {
 				Node node1 = childNodes.get(0);
 				Node node2 = childNodes.get(1);
 				
-				//Node node1 = userNode.getFirstChild();
-				//Node node2 = node1.getNextSibling();
-				
-				if(node2.getNextSibling() != null) {
-					//Uh oh.. we shouldn't have more than 3 sub nodes for users.
-					//Throw some error
-				}
-				
 				//If the roles come first then I order node1 and then node2.
 				//Else then I would order node2 (Which should contain roles) and then node1 which should
 				//contain values. I'm doing this because the code handles roles first and then values. 
@@ -139,7 +178,10 @@ public class UserParser extends Parser {
 					handleChildren(node1,node2, username, email);
 				} else if(node1.getNodeName().equals("values")) {
 					handleChildren(node2,node1, username, email);
-				}	
+				} else {
+					keyMap.put("incorrectSubTag", true);
+					errorFound = true;
+				}
 			}
 		}
 	}
@@ -161,8 +203,20 @@ public class UserParser extends Parser {
 			for (int j = 0; j < roleList.getLength(); j++) {
 				roleNode = roleList.item(j);
 				if (roleNode.getNodeType() == Node.ELEMENT_NODE) {
+					
+					if(!roleNode.getNodeName().equals("role")) {
+						keyMap.put("incorrectRoleTag", true);
+						errorFound = true;
+					}
+					
 					Element roleElement = (Element) roleNode;
 					role = roleElement.getAttribute("value");
+					
+					if(role.equals("")) {
+						keyMap.put("emptyRoleValueAttr", true);
+						errorFound = true;
+					}
+					
 					roleArrayList.add(new Entity(role));
 				}
 			}
@@ -177,13 +231,25 @@ public class UserParser extends Parser {
 			for (int j = 0; j < valuesList.getLength(); j++) {
 				valueNode = valuesList.item(j);
 				if (valueNode.getNodeType() == Node.ELEMENT_NODE) {
+					
+					if(!valueNode.getNodeName().equals("value")) {
+						keyMap.put("incorrectValueTag", true);
+						errorFound = true;
+					}
+					
 					Element valueElement = (Element) valueNode;
 					value = valueElement.getAttribute("value");
+					
+					if(value.equals("")) {
+						keyMap.put("emptyValueValueAttr", true);
+						errorFound = true;
+					}
+						
 					valuesArrayList.add(value);
 				}
 			}
 		}
-
+	
 		user = new EndUser(username, roleArrayList, valuesArrayList);
 		user.setEmail(email);
 		usersInter.addAttr(user);
@@ -201,5 +267,12 @@ public class UserParser extends Parser {
 	public Object getInters() {
 		// TODO Auto-generated method stub
 		return this.usersInter;
+	}
+	
+	public boolean isValidEmailAddress(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
 	}
 }

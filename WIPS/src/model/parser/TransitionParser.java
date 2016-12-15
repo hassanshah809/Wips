@@ -16,6 +16,9 @@ import java.util.List;
 
 public class TransitionParser extends Parser {
 	
+	boolean errorFound = false;
+	
+	
 	 HashMap<String,Boolean> keyMap;
 	
 	/**
@@ -44,6 +47,8 @@ public class TransitionParser extends Parser {
 		this.keyMap = new HashMap<String, Boolean>(); 
 		keyMap.put("incorrectTransitionTag", false);
 		keyMap.put("invalidStateID", false);
+		keyMap.put("startStateIdError", false);
+		keyMap.put("endStateIdError", false);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -64,21 +69,31 @@ public class TransitionParser extends Parser {
 		
 			NodeList transitionList = doc.getElementsByTagName("transition");
 			
-			extract(transitionList);
+			if(transitionList.getLength() == 0) {
+				keyMap.put("incorrectTransitionTag", true);
+				errorFound = true;
+			} else {
+				extract(transitionList);
+			}
 			
 			if (keyMap.containsValue(true)) {
 				List<String> errors = new ArrayList<String>();
 				if (keyMap.get("incorrectTransitionTag"))
-					errors.add("There is an invalid transition tag in the Transition XML file.");
+					errors.add("Your transition XML file does not contain transition tags. Please try again");
 				if (keyMap.get("invalidStateID"))
 					errors.add("There is an invalid state ID in the Transition XML file.");
 				
 				this.getError(errors).handle();
 			}
 			
+			if(errorFound) {
+				transitions = null;
+			}
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
@@ -93,6 +108,7 @@ public class TransitionParser extends Parser {
 				
 				if(!tranNode.getNodeName().equals("transition")) {
 					keyMap.put("incorrectTransitionTag", true);
+					errorFound = true;
 				}
 				
 				Element transElement = (Element) tranNode; 
@@ -101,6 +117,19 @@ public class TransitionParser extends Parser {
 				
 				startStateStr = transElement.getAttribute("startstate");
 				endStateStr = transElement.getAttribute("endstate");
+				
+				if(startStateStr.equals("")){
+					keyMap.put("startStateIdError", true);
+					startStateStr = "0";
+					errorFound = true;
+
+				}
+				if(endStateStr.equals("")) {
+					keyMap.put("endStateIdError", true);
+					endStateStr = "0";
+					errorFound = true;
+
+				}
 				
 				//This contains that actual id values for states 
 				
@@ -135,6 +164,7 @@ public class TransitionParser extends Parser {
 		
 		if(!startFound || !endFound) {
 			keyMap.put("invalidStateID", true);
+			errorFound = true;
 		} else {
 			transition = new Transition(startState, endState);
 			transitions.getTempAttr().add(transition); 
