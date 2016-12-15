@@ -1,11 +1,12 @@
 package controller.developer;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import errors.AbsError;
+import errors.InputError;
 import helper.AutoEmail;
 import helper.OpenScreen;
 import javafx.collections.FXCollections;
@@ -26,45 +27,55 @@ import model.user.User;
 import model.wips.Entity;
 
 public class EditUserController {
-	
-	
+
 	@FXML
 	Button backbtn, deletebtn, addbtn, logoutbtn, savebutton;
-	
+
 	@FXML
 	ListView<EndUser> allusers, listofallusers;
-	
-	@FXML 
-	TextArea userroles, uservalues, rolestextfield, valuestextfield; 
-	
+
+	@FXML
+	TextArea userroles, uservalues, rolestextfield, valuestextfield;
+
 	@FXML
 	TabPane tabpane;
-	
+
 	@FXML
 	Tab editTab, addTab;
-	
+
 	@FXML
 	TextField nametextfield, emailtextfield;
-	
+
 	String tabOpened = "editTab";
-	
-	private ObservableList<EndUser>  allusersOb; 
-	
+
+	private ObservableList<EndUser> allusersOb;
+
 	@FXML
 	protected void initialize() {
 		tabListeners();
 		showUsers();
-		//deleteBtn.setDisable(true);
+		deletebtn.setDisable(true);
+		// deleteBtn.setDisable(true);
 	}
-	
+
 	public void tabListeners() {
 		tabpane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
-			if(newTab.equals(editTab)) {
+			if (newTab.equals(editTab)) {
+
+				allusers.getSelectionModel().clearSelection();
+				listofallusers.getSelectionModel().clearSelection();
+				deletebtn.setDisable(true);
+				savebutton.setDisable(false);
 				showUsers();
 				tabOpened = "editTab";
 				System.out.println(tabOpened);
 
-			} else if(newTab.equals(addTab)) {
+			} else if (newTab.equals(addTab)) {
+				// deletebtn.setDisable(true);
+				allusers.getSelectionModel().clearSelection();
+				listofallusers.getSelectionModel().clearSelection();
+				deletebtn.setDisable(true);
+				savebutton.setDisable(true);
 				showUsers2();
 				tabOpened = "addTab";
 				System.out.println(tabOpened);
@@ -73,27 +84,31 @@ public class EditUserController {
 		});
 
 	}
-	
+
 	public void showUsers() {
 		allusersOb = FXCollections.observableArrayList(Wips.getInstance().getEndUser());
 		allusers.setItems(allusersOb);
 		allusers.getSelectionModel().selectedItemProperty().addListener((ov, oldVal, newVal) -> {
+			deletebtn.setDisable(false);
 			if (oldVal != null) {
 				oldVal.addTempRoles(userroles.getText());
 				oldVal.addTempVals(uservalues.getText());
 			}
 			showRoles(newVal);
 			showValues(newVal);
-			
-			//deleteBtn.setDisable(false);
+
+			// deleteBtn.setDisable(false);
 		});
 	}
-	
+
 	public void showUsers2() {
 		allusersOb = FXCollections.observableArrayList(Wips.getInstance().getEndUser());
 		listofallusers.setItems(allusersOb);
+		listofallusers.getSelectionModel().selectedItemProperty().addListener((e) -> {
+			deletebtn.setDisable(false);
+		});
 	}
-	
+
 	public void showRoles(EndUser user) {
 		userroles.clear();
 		StringBuilder sb = new StringBuilder();
@@ -125,67 +140,91 @@ public class EditUserController {
 			}
 		}
 	}
-	
+
 	public void makeUser() {
+		AbsError error = new InputError();
 		String name = nametextfield.getText();
 		String roles = rolestextfield.getText();
 		String values = valuestextfield.getText();
 		String email = emailtextfield.getText();
 		boolean verifyEmail = email.matches("([1-9]*[A-Za-z]*[1-9]*)+[@gmail.com]");
-		if(verifyEmail || name.trim().isEmpty() || !roles.matches("([\\s]*[A-Za-z][1-9]*+[,]*)+") || !values.matches("([\\s]*[A-Za-z][1-9]*+[,]*)+")){
-			//show error
-			System.out.println("error");
-		}else{
-			EndUser user = new EndUser(name);
-			user.addTempRoles(roles);
-			user.addTempVals(values);
-			user.setEmail(email);
-			user.finalizeUsers();
-			try {
-				AutoEmail.generateAndSendEmail(user.getUsername(), user.getPassword(), user.getEmail());
-			} catch (AddressException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (verifyEmail || name.trim().isEmpty() || !roles.matches("([\\s]*[A-Za-z][1-9]*+[,]*)+")
+				|| !values.matches("([\\s]*[A-Za-z][1-9]*+[,]*)+")) {
+			// show error
+			error.addError("* Fields required");
+			error.handle();
+		} else {
+			if (!verifyEmail) {
+				error.addError("Please enter a valid gmail");
+				error.handle();
+			} else {
+				EndUser user = new EndUser(name);
+				user.addTempRoles(roles);
+				user.addTempVals(values);
+				user.setEmail(email);
+				user.finalizeUsers();
+				try {
+					AutoEmail.generateAndSendEmail(user.getUsername(), user.getPassword(), user.getEmail());
+				} catch (AddressException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				nametextfield.clear();
+				rolestextfield.clear();
+				valuestextfield.clear();
+				emailtextfield.clear();
+				Wips.getInstance().addUser(user);
 			}
-			Wips.getInstance().addUser(user);
 		}
-		
+
 		showUsers2();
 	}
-	
+
+	public void confirm() {
+		for (EndUser user : Wips.getInstance().getEndUser()) {
+			user.finalizeUsers();
+		}
+	}
+
+	public void discard() {
+		for (EndUser user : Wips.getInstance().getEndUser()) {
+			user.clearTempRolesAndVals();
+		}
+	}
+
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
-		
+
 		Button b = (Button) handler.getSource();
-		
+
 		if (b == backbtn) {
-			//confirm();
+			// confirm();
+			discard();
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", l, getClass(),
 					"/view/developer/dhomescreen.css");
 		} else if (b == logoutbtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/session/userlogin.fxml"));
 			OpenScreen.openScreen("userlogin.fxml", handler, "Log in", l, getClass(), "/view/session/application.css");
-		} else if (b == deletebtn) { //Change this
-			
-			User u = null; 
-			if(tabOpened.equals("addTab")) {
+		} else if (b == deletebtn) { // Change this
+
+			User u = null;
+			if (tabOpened.equals("addTab")) {
 				u = listofallusers.getSelectionModel().getSelectedItem();
 			} else if (tabOpened.equals("editTab")) {
 				u = allusers.getSelectionModel().getSelectedItem();
 			}
-			
+
 			int index = Wips.getInstance().getUsers().indexOf(u);
-			if(index >= 0) {
+			if (index >= 0) {
 				Wips.getInstance().getUsers().remove(index);
 			}
-						
-			
+
 			allusersOb = FXCollections.observableArrayList(Wips.getInstance().getEndUser());
-			
-			if(tabOpened.equals("addTab")) {
+
+			if (tabOpened.equals("addTab")) {
 				listofallusers.setItems(null);
 				showUsers2();
 			} else if (tabOpened.equals("editTab")) {
@@ -193,11 +232,13 @@ public class EditUserController {
 				allusers.setItems(allusersOb);
 				showUsers();
 			}
-			
-		} else if(b == addbtn) {
+
+		} else if (b == addbtn) {
 			makeUser();
 		} else if (b == savebutton) {
-			
+			allusers.getSelectionModel().getSelectedItem().addTempRoles(userroles.getText());
+			allusers.getSelectionModel().getSelectedItem().addTempVals(uservalues.getText());
+			confirm();
 		}
 	}
 }

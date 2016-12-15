@@ -101,18 +101,20 @@ public class EditWorkflowController {
 		for (State s : Wips.getInstance().getCurrentWorkFlow().getState()) {
 			s.finalizeDistinctVals();
 		}
-		
-		for(EndUser user: Wips.getInstance().getEndUser()){
-			user.finalizeUsers();
-		}
 	}
 	
+	public void discard() {
+		for (State s : Wips.getInstance().getCurrentWorkFlow().getState()) {
+			s.clearTempVals();;
+		}
+	}
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == addnewuser) {
 
 		} else if (b == backbtn) {
 			//confirm();
+			discard();
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dhomescreen.fxml"));
 			OpenScreen.openScreen("dhomescreen.fxml", handler, "Developer", l, getClass(),
 					"/view/developer/dhomescreen.css");

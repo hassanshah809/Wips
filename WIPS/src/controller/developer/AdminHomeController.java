@@ -35,9 +35,11 @@ public class AdminHomeController {
 	protected void initialize() {
 		//Do something once the FXML is done
 		editbtn.setDisable(true);
+		deleteBtn.setDisable(true);
 		showFinished();
 		createdWorkFlows.getSelectionModel().selectedItemProperty().addListener((ov, oldVal, newVal) -> {
 			editbtn.setDisable(false);
+			deleteBtn.setDisable(false);
 		});
 	}
 	
