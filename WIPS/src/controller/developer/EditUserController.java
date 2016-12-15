@@ -29,7 +29,7 @@ public class EditUserController {
 	
 	
 	@FXML
-	Button backbtn, deletebtn, addbtn, logoutbtn;
+	Button backbtn, deletebtn, addbtn, logoutbtn, savebutton;
 	
 	@FXML
 	ListView<EndUser> allusers, listofallusers;
@@ -196,6 +196,8 @@ public class EditUserController {
 			
 		} else if(b == addbtn) {
 			makeUser();
+		} else if (b == savebutton) {
+			
 		}
 	}
 }
