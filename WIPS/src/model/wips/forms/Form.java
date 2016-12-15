@@ -12,7 +12,7 @@ import model.user.EndUser;
 import model.wips.Entity;
 import model.wips.WorkFlow;
 
-public class Form implements Serializable{
+public class Form implements Serializable {
 	/**
 	 * 
 	 */
@@ -22,8 +22,8 @@ public class Form implements Serializable{
 	 */
 	private List<Couple> couples;
 	/**
-	* This List contains the message from all entity
-	*/
+	 * This List contains the message from all entity
+	 */
 	private List<String> message;
 	/**
 	 * This stores the name of the form
@@ -33,15 +33,14 @@ public class Form implements Serializable{
 	 * This is a unique identifier for the fom
 	 */
 	private int formID;
-	
+
 	private List<Entity> roles;
 	private List<EndUser> users;
 	private WorkFlow wf;
 	private String fromUser = null;
-	
+
 	private Date dateTime;
 
-	
 	/**
 	 * This a constructor to make the new form object
 	 */
@@ -55,98 +54,106 @@ public class Form implements Serializable{
 		formID = Wips.getInstance().getIdsOfEveryClass().getFormId();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public WorkFlow getFormWorkFlow() {
 		return this.wf;
 	}
-	
+
 	public void setWorkFlow(WorkFlow workflow) {
 		this.wf = workflow;
 	}
+
 	/**
-	* This method will add message to the message list
-	*/
+	 * This method will add message to the message list
+	 */
 	public void addMessage(String message) {
 		this.message.add(message);
 	}
-	
-	public void addCouple(List<Couple> c){
-		for(Couple p: c) {
-			couples.add(p);	
+
+	public void addCouple(List<Couple> c) {
+		for (Couple p : c) {
+			couples.add(p);
 		}
 	}
-	
+
 	public List<Couple> getCouples() {
 		return couples;
 	}
 
 	public void addRoles(List<Entity> role) {
-		for(Entity r: role)
-			roles.add(r);
+		for (Entity r : role)
+			if (!roles.contains(r))
+				roles.add(r);
 	}
-	
+
 	public void addRoles(Entity role) {
-		roles.add(role);
+		if (!roles.contains(role))
+			roles.add(role);
 	}
+
 	public List<Entity> getRoles() {
 		return roles;
 	}
+
 	public void addUser(EndUser user) {
-		users.add(user);
-		wf.addUpadte();
+		if (!users.contains(user)) {
+			users.add(user);
+			wf.addUpadte();
+		}
 	}
-	
+
 	public List<EndUser> getUsers() {
 		return this.users;
 	}
-	
+
 	public void updateUsers() {
-		for(EndUser user: users)
+		for (EndUser user : users)
 			user.update();
 	}
+
 	public String getFormName() {
 		return formName;
 	}
 
 	public boolean isAllowed() {
-		for(Couple c: couples) {
-			if(!c.isAllowed()) 
+		for (Couple c : couples) {
+			if (!c.isAllowed())
 				return false;
 		}
 		return true;
 	}
-	
+
 	public int getFormId() {
 		return formID;
 	}
-	
+
 	public void clear() {
-		for(int i = 2; i < couples.size(); i++) {
+		for (int i = 2; i < couples.size(); i++) {
 			couples.get(i).clear();
 		}
 		message.clear();
 		users.clear();
 		roles.clear();
 	}
-	
+
 	public String getFromUser() {
 		return this.fromUser;
 	}
-	
-	public void setFromUser(String fromuser){
+
+	public void setFromUser(String fromuser) {
 		this.fromUser = fromuser;
 	}
-	
+
 	public String getDate() {
-        SimpleDateFormat formatDate = new SimpleDateFormat("MM-dd-yyyy");
-        return formatDate.format(dateTime);
+		SimpleDateFormat formatDate = new SimpleDateFormat("MM-dd-yyyy");
+		return formatDate.format(dateTime);
 	}
-	
+
 	public String getTime() {
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
-        return formatTime.format(dateTime);
+		SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm a");
+		return formatTime.format(dateTime);
 	}
-	
+
 	public void setFormDateTime() {
 		this.dateTime = Calendar.getInstance().getTime();
 	}

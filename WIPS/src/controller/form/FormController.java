@@ -281,12 +281,15 @@ public class FormController {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
 			WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
+			AbsError er = new InputError();
+			boolean isAllowed = wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend();
+			boolean endState = wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature();
 			System.out.println("current work flow   " + wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()));
-			if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.isActive()
-					&& wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
+			if (isAllowed && endState ) {
 				send();
 				Form f = wf.getForm();
 				EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
+				f.addUser(user);
 				user.send(f, f.getUsers().get(0));
 				wf.setActive(false);
 				int index = user.getRecievedForm().indexOf(wf);
@@ -299,20 +302,33 @@ public class FormController {
 
 			} else {
 				send();
-				if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend()
-						&& wf.getForm().isAllowed() && hasSignature() && wf.isActive()) {
+//				if (!endState) {
+//					er.addError("Please enter something in the required field.");
+//					er.handle();
+//				} else if(!isAllowed){
+//					er.addError("Waiting for other users in the Work Flow to fill out the form");
+//					er.handle();
+//				}
+				
+				boolean checkSign = wf.getForm().isAllowed() && hasSignature() && wf.isActive();
+				if (isAllowed && checkSign) {
 					Wips.getInstance().setHasPressedBack(false);
 					Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eselectstates.fxml"));
 					OpenScreen.openScreen("eselectstates.fxml", handler, "Select States", e, getClass(),
 							"/view/enduser/eselectstates.css");
 				} else {
+					
 					if (!optionalmessage.getText().trim().isEmpty() && optionalM == true) {
 						List<Couple> couples = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
 						couples.remove(couples.size() - 1);
 					}
-					AbsError e = new InputError();
-					e.addError("Please enter something in the required field.");
-					e.handle();
+					if (!checkSign) {
+						er.addError("Please enter something in the required field.");
+						er.handle();
+					} else if(!isAllowed){
+						er.addError("Waiting for other users in the Work Flow to fill out the form");
+						er.handle();
+					}
 				}
 			}
 		} else if (b == backbutton) {

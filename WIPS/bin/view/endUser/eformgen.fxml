@@ -31,7 +31,7 @@
               <children>
                 <Button fx:id="backbutton" mnemonicParsing="false" onAction="#handle" prefHeight="35.0" prefWidth="67.0" text="Back" />
                 <Button fx:id="logoutbtn" mnemonicParsing="false" onAction="#handle" prefHeight="35.0" prefWidth="67.0" text="Logout" />
-                <Label text="Signature">
+                <Label text="Signature *">
                   <font>
                     <Font size="15.0" fx:id="x3" />
                   </font>

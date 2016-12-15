@@ -48,11 +48,14 @@ public class AllWorkFlowController {
 	public List<WorkFlow> filterNotifWorkFlows() {
 		List<WorkFlow> notifwfFilter = new ArrayList<>();
 		Wips wips = Wips.getInstance();
+		
 		EndUser user = (EndUser) wips.getCurrentuser();
 		for(WorkFlow f: user.getRecievedForm()){
 			int index = f.getForm().getUsers().indexOf(wips.getCurrentuser());
 			if(f.getForm().getUsers().contains(wips.getCurrentuser())) {
+				System.out.println("in filter notif " + f.getForm().getRoles()+ "  " + index);
 				if(f.getForm().getRoles().get(index).equals(wips.getRoleOfCurrentUser())){
+					
 					notifwfFilter.add(f);
 				}
 			}
