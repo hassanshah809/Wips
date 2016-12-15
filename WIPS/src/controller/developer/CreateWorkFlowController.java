@@ -125,14 +125,16 @@ public class CreateWorkFlowController {
 	 * @param file File
 	 */
 	public void userXmlParser(File file) {
+		
 		UserParser up = new UserParser(file);
 		up.parse();
 		Object o = up.getInters();
 		users = (o instanceof GenInter ? (GenInter<User>) o : null);
-		addUsersToWips(users.getTempAttr());
 		
-		sendEmails(users);
-		
+		if(users != null) {
+			addUsersToWips(users.getTempAttr());
+			sendEmails(users);
+		}
 	}
 	
 	public void addUsersToWips(List<User> users) {
@@ -261,8 +263,9 @@ public class CreateWorkFlowController {
 				e = new InputError();
 				e.addError("You are missing one or more of the required XML files.");
 				e.handle();
-			}
-			else {
+			} else if (wfi == null || transitions == null || users == null) {
+				System.out.println("Errors exist!!!");
+			} else {
 				//Goes to state permission window
 				finish();
 				Parent l = FXMLLoader.load(getClass().getResource("/view/developer/dstatepscreen.fxml"));
@@ -289,4 +292,6 @@ public class CreateWorkFlowController {
 			
 		}
 	}
+	
+	
 }
