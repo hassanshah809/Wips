@@ -4,6 +4,8 @@ package controller.form;
 import java.io.IOException;
 
 import helper.OpenScreen;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import model.Wips;
 import model.wips.State;
 import model.wips.intermediates.AbsReq;
@@ -30,7 +33,25 @@ public class SelectStatesController {
 	
 	@FXML
 	protected void initialize() {
+		disableNextButton();
 		show();
+	}
+	
+	private void disableNextButton () {
+		int i = listview.getSelectionModel().getSelectedIndex();
+		if(i < 0) {
+			nextbtn.setDisable(true);
+		} else {
+			nextbtn.setDisable(false);
+		}
+		
+		listview.getSelectionModel().selectedItemProperty()
+	     .addListener(new ChangeListener<AbsReq>() {
+	       public void changed(ObservableValue<? extends AbsReq> observable,
+	    		   AbsReq oldValue, AbsReq newValue) {
+	    	   nextbtn.setDisable(false); 
+	       }
+	     });
 	}
 	
 	public void show() {
@@ -52,9 +73,14 @@ public class SelectStatesController {
 		Wips.getInstance().setIndexOfNextState(listview.getSelectionModel().getSelectedIndex()); // get index from observable;
 	}
 	
+	private void fromUserToNull() {
+		Wips.getInstance().getCurrentWorkFlow().getForm().setFromUser(null);
+	}
+	
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 		Button b = (Button) handler.getSource();
 		if (b == backbtn) {
+			fromUserToNull();
 			Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/eformgen.fxml"));
 			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(),"/view/enduser/eformgen.css");
 		} else if (b == nextbtn) {

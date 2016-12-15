@@ -70,13 +70,12 @@ public class HomeController {
 		allwflist.setItems(allwflistOb);
 		if (allwflistOb.size() < 1) {
 			allwfbtn.setDisable(true);
-		} else {
-			allwfbtn.setDisable(false);
-		}
+		} 
 	}
 
 	@FXML
 	protected void initialize() {
+		allWorkflowBtnDisabler();
 		anchorPaneVisibility(true);
 		allWorkFlowController();
 		updates();
@@ -84,6 +83,18 @@ public class HomeController {
 		tabListeners();
 		// allWorkFlowController();
 		// notif();
+	}
+	
+	private void allWorkflowBtnDisabler() {
+		allwflist.getSelectionModel().selectedItemProperty()
+	     .addListener(new ChangeListener<WorkFlow>() {
+	       public void changed(ObservableValue<? extends WorkFlow> observable,
+	    		   WorkFlow oldValue, WorkFlow newValue) {
+	    	   allwfbtn.setDisable(false); 
+	       }
+	     });
+		
+		notibtn.setDisable(true);
 	}
 
 	public void updates() {
@@ -147,9 +158,13 @@ public class HomeController {
 			notilistOb = FXCollections.observableArrayList(all.filterNotifWorkFlows());
 			notilist.setItems(notilistOb);
 			notibtn.setDisable(false);
-		} else {
+		} 
+		if(u.getRecievedForm().size()<1){
 			notibtn.setDisable(true);
 		}
+		notilist.getSelectionModel().selectedItemProperty().addListener((e) -> {
+			notibtn.setDisable(false);
+		});
 	}
 
 	public void allJoinedWorkFlows() {

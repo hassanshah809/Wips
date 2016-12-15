@@ -11,12 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.Wips;
 import model.user.EndUser;
 import model.wips.State;
@@ -48,21 +50,30 @@ public class RecipientWindow {
 		show();
 		// assume the size is 10
 		for (int i = 0; i < coupleForSending.length; i++) {
-
+			
+			Label label = new Label("This is Label");
+			label.setFont(new Font(15));
+			label.setPadding(new Insets(10,10,0,0));
+			
 			GridPane gridpane = new GridPane();
 
 			RowConstraints row1 = new RowConstraints();
 			row1.setVgrow(Priority.SOMETIMES);
+			
+			RowConstraints row2 = new RowConstraints();
+			row2.setVgrow(Priority.SOMETIMES);
 
 			ColumnConstraints col1 = new ColumnConstraints();
 			col1.setPercentWidth(50);
 			ColumnConstraints col2 = new ColumnConstraints();
 			col2.setPercentWidth(50);
 
-			gridpane.add(coupleForSending[i].getdisVal(), 0, 1);
-			gridpane.add(coupleForSending[i].getfilUser(), 1, 1);
+			gridpane.add(label, 0, 1);
+			gridpane.add(coupleForSending[i].getdisVal(), 0, 2);
+			gridpane.add(coupleForSending[i].getfilUser(), 1, 2);
 
 			gridpane.getRowConstraints().addAll(row1);
+			gridpane.getRowConstraints().addAll(row2);
 			gridpane.getColumnConstraints().addAll(col1, col2);
 
 			gridpane.setHgap(10);

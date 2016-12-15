@@ -22,7 +22,7 @@
                     <VBox id="vboxallwftab" fx:id="vboxalltab" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <children>
                         <ListView fx:id="allwflist" prefHeight="-1.0" prefWidth="-1.0" visible="true" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="allwfbtn" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="134.0" text="Join this Workflow" visible="true">
+                        <Button fx:id="allwfbtn" disable="false" mnemonicParsing="false" onAction="#handle" prefHeight="39.0" prefWidth="134.0" text="Join this Workflow" visible="true">
                           <VBox.margin>
                             <Insets />
                           </VBox.margin>

@@ -157,6 +157,14 @@ public class FormController {
 				textArea.setEditable(false);
 				textArea.setStyle("-fx-background-color: white");
 			}
+			
+			if (endUsers.size() == 0) {
+				textArea.setText(couple.getContentOfTextArea());
+				// textArea.setDisable(true);
+				textArea.setEditable(true);
+				textArea.setStyle("-fx-background-color: white");
+			}
+			
 			textArea.setWrapText(true);
 			textArea.setPrefSize(Double.MIN_VALUE, Double.MIN_VALUE);
 			this.textAreas.add(textArea);
