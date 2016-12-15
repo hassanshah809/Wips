@@ -22,7 +22,7 @@ import errors.*;
 public class AdminHomeController {
 	
 	@FXML
-	Button createWFBtn, logoutBtn, editbtn,deleteBtn;
+	Button createWFBtn, logoutBtn, editbtn,deleteBtn,editUserBtn;
 	
 	@FXML
 	ListView<WorkFlow> createdWorkFlows;
@@ -34,7 +34,11 @@ public class AdminHomeController {
 	@FXML
 	protected void initialize() {
 		//Do something once the FXML is done
+		editbtn.setDisable(true);
 		showFinished();
+		createdWorkFlows.getSelectionModel().selectedItemProperty().addListener((ov, oldVal, newVal) -> {
+			editbtn.setDisable(false);
+		});
 	}
 	
 	/**
@@ -104,6 +108,9 @@ public class AdminHomeController {
 			Wips.getInstance().setCurrentWorkFlow(createdWorkFlows.getSelectionModel().getSelectedItem());
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/deditworkflow.fxml"));
 			OpenScreen.openScreen("deditworkflow.fxml", handler, "Edit Workflow", l, getClass(),"/view/developer/deditworkflow.css");
+		} else if (b== editUserBtn) {
+			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/deditsusers.fxml"));
+			OpenScreen.openScreen("deditworkflow.fxml", handler, "Edit Users", l, getClass(),"/view/developer/deditworkflow.css");			
 		}
 	}
 }
