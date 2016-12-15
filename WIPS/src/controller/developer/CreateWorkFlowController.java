@@ -131,7 +131,7 @@ public class CreateWorkFlowController {
 		Object o = up.getInters();
 		users = (o instanceof GenInter ? (GenInter<User>) o : null);
 		
-		if(users != null) {
+		if(users != null && wfi != null && transitions != null) {
 			addUsersToWips(users.getTempAttr());
 			sendEmails(users);
 		}
@@ -210,7 +210,9 @@ public class CreateWorkFlowController {
 				if (fileName.length() > 3 && fileName.substring(fileName.length() - 4, fileName.length()).toLowerCase().equals(".xml")){
 					wFileName.setText(f.getName());
 					workFlowXml(f);
+					
 					enableDisableBtn(false, false, true, true);
+					
 					//If file exist then call workflowxml parser
 					//workFlowXml(f);
 				}
@@ -264,7 +266,9 @@ public class CreateWorkFlowController {
 				e.addError("You are missing one or more of the required XML files.");
 				e.handle();
 			} else if (wfi == null || transitions == null || users == null) {
-				System.out.println("Errors exist!!!");
+				e = new FileError();
+				e.addError("Errors exist in your files. Please reupload");
+				e.handle();
 			} else {
 				//Goes to state permission window
 				finish();
@@ -292,6 +296,8 @@ public class CreateWorkFlowController {
 			
 		}
 	}
+	
+	
 	
 	
 }
