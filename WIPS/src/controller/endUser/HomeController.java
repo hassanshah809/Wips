@@ -41,7 +41,7 @@ public class HomeController {
 
 	@FXML
 	Tab allworkflows, joinedworkflows, notification;
-	
+
 	@FXML
 	Label statuslabel, labelallwf, labeljoinedwf, labelnoti;
 
@@ -54,12 +54,12 @@ public class HomeController {
 		labelallwf.setVisible(b);
 		labeljoinedwf.setVisible(b);
 		labelnoti.setVisible(b);
-		
+
 		vboxalltab.setVisible(!b);
 		vboxjoinedtab.setVisible(!b);
 		vboxnotitab.setVisible(!b);
 	}
-	
+
 	/**
 	 * This method will open “All workflow” tab.
 	 */
@@ -68,7 +68,7 @@ public class HomeController {
 		allwflistOb = FXCollections.observableArrayList(allWfController.getAllWorkFlowsCanJoin());
 		System.out.println("all the owrk in end home " + allWfController.getAllWorkFlowsCanJoin());
 		allwflist.setItems(allwflistOb);
-		if(allwflistOb.size()<1){
+		if (allwflistOb.size() < 1) {
 			allwfbtn.setDisable(true);
 		} else {
 			allwfbtn.setDisable(false);
@@ -82,19 +82,19 @@ public class HomeController {
 		updates();
 		populate();
 		tabListeners();
-	//	allWorkFlowController();
-	//	notif();
+		// allWorkFlowController();
+		// notif();
 	}
 
 	public void updates() {
 		EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
-		if(user.getNumOfUpdates() > 0) {
+		if (user.getNumOfUpdates() > 0) {
 			joinedworkflows.setText("Joined WorkFlows ( " + user.getNumOfUpdates() + " )");
 		} else {
 			joinedworkflows.setText("Joined WorkFlows");
 		}
-		
-		if(user.getNumOfNotif() > 0) {
+
+		if (user.getNumOfNotif() > 0) {
 			notification.setText("Notifications ( " + user.getNumOfNotif() + " )");
 		} else {
 			notification.setText("Notifications");
@@ -119,65 +119,78 @@ public class HomeController {
 	public void notif() {
 		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
 		System.out.println("befor if sixe of stack " + u.getRecievedForm().size());
-//		notilist.getSelectionModel().selectedItemProperty().addListener(e -> {
-//			int indexOfWorkFlow = notilist.getSelectionModel().getSelectedIndex();
-//			if(indexOfWorkFlow >= 0){
-//				Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfWorkFlow).setHasUpdate(u, false);
-//				status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfWorkFlow).getForm());
-////				EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-//				u.update();
-//				
-//				System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
-//				System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
-//		//	allJoinedWorkFlows();
-//				notilist.setItems(null);
-//				notilistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
-//				jwflist.setItems(jwflistOb);
-//				updates();
-//			}
-//		});
+		// notilist.getSelectionModel().selectedItemProperty().addListener(e ->
+		// {
+		// int indexOfWorkFlow =
+		// notilist.getSelectionModel().getSelectedIndex();
+		// if(indexOfWorkFlow >= 0){
+		// Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfWorkFlow).setHasUpdate(u,
+		// false);
+		// status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfWorkFlow).getForm());
+		//// EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+		// u.update();
+		//
+		// System.out.println("new work flow iupdae size" +
+		// Wips.getInstance().getCurrentuser().getAllWorkflows().size());
+		// System.out.println("form lsize of obsrvabel " + jwflistOb.size());
+		// // allJoinedWorkFlows();
+		// notilist.setItems(null);
+		// notilistOb =
+		// FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+		// jwflist.setItems(jwflistOb);
+		// updates();
+		// }
+		// });
 		if (u.getRecievedForm().size() > 0) {
+			AllWorkFlowController all = new AllWorkFlowController();
 			System.out.println("sixe of stack " + u.getRecievedForm().size());
-			notilistOb = FXCollections.observableArrayList(u.getRecievedForm());
+			notilistOb = FXCollections.observableArrayList(all.filterNotifWorkFlows());
 			notilist.setItems(notilistOb);
 			notibtn.setDisable(false);
 		} else {
 			notibtn.setDisable(true);
 		}
 	}
-	
+
 	public void allJoinedWorkFlows() {
-//		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-//		if (u.getAllWorkflows().size() > 0 ) {
-			jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
-			jwflist.setItems(jwflistOb);
-			jwflist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<WorkFlow>() {
-			
-						@Override
-						public void changed(ObservableValue<? extends WorkFlow> observable, WorkFlow oldValue, WorkFlow newValue) {
-							int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
-							if(indexOfJoinedWorkFlow >= 0){
-								Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).setHasUpdate((EndUser)Wips.getInstance().getCurrentuser(), false);
-								status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).getForm());
-								EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-								u.update();
-								
-								System.out.println("new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
-								System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
-						//	allJoinedWorkFlows();
-								jwflist.setItems(null);
-								jwflistOb = FXCollections.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
-								jwflist.setItems(jwflistOb);
-								updates();
-							}
-						}
-					});	
-	//	}
+		// EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+		// if (u.getAllWorkflows().size() > 0 ) {
+		AllWorkFlowController all = new AllWorkFlowController();
+		jwflistOb = FXCollections.observableArrayList(all.filterJoinedWorkFlows());
+		jwflist.setItems(jwflistOb);
+		jwflist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<WorkFlow>() {
+
+			@Override
+			public void changed(ObservableValue<? extends WorkFlow> observable, WorkFlow oldValue, WorkFlow newValue) {
+				int indexOfJoinedWorkFlow = jwflist.getSelectionModel().getSelectedIndex();
+				if (indexOfJoinedWorkFlow >= 0) {
+					Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow)
+							.setHasUpdate((EndUser) Wips.getInstance().getCurrentuser(), false);
+					status(Wips.getInstance().getCurrentuser().getAllWorkflows().get(indexOfJoinedWorkFlow).getForm());
+					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
+					u.update();
+
+					System.out.println(
+							"new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
+					System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
+					// allJoinedWorkFlows();
+					jwflist.setItems(null);
+					jwflistOb = FXCollections
+							.observableArrayList(Wips.getInstance().getCurrentuser().getAllWorkflows());
+					jwflist.setItems(jwflistOb);
+					notilist.setItems(null);
+					notilistOb = FXCollections.observableArrayList(u.getRecievedForm());
+					notilist.setItems(notilistOb);
+					updates();
+				}
+			}
+		});
+		// }
 	}
 
 	public void populate() {
 		cbox.getItems().addAll(Wips.getInstance().getCurrentuser().getRoles());
-		if(Wips.getInstance().getRoleOfCurrentUser() != null){
+		if (Wips.getInstance().getRoleOfCurrentUser() != null) {
 			cbox.getSelectionModel().select(Wips.getInstance().getRoleOfCurrentUser());
 			anchorPaneVisibility(false);
 		}
@@ -186,8 +199,10 @@ public class HomeController {
 			Entity e = cbox.getSelectionModel().getSelectedItem();
 			Wips.getInstance().setRoleOfCurrentUser(e);
 			allWorkFlowController();
-//			disabler(false);
-//			updates();
+			allJoinedWorkFlows();
+			notif();
+			// disabler(false);
+			// updates();
 		});
 	}
 
@@ -224,16 +239,16 @@ public class HomeController {
 			OpenScreen.openScreen("eformgen.fxml", handler, "Form", e, getClass(), "/view/endUser/eformgen.css");
 		}
 	}
-	
+
 	public void status(Form f) {
 		StringBuilder sb = new StringBuilder();
 		int index = f.getUsers().indexOf(Wips.getInstance().getCurrentuser());
-		for(int i = index; i < f.getRoles().size(); i++) {
-			sb.append(f.getRoles().get(i).getRole() +" ");
+		for (int i = index; i < f.getRoles().size(); i++) {
+			sb.append(f.getRoles().get(i).getRole() + " ");
 		}
 		statuslabel.setText("Status: " + sb.toString());
 	}
-	
+
 	public void disabler(boolean b) {
 		tabpane.setDisable(b);
 		allwfbtn.setDisable(b);

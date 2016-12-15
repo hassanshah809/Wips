@@ -146,6 +146,7 @@ public class RecipientWindow {
 			EndUser endUser = (EndUser) Wips.getInstance().getCurrentuser();
 			Form form = wips.getCurrentWorkFlow().getForm();
 			form.addUser(endUser);
+			form.addRoles(wips.getRoleOfCurrentUser());
 			List<EndUser> compileUsers = compileListOfUsers();
 			if (compileUsers.size() == coupleForSending.length) {
 				for (EndUser user : compileListOfUsers()) {

@@ -335,7 +335,7 @@ public class State implements Serializable {
 		String[] tokens = temDistVals.split(",");
 		for(int i = 0; i< tokens.length; i++) {
 			if(!tokens[i].trim().isEmpty())
-				tempDistinctVals.add(tokens[i]);
+				tempDistinctVals.add(tokens[i].trim());
 		}
 	}
 	

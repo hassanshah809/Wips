@@ -271,12 +271,16 @@ public class FormController {
 		Button b = (Button) handler.getSource();
 		if (b == sendbtn) {
 			WorkFlow wf = Wips.getInstance().getCurrentWorkFlow();
+			System.out.println("current work flow   " + wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()));
 			if (wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend() && wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature()) {
 				send();
 				Form f = wf.getForm();
 				EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
 				user.send(f, f.getUsers().get(0));
 				wf.setActive(false);
+				int index = user.getRecievedForm().indexOf(wf);
+				if(index >=0 )
+					user.getRecievedForm().get(index).setActive(false);
 				Parent e = FXMLLoader.load(getClass().getResource("/view/endUser/ehomescreen.fxml"));
 				OpenScreen.openScreen("ehomescreen.fxml", handler, "Home", e, getClass(),
 						"/view/enduser/ehomescreen.css");

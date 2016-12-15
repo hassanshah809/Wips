@@ -1,6 +1,8 @@
 package model.wips.intermediates;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.wips.Entity;
 import model.wips.Transition;
@@ -45,8 +47,10 @@ public class OrReq implements AbsReq, Serializable{
 		return t.toString();
 	}
 	@Override
-	public Entity getEntity() {
+	public List<Entity> getEntity() {
 		// TODO Auto-generated method stub
-		return t.getEndState().getEntity();
+		List<Entity> e = new ArrayList<>();
+		e.add(t.getEndState().getEntity());
+		return e;
 	}
 }

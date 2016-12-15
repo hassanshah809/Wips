@@ -45,9 +45,10 @@ public class EndUser extends User {
 		received = new ArrayList<WorkFlow>();
 	}
 
-	public EndUser(String name){
+	public EndUser(String name) {
 		super(name);
 	}
+
 	public EndUser(String username, boolean b) {
 		super(username, b);
 		sent = new ArrayList<Form>();
@@ -124,7 +125,7 @@ public class EndUser extends User {
 				numOfUdates++;
 		}
 		for (WorkFlow s : received) {
-			if (s.getHasUpdate(this))
+			if (!allworkflows.contains(s) && s.getHasUpdate(this))
 				numberOfNewNotifications++;
 		}
 	}
@@ -160,55 +161,59 @@ public class EndUser extends User {
 	public List<String> getTempRoles() {
 		return tempRoles;
 	}
-	
+
 	public void addTempRoles(String tempRolesString) {
 		tempRoles.clear();
 		String[] tokens = tempRolesString.split(",");
-		for(String s : tokens){
-			if(!s.trim().isEmpty()){
-				tempRoles.add(s);
+		for (String s : tokens) {
+			if (!s.trim().isEmpty()) {
+				tempRoles.add(s.trim());
 			}
 		}
 	}
-	
+
 	public String getTempRolesAsString() {
 		StringBuilder sb = new StringBuilder();
-		for(String s: tempRoles){
-			sb.append(s.trim()+", ");
+		for (String s : tempRoles) {
+			sb.append(s.trim() + ", ");
 		}
 		return sb.toString();
 	}
-	
+
 	public List<String> getTempVals() {
 		return tempVals;
 	}
+
 	public void addTempVals(String tempValsString) {
 		tempVals.clear();
 		String[] tokens = tempValsString.split(",");
-		for(String s : tokens){
-			if(!s.trim().isEmpty()){
-				tempVals.add(s);
+		for (String s : tokens) {
+			if (!s.trim().isEmpty()) {
+				tempVals.add(s.trim());
 			}
 		}
 	}
-	
+
 	public String getTempValsAsString() {
 		StringBuilder sb = new StringBuilder();
-		for(String s: tempVals){
-			sb.append(s.trim()+", ");
+		for (String s : tempVals) {
+			sb.append(s.trim() + ", ");
 		}
 		return sb.toString();
 	}
-	
+
 	public void finalizeUsers() {
-		getVals().clear();
-		for(String s: tempVals) {
-			getVals().add(s);
+		if (tempVals.size() > 0) {
+			getVals().clear();
+			for (String s : tempVals) {
+				getVals().add(s);
+			}
 		}
-		
-		getRoles().clear();
-		for(String role: tempRoles) {
-			getRoles().add(new Entity(role));
+		if (tempRoles.size() > 0) {
+			getRoles().clear();
+			for (String role : tempRoles) {
+				getRoles().add(new Entity(role));
+			}
 		}
 	}
 }

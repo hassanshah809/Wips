@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Wips;
+import model.user.EndUser;
 import model.wips.WorkFlow;
 
 public class AllWorkFlowController {
@@ -19,7 +20,7 @@ public class AllWorkFlowController {
 	 * This method will contain the searchworkflows method. The purpose of 
 	 * the filter method is to call searchworkflow method and update the list and listview.
 	 */
-	private void filter() {
+	private void filterAllWorkFlow() {
 		Wips wips = Wips.getInstance();
 		for(WorkFlow f: wips.getAllWorkFlows()) {
 			if(f.getStartState() != null && f.getStartState().getEntity().equals(wips.getRoleOfCurrentUser())) {
@@ -28,12 +29,42 @@ public class AllWorkFlowController {
 		}
 	}
 	
+	public List<WorkFlow> filterJoinedWorkFlows() {
+		List<WorkFlow> joinedwfFilter = new ArrayList<>();
+		Wips wips = Wips.getInstance();
+		for(WorkFlow f: wips.getCurrentuser().getAllWorkflows()){
+			int index = f.getForm().getUsers().indexOf(wips.getCurrentuser());
+			if(f.getForm().getUsers().contains(wips.getCurrentuser())) {
+				System.out.println("contains the user");
+				System.out.println("role of the form at index "+f.getForm().getRoles().get(index));
+				if(f.getForm().getRoles().get(index).equals(wips.getRoleOfCurrentUser())){
+					joinedwfFilter.add(f);
+				}
+			}
+		}
+		return joinedwfFilter;
+	}
+	
+	public List<WorkFlow> filterNotifWorkFlows() {
+		List<WorkFlow> notifwfFilter = new ArrayList<>();
+		Wips wips = Wips.getInstance();
+		EndUser user = (EndUser) wips.getCurrentuser();
+		for(WorkFlow f: user.getRecievedForm()){
+			int index = f.getForm().getUsers().indexOf(wips.getCurrentuser());
+			if(f.getForm().getUsers().contains(wips.getCurrentuser())) {
+				if(f.getForm().getRoles().get(index).equals(wips.getRoleOfCurrentUser())){
+					notifwfFilter.add(f);
+				}
+			}
+		}
+		return notifwfFilter;
+	}
 	/**
 	 * This method will update the listview with the workflows the user can join
 	 */
 	public List<WorkFlow> getAllWorkFlowsCanJoin() {
 		if(allWorkFlows.size() == 0)
-			filter();
+			filterAllWorkFlow();
 		return allWorkFlows;
 	}
 }

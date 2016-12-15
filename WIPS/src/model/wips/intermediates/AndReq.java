@@ -55,10 +55,12 @@ public class AndReq implements AbsReq, Serializable {
 	}
 
 	@Override
-	public Entity getEntity() {
-		Entity e = null;
+	public List<Entity> getEntity() {
+		List<Entity> e = new ArrayList<Entity>();
 		if(and.size() > 0)
-			e = and.get(0).getEndState().getEntity();
+			for(Transition ent: and) {
+				e.add(ent.getEndState().getEntity());
+			}
 		return e;
 	}
 }

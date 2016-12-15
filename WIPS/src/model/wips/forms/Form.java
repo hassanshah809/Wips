@@ -80,10 +80,14 @@ public class Form implements Serializable{
 		return couples;
 	}
 
+	public void addRoles(List<Entity> role) {
+		for(Entity r: role)
+			roles.add(r);
+	}
+	
 	public void addRoles(Entity role) {
 		roles.add(role);
 	}
-	
 	public List<Entity> getRoles() {
 		return roles;
 	}

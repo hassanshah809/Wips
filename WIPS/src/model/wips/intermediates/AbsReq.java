@@ -1,6 +1,7 @@
 package model.wips.intermediates;
 
 import java.io.Serializable;
+import java.util.List;
 
 import model.wips.Entity;
 import model.wips.Transition;
@@ -11,5 +12,5 @@ public interface AbsReq extends Serializable{
 	void add(Transition t);
 	int size();
 	void markedSend();
-	Entity getEntity();
+	List<Entity> getEntity();
 }
