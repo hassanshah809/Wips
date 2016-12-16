@@ -20,6 +20,9 @@ import model.wips.Transition;
 import model.wips.WorkFlow;
 import model.wips.intermediates.OrReq;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class StatePermissionController {
 	
 	@FXML

@@ -11,6 +11,9 @@ import model.wips.intermediates.AbsReq;
 import model.wips.intermediates.AndReq;
 import model.wips.intermediates.OrReq;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class State implements Serializable {
 
 	/**
@@ -115,7 +118,6 @@ public class State implements Serializable {
 		}
 		for (int i = 0; i < allEndStates.size() - 1; i++) {
 			if (allEndStates.get(i).isAllowed()) {
-				System.out.println("in for loop in stat.java");
 				counter = 1;
 			}
 		}
@@ -297,7 +299,7 @@ public class State implements Serializable {
 
 	@Override
 	public String toString() {
-		return getEntity().getRole() + " " + getID();
+		return getName();
 	}
 
 	public void addand(Transition t) {

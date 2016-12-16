@@ -12,6 +12,9 @@ import model.user.EndUser;
 import model.wips.Entity;
 import model.wips.WorkFlow;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class Form implements Serializable {
 	/**
 	 * 
@@ -98,8 +101,8 @@ public class Form implements Serializable {
 	public void addUser(EndUser user) {
 		if (!users.contains(user)) {
 			users.add(user);
-			wf.addUpadte();
 		}
+		wf.addUpadte();
 	}
 
 	public List<EndUser> getUsers() {

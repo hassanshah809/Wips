@@ -7,6 +7,9 @@ import model.Wips;
 import model.user.EndUser;
 import model.wips.WorkFlow;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class AllWorkFlowController {
 	/**
 	 * This listview will show the list of all workflows that the user can join
@@ -35,8 +38,6 @@ public class AllWorkFlowController {
 		for(WorkFlow f: wips.getCurrentuser().getAllWorkflows()){
 			int index = f.getForm().getUsers().indexOf(wips.getCurrentuser());
 			if(f.getForm().getUsers().contains(wips.getCurrentuser())) {
-				System.out.println("contains the user");
-				System.out.println("role of the form at index "+f.getForm().getRoles().get(index));
 				if(f.getForm().getRoles().get(index).equals(wips.getRoleOfCurrentUser())){
 					joinedwfFilter.add(f);
 				}
@@ -53,7 +54,6 @@ public class AllWorkFlowController {
 		for(WorkFlow f: user.getRecievedForm()){
 			int index = f.getForm().getUsers().indexOf(wips.getCurrentuser());
 			if(f.getForm().getUsers().contains(wips.getCurrentuser())) {
-				System.out.println("in filter notif " + f.getForm().getRoles()+ "  " + index);
 				if(f.getForm().getRoles().get(index).equals(wips.getRoleOfCurrentUser())){
 					
 					notifwfFilter.add(f);

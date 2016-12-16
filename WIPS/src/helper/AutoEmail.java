@@ -11,6 +11,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class AutoEmail {
 	
 	static Properties properties;

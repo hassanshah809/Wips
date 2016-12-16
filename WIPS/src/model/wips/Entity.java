@@ -3,6 +3,9 @@ package model.wips;
 import java.io.Serializable;
 import java.util.List;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class Entity implements Serializable{
 
 	/**

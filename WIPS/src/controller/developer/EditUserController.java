@@ -25,11 +25,15 @@ import model.Wips;
 import model.user.EndUser;
 import model.user.User;
 import model.wips.Entity;
+import model.wips.WorkFlow;
+
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 
 public class EditUserController {
 
 	@FXML
-	Button backbtn, deletebtn, addbtn, logoutbtn, savebutton;
+	Button backbtn, deletebtn, addbtn, logoutbtn, savebutton, undobutton;
 
 	@FXML
 	ListView<EndUser> allusers, listofallusers;
@@ -68,8 +72,6 @@ public class EditUserController {
 				savebutton.setDisable(false);
 				showUsers();
 				tabOpened = "editTab";
-				System.out.println(tabOpened);
-
 			} else if (newTab.equals(addTab)) {
 				// deletebtn.setDisable(true);
 				allusers.getSelectionModel().clearSelection();
@@ -78,8 +80,6 @@ public class EditUserController {
 				savebutton.setDisable(true);
 				showUsers2();
 				tabOpened = "addTab";
-				System.out.println(tabOpened);
-
 			}
 		});
 
@@ -195,6 +195,18 @@ public class EditUserController {
 		}
 	}
 
+	public void update() {
+		allusersOb = FXCollections.observableArrayList(Wips.getInstance().getEndUser());
+
+		if (tabOpened.equals("addTab")) {
+			listofallusers.setItems(null);
+			showUsers2();
+		} else if (tabOpened.equals("editTab")) {
+			allusers.setItems(null);
+			allusers.setItems(allusersOb);
+			showUsers();
+		}
+	}
 	public void handle(ActionEvent handler) throws IOException, ClassNotFoundException {
 
 		Button b = (Button) handler.getSource();
@@ -219,9 +231,10 @@ public class EditUserController {
 
 			int index = Wips.getInstance().getUsers().indexOf(u);
 			if (index >= 0) {
-				Wips.getInstance().getUsers().remove(index);
+				Wips wips = Wips.getInstance();
+				wips.getUndoUsers().push(wips.getUsers().get(index));
+				wips.getUsers().remove(index);
 			}
-
 			allusersOb = FXCollections.observableArrayList(Wips.getInstance().getEndUser());
 
 			if (tabOpened.equals("addTab")) {
@@ -232,6 +245,7 @@ public class EditUserController {
 				allusers.setItems(allusersOb);
 				showUsers();
 			}
+			deletebtn.setDisable(true);
 
 		} else if (b == addbtn) {
 			makeUser();
@@ -239,6 +253,13 @@ public class EditUserController {
 			allusers.getSelectionModel().getSelectedItem().addTempRoles(userroles.getText());
 			allusers.getSelectionModel().getSelectedItem().addTempVals(uservalues.getText());
 			confirm();
+		} else if (b == undobutton) {
+			Wips wips = Wips.getInstance();
+			if(wips.getUndoUsers().size() > 0) {
+				User redo = wips.getUndoUsers().pop();
+				wips.getUsers().add(redo);
+				update();
+			}
 		}
 	}
 }

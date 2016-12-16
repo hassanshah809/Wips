@@ -14,6 +14,8 @@ import model.wips.Entity;
 import javax.xml.parsers.*;
 import java.io.*;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 public class WorkFlowParser extends Parser {
 	
 	boolean errorFound = false;
@@ -85,13 +87,12 @@ public class WorkFlowParser extends Parser {
 					errors.add("No end state found");
 				}
 				
-				this.getError(errors).handle();
+//				this.getError(errors).handle();
 			}
 			
 			
 			if (keyMap.containsValue(true)) {
 				
-				System.out.println("Found!");
 				if (keyMap.get("startStateError"))
 					errors.add("There is a start state error in the Workflow XML file.");
 				if (keyMap.get("incorrectStateTag"))
@@ -110,12 +111,16 @@ public class WorkFlowParser extends Parser {
 				
 				
 				
+				
+			}
+			
+			if(errorFound || keyMap.containsValue(true)) {
 				this.getError(errors).handle();
 			}
 			
-			if(errorFound) {
-				wfi = null;
-			}
+//			if(errorFound) {
+//				wfi = null;
+//			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -136,7 +141,6 @@ public class WorkFlowParser extends Parser {
 			if(entityNode.getNodeType() == Node.ELEMENT_NODE) {
 				
 				
-				System.out.println(entityNode.getNodeName());
 				
 				if(!entityNode.getNodeName().equals("entity")) {
 					keyMap.put("incorrectEntityTag", true);
@@ -252,7 +256,7 @@ public class WorkFlowParser extends Parser {
 					errorFound = true;
 				}
 				Element valElement = (Element) valueNode;
-				String value = valueNode.getTextContent();
+				String value = valElement.getAttribute("value");
 				values.add(value);
 			}
 		}

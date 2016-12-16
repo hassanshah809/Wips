@@ -1,20 +1,2 @@
 username is shah1
-password is: aash725
-
-username is Kenny2
-password is: eKKny597
-username is Borgida3
-password is: ogrrrBa788
-username is Deep4
-password is: eeDD297
-username is Bob5
-password is: bBb763
-
-username is Kenny6
-password is: ynnyK80
-username is Borgida7
-password is: orogdog523
-username is Deep8
-password is: ppDD690
-username is Bob9
-password is: BBo443
+password is: hass605

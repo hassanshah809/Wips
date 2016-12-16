@@ -2,6 +2,9 @@ package errors;
 
 import java.util.List;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 /**
  * This module will handle all parsing errors incurred in the process
  * of parsing files. Potential errors include incorrect file format,

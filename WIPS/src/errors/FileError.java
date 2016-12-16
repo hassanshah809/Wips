@@ -2,6 +2,9 @@ package errors;
 
 import java.util.List;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 /**
  * This module will handle all file errors, which may include errors
  * such as invalid file type, file corrupted, or invalid file path.

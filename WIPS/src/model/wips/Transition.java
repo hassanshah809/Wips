@@ -2,6 +2,9 @@ package model.wips;
 
 import java.io.Serializable;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class Transition implements Serializable{
 
 	/**

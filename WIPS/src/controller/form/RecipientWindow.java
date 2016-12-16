@@ -28,6 +28,9 @@ import model.wips.intermediates.AbsReq;
 import model.wips.intermediates.AndReq;
 import model.wips.intermediates.OrReq;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class RecipientWindow {
 
 	@FXML

@@ -2,6 +2,9 @@ package errors;
 
 import java.util.List;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 /**
  * This module will handle all errors related to authentication.
  * Potential errors may include invalid username or invalid password.

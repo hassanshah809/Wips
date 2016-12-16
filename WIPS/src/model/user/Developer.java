@@ -5,6 +5,9 @@ import java.util.List;
 import model.wips.Entity;
 import model.wips.WorkFlow;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class Developer extends User {
 	/**
 	 * 

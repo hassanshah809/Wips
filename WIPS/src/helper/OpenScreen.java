@@ -2,6 +2,7 @@ package helper;
 
 import java.io.IOException;
 
+import controller.session.LogOutController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -9,6 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 
 public class OpenScreen {
 
@@ -27,9 +31,11 @@ public class OpenScreen {
 				if (ss.equalsIgnoreCase("dhomescreen.fxml")) {
 					//Seralize everything before you close this window
 					System.out.println("DEVELOPER HOME SCREEN CLOSED");
+					LogOutController.logInScreen();
 				} else if (ss.equalsIgnoreCase("ehomescreen.fxml")) {
 					//Seralize everything before you close this window
 					System.out.println("ENDUSER HOME SCREEN CLOSED");
+					LogOutController.logInScreen();
 				}
 			}
 		});

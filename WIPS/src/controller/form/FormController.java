@@ -30,6 +30,9 @@ import model.wips.WorkFlow;
 import model.wips.forms.Couple;
 import model.wips.forms.Form;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class FormController {
 
 	@FXML
@@ -79,7 +82,6 @@ public class FormController {
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 		vbox.setFillWidth(true);
-
 		// Assume we have couples from the form object
 		// Wips.getInstance().setCurrentWorkFlow(Wips.getInstance().getAllWorkFlows().get(0));
 		List<Couple> dummyC = Wips.getInstance().getCurrentWorkFlow().getForm().getCouples();
@@ -284,13 +286,15 @@ public class FormController {
 			AbsError er = new InputError();
 			boolean isAllowed = wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isAllowedtoSend();
 			boolean endState = wf.isActive() && wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()).isEndState() && hasSignature();
-			System.out.println("current work flow   " + wf.getCurrentState(Wips.getInstance().getRoleOfCurrentUser()));
 			if (isAllowed && endState ) {
 				send();
 				Form f = wf.getForm();
 				EndUser user = (EndUser) Wips.getInstance().getCurrentuser();
 				f.addUser(user);
 				user.send(f, f.getUsers().get(0));
+				user.setWorkflow(wf);
+				f.updateUsers();
+				user.update();
 				wf.setActive(false);
 				int index = user.getRecievedForm().indexOf(wf);
 				if (index >= 0)

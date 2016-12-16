@@ -10,6 +10,10 @@ import model.user.EndUser;
 import model.user.User;
 import model.wips.forms.Form;
 
+
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class WorkFlow implements Serializable{
 	/**
 	 * This field contains the name of the workflow

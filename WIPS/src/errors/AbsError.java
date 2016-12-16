@@ -11,6 +11,9 @@ import javafx.scene.control.Alert.AlertType;
  * that in each module which can throw an error, we can reference
  * the error using this abstract type.
  */
+
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 public abstract class AbsError {
 	
 	/**
@@ -34,7 +37,7 @@ public abstract class AbsError {
 	 */
 	public void addError(String newError) 
 	{
-		if (newError != null && !newError.isEmpty())
+		if (newError != null && !newError.isEmpty() && !keyList.contains(newError))
 			keyList.add(newError);
 	}
 	
@@ -47,12 +50,16 @@ public abstract class AbsError {
 	public void handle()
 	{
 		//Print all errors in the list
+		StringBuilder sb = new StringBuilder();
 		for (String currentError : keyList)
 		{
+			sb.append(currentError);
+			sb.append("\n");
 			//print error message
 			//do substring(7) on class name to omit "errors." part of the class name
-			Pops.pop(AlertType.ERROR, currentError, this.getClass().getName().substring(7));	//Display message for current error
+				//Display message for current error
 		}
+		Pops.pop(AlertType.ERROR, sb.toString(), this.getClass().getName().substring(7));
 		keyList.clear();
 	}
 }

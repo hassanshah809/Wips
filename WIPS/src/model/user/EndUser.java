@@ -7,6 +7,9 @@ import model.wips.Entity;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class EndUser extends User {
 
 	/**

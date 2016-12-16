@@ -3,6 +3,9 @@ package model.parser.intermediates;
 import java.util.ArrayList;
 import java.util.List;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public abstract class Intermediate <T>{
 	/**
 	 * it stores all the attributes for the type T

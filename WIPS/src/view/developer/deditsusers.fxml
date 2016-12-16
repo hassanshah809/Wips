@@ -36,6 +36,7 @@
                 <Insets fx:id="x2" />
               </HBox.margin>
             </Button>
+            <Button fx:id="undobutton" onAction="#handle" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Undo" />
           </children>
         </HBox>
       </bottom>

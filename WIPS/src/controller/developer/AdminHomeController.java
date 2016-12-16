@@ -19,10 +19,12 @@ import model.user.EndUser;
 import model.wips.WorkFlow;
 import errors.*;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 public class AdminHomeController {
 	
 	@FXML
-	Button createWFBtn, logoutBtn, editbtn,deleteBtn,editUserBtn;
+	Button createWFBtn, logoutBtn, editbtn,deleteBtn,editUserBtn, undobutton;
 	
 	@FXML
 	ListView<WorkFlow> createdWorkFlows;
@@ -83,6 +85,7 @@ public class AdminHomeController {
 				for(int i = 0; i < wips.getCurrentuser().getAllWorkflows().size(); i++) {
 					if(wips.getCurrentuser().getAllWorkflows().get(i).getId() == wrkflow) {
 						wips.getCurrentuser().getAllWorkflows().remove(i);
+						deleteBtn.setDisable(true);
 						break;
 					}
 				}
@@ -91,7 +94,9 @@ public class AdminHomeController {
 				
 				for(int i = 0; i < wips.getAllWorkFlows().size(); i++) {
 					if(wips.getAllWorkFlows().get(i).getId() == wrkflow) {
+						wips.getUndoWorkFlowStack().push(wips.getAllWorkFlows().get(i));
 						wips.getAllWorkFlows().remove(i);
+						deleteBtn.setDisable(true);
 						break;
 					}
 				}
@@ -105,6 +110,9 @@ public class AdminHomeController {
 				e.addError("No workflow selected for deletion.");
 				e.handle();
 			}
+			deleteBtn.setDisable(true);
+			editbtn.setDisable(true);
+
 		} else if (b == editbtn){
 			//Open the edit window
 			Wips.getInstance().setCurrentWorkFlow(createdWorkFlows.getSelectionModel().getSelectedItem());
@@ -113,6 +121,14 @@ public class AdminHomeController {
 		} else if (b== editUserBtn) {
 			Parent l = FXMLLoader.load(getClass().getResource("/view/developer/deditsusers.fxml"));
 			OpenScreen.openScreen("deditworkflow.fxml", handler, "Edit Users", l, getClass(),"/view/developer/deditworkflow.css");			
+		} else if (b == undobutton) {
+			Wips wips = Wips.getInstance();
+			if(wips.getUndoWorkFlowStack().size()>0){
+				WorkFlow redo = wips.getUndoWorkFlowStack().pop();
+				wips.getAllWorkFlows().add(redo);
+				wips.getCurrentuser().getAllWorkflows().add(redo);
+				showFinished();
+			}
 		}
 	}
 }

@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javafx.scene.control.TextArea;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class Couple implements Serializable{
 	/**
 	 * 

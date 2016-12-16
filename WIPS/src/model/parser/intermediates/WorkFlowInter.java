@@ -3,6 +3,9 @@ package model.parser.intermediates;
 import java.util.ArrayList;
 import java.util.List;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class WorkFlowInter<T, S> extends Intermediate<T> { // T = entity, S = state
 
 	

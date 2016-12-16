@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class IdsOfEveryClass implements Serializable{
 	/**
 	 * 

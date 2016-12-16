@@ -15,6 +15,9 @@ import model.Wips;
 import model.user.EndUser;
 import model.user.User;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class LogInController {
 	
 	@FXML

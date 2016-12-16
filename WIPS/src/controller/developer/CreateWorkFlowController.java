@@ -34,6 +34,9 @@ import model.wips.State;
 import model.wips.Transition;
 import model.wips.WorkFlow;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class CreateWorkFlowController {
 	
 	@FXML
@@ -98,6 +101,7 @@ public class CreateWorkFlowController {
 		Object o = parser.getInters();
 		if(o instanceof WorkFlowInter)
 			wfi = (WorkFlowInter<Entity, State>)o;
+		System.out.println("is wfi null " + wfi == null ? "yes " :"no ");
 	}
 	
 	/**

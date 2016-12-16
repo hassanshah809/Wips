@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import model.Wips;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class LogOutController {
 	
 	/**
@@ -13,6 +16,8 @@ public class LogOutController {
 		//opens Window
 		Wips.getInstance().setCurrentUser(null);
 		Wips.getInstance().setRoleOfCurrentUser(null);
+		Wips.getInstance().getUndoUsers().clear();
+		Wips.getInstance().getUndoWorkFlowStack().clear();
 		serialize();
 		//Goes back to the login screen
 	}

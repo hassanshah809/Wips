@@ -6,6 +6,9 @@ import java.util.List;
 import model.wips.Entity;
 import model.wips.Transition;
 
+
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 public interface AbsReq extends Serializable{
 	
 	boolean isAllowed();

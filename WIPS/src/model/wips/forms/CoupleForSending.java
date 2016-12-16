@@ -12,6 +12,9 @@ import javafx.scene.control.ListView;
 import model.Wips;
 import model.user.EndUser;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class CoupleForSending {
 
 	private ListView<String> distinctValues;

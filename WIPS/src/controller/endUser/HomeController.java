@@ -27,6 +27,9 @@ import model.wips.Entity;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
 
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
+
 public class HomeController {
 
 	@FXML
@@ -68,7 +71,6 @@ public class HomeController {
 	public void allWorkFlowController() {
 		AllWorkFlowController allWfController = new AllWorkFlowController();
 		allwflistOb = FXCollections.observableArrayList(allWfController.getAllWorkFlowsCanJoin());
-		System.out.println("all the owrk in end home " + allWfController.getAllWorkFlowsCanJoin());
 		allwflist.setItems(allwflistOb);
 		if (allwflistOb.size() < 1) {
 			allwfbtn.setDisable(true);
@@ -122,9 +124,7 @@ public class HomeController {
 			} else if (newTab.equals(joinedworkflows)) {
 				jwflist.getSelectionModel().clearSelection();
 				allJoinedWorkFlows();
-				System.out.println("Joined wf");
 			} else if (newTab.equals(notification)) {
-				System.out.println("noti");
 				notif();
 			}
 		});
@@ -132,7 +132,6 @@ public class HomeController {
 
 	public void notif() {
 		EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
-		System.out.println("befor if sixe of stack " + u.getRecievedForm().size());
 		// notilist.getSelectionModel().selectedItemProperty().addListener(e ->
 		// {
 		// int indexOfWorkFlow =
@@ -157,7 +156,6 @@ public class HomeController {
 		// });
 		if (u.getRecievedForm().size() > 0) {
 			AllWorkFlowController all = new AllWorkFlowController();
-			System.out.println("sixe of stack " + u.getRecievedForm().size());
 			notilistOb = FXCollections.observableArrayList(all.filterNotifWorkFlows());
 			notilist.setItems(notilistOb);
 			notibtn.setDisable(false);
@@ -188,9 +186,6 @@ public class HomeController {
 					EndUser u = (EndUser) Wips.getInstance().getCurrentuser();
 					u.update();
 
-					System.out.println(
-							"new work flow iupdae size" + Wips.getInstance().getCurrentuser().getAllWorkflows().size());
-					System.out.println("form lsize  of  obsrvabel " + jwflistOb.size());
 					// allJoinedWorkFlows();
 					jwflist.setItems(null);
 					jwflistOb = FXCollections

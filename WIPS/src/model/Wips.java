@@ -9,12 +9,16 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import model.user.EndUser;
 import model.user.User;
 import model.wips.Entity;
 import model.wips.WorkFlow;
 import model.wips.forms.Form;
+
+//@helper: Kenneth Zhang, Deepkumar Patel, Hassan Shah, Kush Oza 
+
 
 public class Wips implements Serializable{
 	/**
@@ -26,6 +30,8 @@ public class Wips implements Serializable{
 	
 	private boolean hasPressedBack = false;
 	private static Wips wips = null;
+	private Stack<WorkFlow> undoWorkFlow = new Stack<>();
+	private Stack<User> undoUsers = new Stack<>();
 	/**
 	 * This list will have all the workflows that ever created.
 	 */
@@ -128,6 +134,14 @@ public class Wips implements Serializable{
 	
 	public boolean getHasPressedBack() {
 		return this.hasPressedBack;
+	}
+	
+	public Stack<WorkFlow> getUndoWorkFlowStack() {
+		return undoWorkFlow;
+	}
+	
+	public Stack<User> getUndoUsers() {
+		return undoUsers;
 	}
 	public void make () throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeUser + File.separator + "wips" + "/wips"));
